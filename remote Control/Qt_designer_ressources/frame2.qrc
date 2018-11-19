@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="Images">
+    <file>Webp.net-resizeimage (14).png</file>
+    <file>Webp.net-resizeimage (13).png</file>
+    <file>Webp.net-resizeimage (11).png</file>
+    <file>Webp.net-resizeimage (9).png</file>
+    <file>46482116_1169052599948086_2306507513668829184_n.png</file>
+    <file>Webp.net-resizeimage (8).png</file>
+    <file>Webp.net-resizeimage (12).png</file>
+    <file>Webp.net-resizeimage (5).png</file>
+    <file>Webp.net-resizeimage (3).png</file>
+    <file>Webp.net-resizeimage.jpg</file>
+  </qresource>
+  <qresource/>
+  <qresource prefix="newPrefix"/>
+</RCC>

@@ -1,0 +1,52 @@
+cd C:\Python27
+
+C:\Python27\Lib\site-packages\PyQt4\pyuic4.bat -x Project_GUI_Test.ui -o Project_GUI_Test.py
+C:\Python27\Lib\site-packages\PyQt4\pyrcc4.exe xz.qrc -o xz_rc.py
+
+
+############################################################
+install pyqt4 on raspberry pi:
+
+sudo apt-get install python-qt4
+
+install pyuic4 et pyrcc:
+
+sudo apt-get install pyqt4-dev-tools
+
+conversion ui to python:
+
+pyuic4 -w convert.ui > convert.py
+
+conversion fichier de ressources pour python 3:
+
+pyrcc4 -py3 file.qrc > xz_rc.py
+
+
+sur la raspberry pi, il faut ajouter ce bout de code pour que l'interface marche:
+
+########################################
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    Form = QtGui.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())
+
+########################################
+
+############################################################
+
+For python 3:
+
+cd C:\Users\Yahya\AppData\Local\Programs\Python\Python37-32
+
+C:\Users\Yahya\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt4\pyuic4.bat -x Project_GUI_Test_V2.ui -o Project_GUI_Test_V2.py
+C:\Users\Yahya\AppData\Local\Programs\Python\Python37-32\Lib\site-packages\PyQt4\pyrcc4.exe xz.qrc -o xz_rc.py
+
+#############################################################
+
+
+
