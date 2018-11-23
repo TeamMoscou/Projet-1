@@ -180,11 +180,11 @@ class MyReceive(Thread):
                 print("speed is updated to ", self.speed_cmd)
             elif (header == b'STE'):  # steering
                 if (payload == b'left'):
-                    self.turn = 1
+                    self.turn = -1
                     self.enable = 1
                     print("send cmd turn left")
                 elif (payload == b'right'):
-                    self.turn = -1
+                    self.turn = 1
                     self.enable = 1
                     print("send cmd turn right")
                 elif (payload == b'stop'):
@@ -234,6 +234,7 @@ import socket
 if __name__ == "__main__":
 
     print('Bring up CAN0....')
+    os.system("sudo ifconfig can0 down")
     os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
     time.sleep(0.1)
 
