@@ -24,7 +24,6 @@ class Interface():
             if (header == b'STE'): # steer
                 if (payload == b'left'):
                     DATAINTERFACE = Data(ID.INTERFACE,Message.LEFT)
-                    print("left")
                 elif (payload == b'right'):
                     DATAINTERFACE = Data(ID.INTERFACE,Message.RIGHT)
             elif (header == b'MOV'):  # move
@@ -43,8 +42,8 @@ data_bytes = message.encode("ascii")
 
 inter = Interface(data_bytes)
 inter.run()
-
 '''
+
 
 
         
