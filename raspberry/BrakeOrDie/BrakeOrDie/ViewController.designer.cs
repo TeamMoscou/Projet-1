@@ -27,10 +27,6 @@ namespace BrakeOrDie
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITextField getSpeed { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton leftButton { get; set; }
 
         [Outlet]
@@ -40,10 +36,6 @@ namespace BrakeOrDie
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton rightButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton setSpeedButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -77,10 +69,6 @@ namespace BrakeOrDie
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void RightButtonPushed (UIKit.UIButton sender);
 
-        [Action ("SetSpeedToCar:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void SetSpeedToCar (UIKit.UIButton sender);
-
         [Action ("StartButtonPushed:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void StartButtonPushed (UIKit.UIButton sender);
@@ -110,11 +98,6 @@ namespace BrakeOrDie
                 getIPAddress = null;
             }
 
-            if (getSpeed != null) {
-                getSpeed.Dispose ();
-                getSpeed = null;
-            }
-
             if (leftButton != null) {
                 leftButton.Dispose ();
                 leftButton = null;
@@ -128,11 +111,6 @@ namespace BrakeOrDie
             if (rightButton != null) {
                 rightButton.Dispose ();
                 rightButton = null;
-            }
-
-            if (setSpeedButton != null) {
-                setSpeedButton.Dispose ();
-                setSpeedButton = null;
             }
 
             if (speedValue != null) {

@@ -41,7 +41,7 @@ namespace BrakeOrDie
         }
 
 
-        partial void SetSpeedToCar(UIButton sender)
+       /* partial void SetSpeedToCar(UIButton sender)
         {
             int speed = Int32.Parse(getSpeed.Text);
             if (bconnected)
@@ -58,7 +58,7 @@ namespace BrakeOrDie
                 }
             }
 
-        }
+        }*/
 
         partial void StopWheelButtonPushed(UIButton sender)
         {
