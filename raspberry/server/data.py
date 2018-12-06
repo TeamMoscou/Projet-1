@@ -12,13 +12,15 @@ class Message(Enum):
     LEFT = 3
     RIGHT = 4
     STOP = 5
+    SPEED = 6
+    AUTONOMOUS = 7
 
 class Data: 
     def __init__(self, iDEnvoyeur, message):
         if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE):
             raise ValueError('ID not valid')
         self.iDEnvoyeur = iDEnvoyeur
-        if message not in (Message.FORWARD, Message.BACKWARD, Message.LEFT, Message.RIGHT, Message.STOP):
+        if message not in (Message.FORWARD, Message.BACKWARD, Message.LEFT, Message.RIGHT, Message.STOP, Message.SPEED, Message.AUTONOMOUS):
             raise ValueError('Message not valid')
         self.message = message
     
