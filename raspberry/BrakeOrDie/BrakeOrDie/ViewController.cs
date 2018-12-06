@@ -60,16 +60,6 @@ namespace BrakeOrDie
 
         }
 
-        /*partial void StopSteeringButtonPushed(UIButton sender)
-        {
-            modeLabel.Text = "NominalMode";
-            if (bconnected)
-            {
-                byte[] bytes = Encoding.ASCII.GetBytes("STE" + "stop");
-                nwStream.Write(bytes, 0, bytes.Length);
-            }
-        }*/
-
         partial void StopWheelButtonPushed(UIButton sender)
         {
             modeLabel.Text = "NominalMode";
@@ -122,6 +112,41 @@ namespace BrakeOrDie
         partial void AutonomousButtonClicked(UIButton sender)
         {
             modeLabel.Text = "Autonomous mode";
+            if (bconnected)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("AUT");
+                nwStream.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+
+        async void Receive()
+        {
+            int cmpt = 0;
+            while (clientSocket.Connected)
+            {
+                byte[] myReadBuffer = new byte[2048];
+                await nwStream.ReadAsync(myReadBuffer, 0, myReadBuffer.Length);
+                String st = Encoding.UTF8.GetString(myReadBuffer);
+                String[] msgs = st.Split(';');
+
+                foreach (String msg in msgs)
+                {
+                    Console.WriteLine(msg);
+                    String[] elt = msg.Split(':');
+                    switch (elt[0])
+                    {
+                        case "FLG":
+                            modeLabel.Text = "Safe Mode";
+                            break;
+                        default:
+                            cmpt = (cmpt + 1) % 100;
+                            break;
+                    }
+
+                }
+
+            }
         }
 
         public override void ViewDidLoad()
