@@ -33,6 +33,8 @@ class Interface():
                     DATAINTERFACE = Data(ID.INTERFACE,Message.FORWARD)
                 elif (payload == b'backward'):
                     DATAINTERFACE = Data(ID.INTERFACE,Message.BACKWARD)
+            elif (header == b'AUT'): #autonomous mode
+                DATAINTERFACE = Data(ID.INTERFACE,Message.AUTONOMOUS)
             
         conn.close()   
         
