@@ -1,7 +1,7 @@
 from data import Data
 from data import ID
 from data import Message
-from threading import Thread
+import threading
 import socket
 
 HOST = ''  # Symbolic name meaning all available interfaces
@@ -10,14 +10,18 @@ PORT = 6666  # Arbitrary non-privileged port
 global DATAINTERFACE  # global variable.
 
 
-class Interface(Thread):
+class Interface(threading.Thread):
     def __init__(self):
-        Thread.__init__(self)
+        threading.Thread.__init__(self)
+        self._stop = threading.Event()
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         s.listen(1)
         self.conn, addr = s.accept()
         print('Connected by', addr)
+
+    def stop(self):
+        self._stop.set()
 
     def run(self):
 
@@ -46,18 +50,6 @@ class Interface(Thread):
                     print(DATAINTERFACE.message.value)
                 elif (payload == b'backward'):
                     DATAINTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
-                    print(DATAINTERFACE.message.value)
-                elif (payload == b'backwardright'):
-                    DATAINTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
-                    print(DATAINTERFACE.message.value)
-                elif (payload == b'backwardleft'):
-                    DATAINTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
-                    print(DATAINTERFACE.message.value)
-                elif (payload == b'forwardleft'):
-                    DATAINTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
-                    print(DATAINTERFACE.message.value)
-                elif (payload == b'forwardright'):
-                    DATAINTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
                     print(DATAINTERFACE.message.value)
             elif (header == b'AUT'):  # autonomous mode
                 DATAINTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
