@@ -20,32 +20,32 @@ if __name__ == "__main__":
         print('Cannot find PiCAN board.')
         exit()
 
-        lidar_instance = Lidar_Detection_Thread
-        #interface_instance = interface
-        ultrason_instance = Ultrason
-        #decision_instance = prise_de_decision
+    lidar_instance = Lidar_Detection_Thread
+    #interface_instance = interface
+    ultrason_instance = Ultrason
+    #decision_instance = prise_de_decision
 
-        lidar_thread = lidar_instance.LidarDetection()
-        #interface_thread = interface_instance.Interface()
-        ultrason_thread = ultrason_instance.Ultrason(bus)
-        #decision_thread = decision_instance
+    lidar_thread = lidar_instance.LidarDetection()
+    #interface_thread = interface_instance.Interface()
+    ultrason_thread = ultrason_instance.Ultrason(bus)
+    #decision_thread = decision_instance
 
-        lidar_thread.start()
-        #interface_thread.start()
-        ultrason_thread.start()
-        #decision_thread.start()
+    lidar_thread.start()
+    #interface_thread.start()
+    ultrason_thread.start()
+    #decision_thread.start()
 
-        try:
-            while 1:
-                time.sleep(.1)
-        except KeyboardInterrupt:
-            lidar_thread._stop.clear()
-            # interface_thread._stop.clear()
-            ultrason_thread._stop.clear()
-            # decison_thread._stop.clear()
+    try:
+        while 1:
+            time.sleep(.1)
+    except KeyboardInterrupt:
+        lidar_thread._stop.clear()
+        # interface_thread._stop.clear()
+        ultrason_thread._stop.clear()
+        # decison_thread._stop.clear()
 
-            lidar_thread.join()
-            #interface_thread._stop.clear()
-            ultrason_thread.join()
-            # decision_thread.join()
+        lidar_thread.join()
+        #interface_thread._stop.clear()
+        ultrason_thread.join()
+        # decision_thread.join()
 
