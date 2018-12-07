@@ -5,6 +5,7 @@ class ID(Enum):
     LIDAR = 1
     ULTRASONIC = 2
     INTERFACE = 3
+    AUTRE = 4
 
 class Message(Enum):
     FORWARD = 1
@@ -13,21 +14,27 @@ class Message(Enum):
     RIGHT = 4
     STOP = 5
     AUTONOMOUS = 6
+    DETECTED_AVANT = 7
+    DETECTED_ARRIERE = 8
+
+    def list():
+        return list(map(lambda c: c.value, Message))
 
 class Data: 
     def __init__(self, iDEnvoyeur, message):
-        if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE):
+        if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.AUTRE):
             raise ValueError('ID not valid')
         self.iDEnvoyeur = iDEnvoyeur
-        if message not in (Message.FORWARD, Message.BACKWARD, Message.LEFT, Message.RIGHT, Message.STOP, Message.AUTONOMOUS):
+        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_AVANT,Message.DETECTED_ARRIERE):
             raise ValueError('Message not valid')
         self.message = message
     
-    
-'''
+
+'''   
 Data = Data(ID.INTERFACE,Message.FORWARD)
 print (Data.iDEnvoyeur.value)
 print (Data.message.value)
 
 print(ID.LIDAR.value)
-print(Message.FORWARD.value)'''
+print(Message.FORWARD.value)
+'''

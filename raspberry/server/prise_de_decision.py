@@ -1,36 +1,52 @@
 from threading import Thread
 import threading
-
-
-
-class Data:
-    Message=""
-
-def prise_decision(DataLidar,DataUltrason,DataInterface,DataOut):
-    global Mode
-    if (Mode=="Pilote" or Mode=="Autonomous"):
-    
-        if (DataInterface.Message == "STOP" or DataLidar.Message == "STOP" or DataUltrason.Message == "STOP"):
-            DataOut.Message="STOP"
-      
-            if (Mode=="Pilote"):
-                
-                Mode="Autonomous"
-             
-        else:
-            DataOut.Message=DataInterface.Message
-
-''' Partie test
-Test_Lidar = Data()
-Test_Ultrason = Data()
-Test_Interface = Data()
-Test_Out = Data()
-Test_Lidar.Message="STOP"
-Test_Ultrason.Message="mi"
-Test_Interface.Message="m"
-Mode="Autonomous"
-prise_decision(Test_Lidar,Test_Ultrason,Test_Interface,Test_Out)
-print(Test_Out.Message)
-print(Mode)
-    
+import data
+from data import Data
+from data import ID
+from data import Message
 '''
+class ID(Enum):
+    LIDAR = 1
+    ULTRASONIC = 2
+    INTERFACE = 3
+    AUTRE = 4
+
+class Message(Enum):
+    FORWARD = 1
+    BACKWARD = 2
+    LEFT = 3
+    RIGHT = 4
+    STOP = 5
+    AUTONOMOUS = 6
+    DETECTED_AVANT = 7
+    DETECTED_ARRIERE = 8
+'''
+#class Prise_decision(Thread):
+
+def prise_decision():
+    global Mode
+    global DataLidar
+    global DataUltrason
+    global DataInterface
+    global DataOut # les noms sont à voir
+    if (Mode=="Pilote" or Mode=="Autonomous"):
+        if (DataInterface.message.value == 5 or ((DataLidar.message.value == 7 or DataUltrason.message.value == 7) and DataInterface.message.value==1) or ((DataLidar.message.value == 8 or DataUltrason.message.value == 8 )and DataInterface.message.value == 2 )):
+            DataOut.message=Message.STOP
+            if (Mode=="Pilote"):
+                Mode="Autonomous"
+        else:
+            DataOut.message=DataInterface.message
+
+
+#Partie test
+DataLidar = Data(ID.LIDAR,Message.DETECTED_ARRIERE)
+DataUltrason = Data(ID.ULTRASONIC,Message.DETECTED_AVANT)
+DataInterface = Data(ID.INTERFACE,Message.FORWARD)
+DataOut = Data(ID.AUTRE,Message.FORWARD )
+
+Mode="Pilote"
+prise_decision()
+print(DataOut.message)
+print(Mode)
+
+
