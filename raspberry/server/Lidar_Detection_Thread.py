@@ -29,11 +29,13 @@ class LidarDetection(Thread):
 
         print("Lidar thread in execution")
 
-
+        global Flag_FRONT
+        global Flag_BACK
+        
         count_points=0
         count_points_detected_FRONT=0
         count_points_detected_BACK=0
-
+        
         new_scan=True
         angle=0.0
         quality=0
@@ -51,12 +53,12 @@ class LidarDetection(Thread):
                 if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
                     count_points_detected_FRONT=count_points_detected_FRONT+1
 
-                elif(distance<=SAFE_DISTANCE and angle>=ANGLE_MAX_BACK and angle<=ANGLE_MIN_BACK):
+                elif(distance<=SAFE_DISTANCE and angle>=ANGLE_MAX_BACK or angle<=ANGLE_MIN_BACK):
                     count_points_detected_BACK=count_points_detected_BACK+1
             print("number of points detected in front",count_points_detected_FRONT,"\n")
             print("number of points detected in back",count_points_detected_BACK,"\n")
 
-            if(count_points=160):
+            if(count_points=360):
 
                count_points=0
 
