@@ -1,8 +1,10 @@
 import Lidar_Detection_Thread
+import prise_en_decision
 #import interface
 import Ultrason
 import time
 import can
+import sys
 import os
 import struct
 
@@ -18,17 +20,21 @@ if __name__ == "__main__":
         print('Cannot find PiCAN board.')
         exit()
 
-    lidar_instance = Lidar_Detection_Thread
-    #interface_instance = interface
-    Ultrason_instance = Ultrason
+        lidar_instance = Lidar_Detection_Thread
+        #interface_instance = interface
+        ultrason_instance = Ultrason
+        #decision_instance = prise_en_decision
 
-    lidar_thread = lidar_instance.LidarDetection()
-    #interface_thread = interface_instance.Interface()
-    ultrason_thread = Ultrason_instance.Ultrason(bus)
+        lidar_thread = lidar_instance.LidarDetection()
+        #interface_thread = interface_instance.Interface()
+        ultrason_thread = ultrason_instance.Ultrason(bus)
+        #decision_thread = decision_instance
 
-    lidar_thread.start()
-    #interface_thread.start()
-    ultrason_thread.start()
+        lidar_thread.start()
+        #interface_thread.start()
+        ultrason_thread.start()
+        #decision_thread.start()
 
-    lidar_thread.join()
-    ultrason_thread.join()
+        lidar_thread.join()
+        ultrason_thread.join()
+        #decision_thread.join()
