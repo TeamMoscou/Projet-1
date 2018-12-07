@@ -10,9 +10,9 @@ PORT = 6666              # Arbitrary non-privileged port
 
 global DATAINTERFACE #global variable. 
 
-class Interface(): #Thread
+class Interface(Thread): 
     def __init__(self):
-        #Thread.__init__(self)
+        Thread.__init__(self)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         s.listen(1)
