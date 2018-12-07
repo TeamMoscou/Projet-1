@@ -38,3 +38,7 @@
 /Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/BrakeOrDie.csproj.CoreCompileInputs.cache
 /Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/BrakeOrDie.exe
 /Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/BrakeOrDie.pdb
+/Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/device-builds/iphone6.1-12.1/optimized/left+backward.png
+/Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/device-builds/iphone6.1-12.1/optimized/left+forward.png
+/Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/device-builds/iphone6.1-12.1/optimized/right+backward.png
+/Users/ninnistenkula/Documents/IMACS/5A/breakOrDie/git/Projet-1/raspberry/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Debug/device-builds/iphone6.1-12.1/optimized/right+forward.png

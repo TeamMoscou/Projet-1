@@ -117,6 +117,10 @@
     <BundleResource Include="Resources\down.png" />
     <BundleResource Include="Resources\up.png" />
     <BundleResource Include="Resources\autonomous.png" />
+    <BundleResource Include="Resources\left+backward.png" />
+    <BundleResource Include="Resources\left+forward.png" />
+    <BundleResource Include="Resources\right+backward.png" />
+    <BundleResource Include="Resources\right+forward.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
