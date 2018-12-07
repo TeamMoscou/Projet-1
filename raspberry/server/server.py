@@ -1,7 +1,10 @@
 import Lidar_Detection_Thread
-import interface
+#import interface
 import Ultrason
-
+import time
+import can
+import os
+import struct
 
 if __name__ == "__main__":
 
@@ -16,14 +19,16 @@ if __name__ == "__main__":
         exit()
 
     lidar_instance = Lidar_Detection_Thread
-    interface_instance = interface
+    #interface_instance = interface
     Ultrason_instance = Ultrason
 
     lidar_thread = lidar_instance.LidarDetection()
-    interface_thread = interface_instance.Interface()
+    #interface_thread = interface_instance.Interface()
     ultrason_thread = Ultrason_instance.Ultrason(bus)
 
     lidar_thread.start()
-    interface_thread.start()
+    #interface_thread.start()
     ultrason_thread.start()
-    
+
+    lidar_thread.join()
+    ultrason_thread.join()
