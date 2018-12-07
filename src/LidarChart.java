@@ -4,8 +4,6 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
@@ -21,8 +19,6 @@ public class PolarLineChartExample extends ApplicationFrame implements ActionLis
 
     private static final long serialVersionUID = 1L;
     private static int compteur = 0;
-    /** The time series data. */
-    //private TimeSeries series;
     private static XYSeries series;
 
     /** The most recent value added. */
@@ -32,27 +28,22 @@ public class PolarLineChartExample extends ApplicationFrame implements ActionLis
     /** Timer to refresh graph after every 1/2 second */
     private Timer timer = new Timer(500, this);
 
-    public PolarLineChartExample(String applicationTitle) {
-        super(applicationTitle);
 
-        // Creates a sample dataset for polar chart
-        //ArrayList <Data> data = parsingData();
 
-        XYSeriesCollection  dataSet = new XYSeriesCollection();
+    public PolarLineChartExample() {
+        //Name of the frame
+        super("LIDAR representation");
+
+        //Creation of the collection of series
+        XYSeriesCollection dataSet = new XYSeriesCollection();
+
+        //Creation of the dataset about distance
         series = new XYSeries("Distance");
-        //addData(data);
         dataSet.addSeries(series);
-        // Based on the dataset we are creating BubbleChart
-        JFreeChart polarChart = ChartFactory.createPolarChart("Polar Chart Example", dataSet, true, true, false);
-        // Adding chart into a chart panel
-       /* ChartPanel chartPanel = new ChartPanel(polarChart);
-        // settind default size
-        chartPanel.setPreferredSize(new java.awt.Dimension(700, 450));
-        // add to contentPane
-        setContentPane(chartPanel);
-        */
 
-        timer.setInitialDelay(1000);
+        // Based on the dataset we are creating PolarChart
+        JFreeChart polarChart = ChartFactory.createPolarChart("LIDAR", dataSet, true, true, false);
+
         //Created JPanel to show graph on screen
         final JPanel content = new JPanel(new BorderLayout());
         //Created Chartpanel for chart area
@@ -63,9 +54,14 @@ public class PolarLineChartExample extends ApplicationFrame implements ActionLis
         chartPanel.setPreferredSize(new java.awt.Dimension(800, 500));
         //Puts the whole content on a Frame
         setContentPane(content);
-        timer.start();
+
+        //timer.start();
 
 
+    }
+
+    public XYSeries getXYSeries(){
+        return this.series;
     }
 
     private static ArrayList<Data> parsingData(){
@@ -169,7 +165,7 @@ public class PolarLineChartExample extends ApplicationFrame implements ActionLis
      */
     public static void main(final String[] args) {
 
-        final PolarLineChartExample demo = new PolarLineChartExample("Dynamic Line And TimeSeries Chart");
+        final PolarLineChartExample demo = new PolarLineChartExample();
         demo.pack();
         RefineryUtilities.centerFrameOnScreen(demo);
         demo.setVisible(true);
