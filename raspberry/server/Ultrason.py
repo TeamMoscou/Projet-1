@@ -1,4 +1,4 @@
-from threading import Thread
+import threading
 import time
 import can
 import os
@@ -12,21 +12,14 @@ US2 = 0x001
 flagUltrasonAvant=0
 flagUltrasonArriere=0
 
-class Ultrason(Thread):
-    def __init__(self):
-        Thread.__init__(self)
-        print('Bring up CAN0....')
-        os.system("sudo ifconfig can0 down")
-        os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
-        time.sleep(0.1)	
+class Ultrason(threading.Thread):
+    def __init__(self,bus):
+        threading.Thread.__init__(self)
+        self._stop = threading.Event()
+        self.bus
 
-        try:
-            self.bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
-        except OSError:
-            print('Cannot find PiCAN board.')
-            exit()
-	
-        print('Ready')
+    def stop(self):
+        self._stop.set()
 
     def run(self):
         while True:
