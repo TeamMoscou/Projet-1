@@ -1,5 +1,5 @@
 import Lidar_Detection_Thread
-import prise_en_decision
+import prise_de_decision
 #import interface
 import Ultrason
 import time
@@ -23,7 +23,7 @@ if __name__ == "__main__":
         lidar_instance = Lidar_Detection_Thread
         #interface_instance = interface
         ultrason_instance = Ultrason
-        #decision_instance = prise_en_decision
+        #decision_instance = prise_de_decision
 
         lidar_thread = lidar_instance.LidarDetection()
         #interface_thread = interface_instance.Interface()
