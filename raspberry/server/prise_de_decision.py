@@ -37,7 +37,7 @@ def prise_decision():
         else:
             DataOut.message=DataInterface.message
 
-
+'''
 #Partie test
 DataLidar = Data(ID.LIDAR,Message.DETECTED_ARRIERE)
 DataUltrason = Data(ID.ULTRASONIC,Message.DETECTED_AVANT)
@@ -48,5 +48,5 @@ Mode="Pilote"
 prise_decision()
 print(DataOut.message)
 print(Mode)
-
+'''
 
