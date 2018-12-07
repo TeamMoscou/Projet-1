@@ -28,26 +28,47 @@ class Can_send(Thread):
             print("speed is fixed to ", self.speed_cmd)
             if (DATA_FINAL == FORWARD):
                 self.move = 1
+                self.turn = 0
                 self.enable = 1
                 print("send cmd move forward")
+            elif (DATA_FINAL == FORWARD_LEFT):
+                self.move = 1
+                self.turn = -1
+                self.enable = 1
+                print("send cmd move forward_left")
+            elif (DATA_FINAL == FORWARD_RIGHT):
+                self.move = 1
+                self.turn = 1
+                self.enable = 1
+                print("send cmd move forward_right")
             elif (DATA_FINAL == BACKWARD):
                 self.move = -1
+                self.turn = 0
                 self.enable = 1
                 print("send cmd move backward")
+            elif (DATA_FINAL == BACKWARD_LEFT):
+                self.move = -1
+                self.turn = -1
+                self.enable = 1
+                print("send cmd move backward_left")
+            elif (DATA_FINAL == BACKWARD_RIGHT):
+                self.move = -1
+                self.turn = 1
+                self.enable = 1
+                print("send cmd move backward_right")
             elif (DATA_FINAL == LEFT):
+                self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("send cmd turn left")
             elif (DATA_FINAL == RIGHT):
+                self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("send cmd turn right")
-            elif (DATA_FINAL == STOP_STEERING):
-                self.turn = 0
-                self.enable = 0
-                print("send cmd stop to turn")
             elif (DATA_FINAL == STOP):
                 self.move = 0
+                self.turn = 0
                 self.enable = 0
                 print("send cmd move stop")
                     
