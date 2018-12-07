@@ -5,7 +5,7 @@ class ID(Enum):
     LIDAR = 1
     ULTRASONIC = 2
     INTERFACE = 3
-    AUTRE = 4
+    DECISION = 4
 
 class Message(Enum):
     FORWARD = 1
@@ -14,8 +14,8 @@ class Message(Enum):
     RIGHT = 4
     STOP = 5
     AUTONOMOUS = 6
-    DETECTED_AVANT = 7
-    DETECTED_ARRIERE = 8
+    DETECTED_FRONT = 7
+    DETECTED_BACK = 8
     FORWARD_LEFT = 9
     FORWARD_RIGHT = 10
     BACKWARD_LEFT = 11
@@ -27,10 +27,10 @@ class Message(Enum):
 
 class Data: 
     def __init__(self, iDEnvoyeur, message):
-        if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.AUTRE):
+        if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.DECISION):
             raise ValueError('ID not valid')
         self.iDEnvoyeur = iDEnvoyeur
-        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_AVANT,Message.DETECTED_ARRIERE,Message.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT ):
+        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_FRONT,Message.DETECTED_BACK,Message.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT ):
             raise ValueError('Message not valid')
         self.message = message
     
