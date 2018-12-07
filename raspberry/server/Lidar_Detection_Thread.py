@@ -19,6 +19,8 @@ ANGLE_MIN_BACK=20
 Flag_FRONT=0
 Flag_BACK=0
 
+
+#the definition of the class thread of the lidar
 class LidarDetection(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -70,6 +72,8 @@ class LidarDetection(Thread):
                count_points_detected_BACK=0
             print("FLAG FRONT     ",Flag_FRONT,"\n")
             print("FLAG  back     ",Flag_BACK,"\n")
+            
+            
 
 #il faut commenter avant de faire import Lidar_Detection_Thread
 #ça sert juste à tester le Thread tout seul
