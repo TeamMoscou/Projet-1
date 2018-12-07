@@ -63,14 +63,14 @@ class LidarDetection(Thread):
                count_points=0
 
                if(count_points_detected_FRONT>15) :
-                  flag_FRONT=1
+                  Flag_FRONT=1
                else :
-                  flag_FRONT=0
+                  Flag_FRONT=0
                count_points_detected_FRONT=0
 
                if(count_points_detected_BACK>15) :
-                  flag_BACK=1
+                  Flag_BACK=1
                else :
-                  flag_BACK=0
+                  Flag_BACK=0
                count_points_detected_BACK=0
 
