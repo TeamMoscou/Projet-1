@@ -19,7 +19,23 @@ namespace BrakeOrDie
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton backwardLeft { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton backwardRight { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel connectLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton forwardLeft { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton forwardRight { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -57,9 +73,25 @@ namespace BrakeOrDie
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void AutonomousButtonClicked (UIKit.UIButton sender);
 
+        [Action ("BackwardLeft:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void BackwardLeft (UIKit.UIButton sender);
+
+        [Action ("BackwardRight:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void BackwardRight (UIKit.UIButton sender);
+
         [Action ("DownButtonPushed:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void DownButtonPushed (UIKit.UIButton sender);
+
+        [Action ("ForwardLeft:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ForwardLeft (UIKit.UIButton sender);
+
+        [Action ("ForwardRight:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ForwardRight (UIKit.UIButton sender);
 
         [Action ("LeftButtonPushed:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -88,9 +120,29 @@ namespace BrakeOrDie
                 autonomousButton = null;
             }
 
+            if (backwardLeft != null) {
+                backwardLeft.Dispose ();
+                backwardLeft = null;
+            }
+
+            if (backwardRight != null) {
+                backwardRight.Dispose ();
+                backwardRight = null;
+            }
+
             if (connectLabel != null) {
                 connectLabel.Dispose ();
                 connectLabel = null;
+            }
+
+            if (forwardLeft != null) {
+                forwardLeft.Dispose ();
+                forwardLeft = null;
+            }
+
+            if (forwardRight != null) {
+                forwardRight.Dispose ();
+                forwardRight = null;
             }
 
             if (getIPAddress != null) {

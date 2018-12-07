@@ -29,8 +29,8 @@ namespace BrakeOrDie
                 connectLabel.Text = "Connected";
                 nwStream = clientSocket.GetStream();
                 //Send initial speed value
-                byte[] bytes = Encoding.ASCII.GetBytes("SPE" + getSpeed.Text);
-                nwStream.Write(bytes, 0, bytes.Length);
+                //byte[] bytes = Encoding.ASCII.GetBytes("SPE" + getSpeed.Text);
+                //nwStream.Write(bytes, 0, bytes.Length);
 
             }
             catch (SocketException ex)
@@ -148,6 +148,47 @@ namespace BrakeOrDie
 
             }
         }
+
+        partial void BackwardRight(UIButton sender)
+        {
+            modeLabel.Text = "NominalMode";
+            if (bconnected)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("MOV" + "backwardright");
+                nwStream.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+        partial void BackwardLeft(UIButton sender)
+        {
+            modeLabel.Text = "NominalMode";
+            if (bconnected)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("MOV" + "backwardleft");
+                nwStream.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+        partial void ForwardLeft(UIButton sender)
+        {
+            modeLabel.Text = "NominalMode";
+            if (bconnected)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("MOV" + "forwardleft");
+                nwStream.Write(bytes, 0, bytes.Length);
+            }
+        }
+
+        partial void ForwardRight(UIButton sender)
+        {
+            modeLabel.Text = "NominalMode";
+            if (bconnected)
+            {
+                byte[] bytes = Encoding.ASCII.GetBytes("MOV" + "forwardright");
+                nwStream.Write(bytes, 0, bytes.Length);
+            }
+        }
+
 
         public override void ViewDidLoad()
         {
