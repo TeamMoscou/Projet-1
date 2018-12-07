@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 #
-#Modification de test.py avec trucs de server.py 
+#Modification de test.py avec trucs de server.py
 #pour tester les ultrasons
 #
 #
 
-from threading import Thread
+import threading
 import time
 import can
 import os
@@ -16,9 +16,9 @@ US2 = 0x001
 flagUltrasonAvant=0
 flagUltrasonArriere=0
 
-class Ultrason(Thread):
+class Ultrason(threading.Thread):
     def __init__(self, bus):
-        Thread.__init__(self)
+        threading.Thread.__init__(self)
         self.bus = bus
 
     def run(self):
@@ -29,7 +29,7 @@ class Ultrason(Thread):
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 print("Avant gauche = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonAvant=1;	 
+                    flagUltrasonAvant=1;
                 distance = int.from_bytes(msg.data[2:4],byteorder='big')
                 print("Avant droit = " + str(distance))
                 if distance <= 30:
