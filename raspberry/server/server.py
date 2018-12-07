@@ -43,8 +43,8 @@ if __name__ == "__main__":
         ultrason_thread._stop.clear()
         # decison_thread._stop.clear()
 
-        lidar_thread.join()
-        #interface_thread._stop.clear()
-        ultrason_thread.join()
-        # decision_thread.join()
+    lidar_thread.join()
+    #interface_thread._stop.clear()
+    ultrason_thread.join()
+    # decision_thread.join()
 
