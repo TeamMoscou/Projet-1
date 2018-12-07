@@ -73,20 +73,3 @@ class LidarDetection(Thread):
             print("FLAG FRONT     ",Flag_FRONT,"\n")
             print("FLAG  back     ",Flag_BACK,"\n")
             
-            
-
-#il faut commenter avant de faire import Lidar_Detection_Thread
-#ça sert juste à tester le Thread tout seul
-
-if __name__ == "__main__":
-        try:
-               newDetect=LidarDetection()
-               newDetect.start()
-               newDetect.join()
-
-        except KeyboardInterrupt:
-               print('Stoping.')
-               lidar.stop()
-               lidar.stop_motor()
-               lidar.disconnect()
-               lidar.clear_input()
