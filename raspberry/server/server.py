@@ -35,6 +35,17 @@ if __name__ == "__main__":
         ultrason_thread.start()
         #decision_thread.start()
 
-        lidar_thread.join()
-        ultrason_thread.join()
-        #decision_thread.join()
+        try:
+            while 1:
+                time.sleep(.1)
+        except KeyboardInterrupt:
+            lidar_thread._stop.clear()
+            # interface_thread._stop.clear()
+            ultrason_thread._stop.clear()
+            # decison_thread._stop.clear()
+
+            lidar_thread.join()
+            #interface_thread._stop.clear()
+            ultrason_thread.join()
+            # decision_thread.join()
+
