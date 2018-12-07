@@ -40,33 +40,38 @@ class LidarDetection(threading.Thread):
 
         time.sleep(5)
         for new_scan, quality, angle, distance in lidar.iter_measurments():
+            if self._stop.is_set():
+                print('wait,shuting down')
+                break
+                
+            else :
 
-            if (not (new_scan) and distance != 0):
-                count_points = count_points + 1
+                if (not (new_scan) and distance != 0):
+                    count_points = count_points + 1
 
-                if (distance <= SAFE_DISTANCE and angle >= ANGLE_MIN_FRONT and angle <= ANGLE_MAX_FRONT):
-                    count_points_detected_FRONT = count_points_detected_FRONT + 1
+                    if (distance <= SAFE_DISTANCE and angle >= ANGLE_MIN_FRONT and angle <= ANGLE_MAX_FRONT):
+                        count_points_detected_FRONT = count_points_detected_FRONT + 1
 
-                elif (distance <= SAFE_DISTANCE and angle >= ANGLE_MAX_BACK or angle <= ANGLE_MIN_BACK):
-                    count_points_detected_BACK = count_points_detected_BACK + 1
-            print("number of points detected in front", count_points_detected_FRONT, "\n")
-            print("number of points detected in back", count_points_detected_BACK, "\n")
+                    elif (distance <= SAFE_DISTANCE and angle >= ANGLE_MAX_BACK or angle <= ANGLE_MIN_BACK):
+                        count_points_detected_BACK = count_points_detected_BACK + 1
+                print("number of points detected in front", count_points_detected_FRONT, "\n")
+                print("number of points detected in back", count_points_detected_BACK, "\n")
 
-            if (count_points == 320):
+                if (count_points == 320):
 
-                count_points = 0
+                    count_points = 0
 
-                if (count_points_detected_FRONT > 15):
-                    Flag_FRONT = 1
-                else:
-                    Flag_FRONT = 0
-                count_points_detected_FRONT = 0
+                    if (count_points_detected_FRONT > 15):
+                        Flag_FRONT = 1
+                    else:
+                        Flag_FRONT = 0
+                    count_points_detected_FRONT = 0
 
-                if (count_points_detected_BACK > 15):
-                    Flag_BACK = 1
-                else:
-                    Flag_BACK = 0
-                count_points_detected_BACK = 0
-            print("FLAG FRONT     ", Flag_FRONT, "\n")
-            print("FLAG  back     ", Flag_BACK, "\n")
+                    if (count_points_detected_BACK > 15):
+                        Flag_BACK = 1
+                    else:
+                        Flag_BACK = 0
+                    count_points_detected_BACK = 0
+                print("FLAG FRONT     ", Flag_FRONT, "\n")
+                print("FLAG  back     ", Flag_BACK, "\n")
 
