@@ -19,7 +19,7 @@ class Message(Enum):
     STOP = 5
     AUTONOMOUS = 6
     DETECTED_FRONT = 7
-    DETECTED_BACk = 8
+    DETECTED_BACK = 8
     FORWARD_LEFT = 9
     FORWARD_RIGHT = 10
     BACKWARD_LEFT = 11
