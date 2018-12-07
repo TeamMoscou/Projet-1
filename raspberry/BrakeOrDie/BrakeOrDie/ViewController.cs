@@ -28,6 +28,7 @@ namespace BrakeOrDie
                 bconnected = true;
                 connectLabel.Text = "Connected";
                 nwStream = clientSocket.GetStream();
+                Receive();
                 //Send initial speed value
                 //byte[] bytes = Encoding.ASCII.GetBytes("SPE" + getSpeed.Text);
                 //nwStream.Write(bytes, 0, bytes.Length);
@@ -136,8 +137,11 @@ namespace BrakeOrDie
                     String[] elt = msg.Split(':');
                     switch (elt[0])
                     {
-                        case "FLG":
-                            modeLabel.Text = "Safe Mode";
+                        case "OIF":
+                            modeLabel.Text = "Obstacle in front";
+                            break;
+                        case "OIB":
+                            modeLabel.Text = "Obstacle in back";
                             break;
                         default:
                             cmpt = (cmpt + 1) % 100;

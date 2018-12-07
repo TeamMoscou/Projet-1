@@ -8,7 +8,8 @@ HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
 
 global DATAINTERFACE  # global variable.
-
+global DATALIDAR
+global DATAULTRASONIC
 
 class Interface(threading.Thread):
     def __init__(self):
@@ -24,6 +25,16 @@ class Interface(threading.Thread):
         self._stop.set()
 
     def run(self):
+        
+        if (DATAULTRASONIC.message.value == 7 or DATALIDAR.message.value == 7):
+            #message to interface
+            message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
+            size = self.conn.send(message.encode())
+
+        if (DATAULTRASONIC.message.value == 8 or DATALIDAR.message.value == 8):
+            #message to interface
+            message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
+            size = self.conn.send(message.encode())
 
         while True:
             data = self.conn.recv(1024)
@@ -55,10 +66,14 @@ class Interface(threading.Thread):
                 DATAINTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
                 print(DATAINTERFACE.message.value)
 
+            
         conn.close()
 
 
 '''
+#Partie test
+DATALIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+DATAULTRASONIC = Data(ID.ULTRASONIC,Message.DETECTED_BACK)
 inter = Interface()
 inter.run()
 '''
