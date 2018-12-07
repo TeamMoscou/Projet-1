@@ -1,7 +1,7 @@
 from data import Data
 from data import ID
 from data import Message
-import threading
+from threading import Thread
 import socket
 
 HOST = ''  # Symbolic name meaning all available interfaces
@@ -10,7 +10,7 @@ PORT = 6666  # Arbitrary non-privileged port
 global DATAINTERFACE  # global variable.
 
 
-class Interface(threading.Thread):
+class Interface(Thread):
     def __init__(self):
         Thread.__init__(self)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

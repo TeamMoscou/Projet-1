@@ -1,7 +1,6 @@
 # coding: utf-8
 
-
-import threading
+from threading import Thread
 import os
 from rplidar import RPLidar
 import time
@@ -18,7 +17,7 @@ Flag_BACK = 0
 
 
 # the definition of the class thread of the lidar
-class LidarDetection(threading.Thread):
+class LidarDetection(Thread):
     def __init__(self):
         Thread.__init__(self)
 
