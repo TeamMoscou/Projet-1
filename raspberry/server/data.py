@@ -30,7 +30,7 @@ class Data:
         if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.AUTRE):
             raise ValueError('ID not valid')
         self.iDEnvoyeur = iDEnvoyeur
-        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_AVANT,Message.DETECTED_ARRIERE,Mesage.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT ):
+        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_AVANT,Message.DETECTED_ARRIERE,Message.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT ):
             raise ValueError('Message not valid')
         self.message = message
     
