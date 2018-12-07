@@ -36,8 +36,7 @@ if __name__ == "__main__":
     #decision_thread.start()
 
     try:
-        while 1:
-            time.sleep(.1)
+        time.sleep(.1)
     except KeyboardInterrupt:
         lidar_thread._stop.clear()
         # interface_thread._stop.clear()
