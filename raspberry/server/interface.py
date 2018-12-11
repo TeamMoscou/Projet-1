@@ -61,6 +61,18 @@ class Interface(threading.Thread):
                 elif (payload == b'backward'):
                     DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
                     print(DATA_INTERFACE.message.value)
+                elif (payload == b'backwardright'):
+                    DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
+                    print(DATA_INTERFACE.message.value)
+                elif (payload == b'backwardleft'):
+                    DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
+                    print(DATA_INTERFACE.message.value)
+                elif (payload == b'forwardleft'):
+                    DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
+                    print(DATA_INTERFACE.message.value)
+                elif (payload == b'forwardright'):
+                    DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
+                    print(DATA_INTERFACE.message.value)
             elif (header == b'AUT'):  # autonomous mode
                 DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
                 print(DATA_INTERFACE.message.value)

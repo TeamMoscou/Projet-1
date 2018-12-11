@@ -4,16 +4,17 @@ import prise_de_decision
 import interface
 import Ultrason
 import can_send
-import data
 import time
 import can
 import sys
 import os
 import struct
+import data
 
-DATA_INTERFACE
+MODE
 DATA_LIDAR
 DATA_ULTRASONIC
+DATA_INTERFACE
 DATA_OUT
 
 if __name__ == "__main__":
