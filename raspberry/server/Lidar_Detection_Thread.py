@@ -71,3 +71,8 @@ class LidarDetection(threading.Thread):
             print('Stopping.')
             lidar.stop()
             lidar.disconnect()
+	
+	def stop(self):
+		lidar.stop()
+		lidar.stopmotor()
+		lidar.disconnect()	
