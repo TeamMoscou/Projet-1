@@ -77,8 +77,8 @@ wait_decision.clear()
 shutdown_decision=threading.Event()
 shutdown_decision.clear()
 
-
-DATA_DECISION=Data(ID.DECISION,Message.STOP)
+global DATA_DECISION
+#DATA_DECISION=Data(ID.DECISION,Message.STOP)
 #--------------------------------------------------------------#
 
 
