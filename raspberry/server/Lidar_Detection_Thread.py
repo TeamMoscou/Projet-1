@@ -8,7 +8,6 @@ from data import Data
 from data import ID
 from data import Message
 
-from global_variables import *
 
 
 
@@ -38,17 +37,8 @@ class LidarDetection(threading.Thread):
 
         time.sleep(1)
         for new_scan, quality, angle, distance in lidar.iter_measurments():
-           
-            if shutdown_lidar.isSet():
-                print("Lidar thread exit")
-                wait_ultrason.set()
-                lidar.stop()
-                lidar.stop_motor()
-                lidar.disconnect()
-                break
+          
                 
-                
-            else :
 
                 if(not(new_scan) and distance!=0) :
 
@@ -129,6 +119,3 @@ class LidarDetection(threading.Thread):
                 else :
                     DataLidar=Data(ID.LIDAR,Message.DETECTED_NULL)
                     
-                wait_ultrason.set()
-                wait_lidar.clear()
-                wait_lidar.wait()
