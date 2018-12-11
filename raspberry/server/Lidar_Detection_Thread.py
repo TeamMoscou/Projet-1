@@ -8,7 +8,15 @@ from data import Data
 from data import ID
 from data import Message
 
-
+lidar = RPLidar('/dev/ttyUSB0')
+SAFE_DISTANCE = 2000
+ANGLE_MAX_FRONT = 200
+ANGLE_MIN_FRONT = 160
+ANGLE_MAX_BACK = 340
+ANGLE_MIN_BACK = 20
+# flags set to 1 when the obstacle is detected
+Flag_FRONT = 0
+Flag_BACK = 0
 
 
 
@@ -111,11 +119,11 @@ class LidarDetection(threading.Thread):
                 print("FLAG  back     ",Flag_BACK,"\n")
                 
                 if(Flag_BACK and Flag_FRONT) :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_BOTH)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BOTH)
                 elif (Flag_FRONT):
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_FRONT)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_FRONT)
                 elif (Flag_BACK) :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_BACK)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
                 else :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_NULL)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
                     
