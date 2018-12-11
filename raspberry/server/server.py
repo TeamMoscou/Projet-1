@@ -10,6 +10,18 @@ import sys
 import os
 import struct
 import data
+import signal
+
+from global_variables import *
+
+def signal_handler(sig, frame):
+  print('You pressed Ctrl+C!')
+  shutdown_lidar.set()
+  shutdown_ultrason.set()
+  shutdown_interface.set()
+  shutdown_decision.set()
+
+
 
 if __name__ == "__main__":
 
@@ -18,7 +30,11 @@ if __name__ == "__main__":
     os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
     time.sleep(0.1)
 
-    bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
+    try:
+        bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
+    except OSError:
+        print('Cannot find PiCAN board')
+        exit()
 
     lidar_instance = lidar_detection_thread
     interface_instance = interface
@@ -37,6 +53,9 @@ if __name__ == "__main__":
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
+    
+    signal.signal(signal.SIGINT, signal_handler)
+    
 
     lidar_thread.start()
     interface_thread.start()
@@ -49,4 +68,4 @@ if __name__ == "__main__":
     ultrason_thread.join()
     decision_thread.join()
     cansend_thread.join()
-
+    print("the main thread server exit")
