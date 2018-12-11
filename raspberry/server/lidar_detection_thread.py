@@ -10,17 +10,6 @@ from data import ID
 from data import Message
 from global_variables import *
 
-"""
-lidar = RPLidar('/dev/ttyUSB0')
-SAFE_DISTANCE = 2000
-ANGLE_MAX_FRONT = 200
-ANGLE_MIN_FRONT = 160
-ANGLE_MAX_BACK = 340
-ANGLE_MIN_BACK = 20
-# flags set to 1 when the obstacle is detected
-Flag_FRONT = 0
-Flag_BACK = 0"""
-
 
 
 # the definition of the class thread of the lidar
@@ -49,7 +38,14 @@ class LidarDetection(threading.Thread):
         time.sleep(1)
         for new_scan, quality, angle, distance in lidar.iter_measurments():
           
-                
+             if shutdown_lidar.isSet():
+                print("Lidar thread exit")
+                wait_ultrason.set()
+                lidar.stop()
+                lidar.stop_motor()
+                lidar.disconnect()
+                break
+             else:
 
                 if(not(new_scan) and distance!=0) :
 
@@ -129,4 +125,7 @@ class LidarDetection(threading.Thread):
                     DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
                 else :
                     DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
+                wait_ultrason.set()
+                wait_lidar.clear()
+                wait_lidar.wait()
                     
