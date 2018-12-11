@@ -46,10 +46,10 @@ class Prise_decision(Thread):
         if (DATAINTERFACE.message == Message.STOP):
             Stop_requested = 1
 
-        if (DATAULTRASONIC.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_FRONT):
+        if (DATAULTRASONIC.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_BOTH):
             Detection_front = 1
 
-        if (DATAULTRASONIC.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BACK):
+        if (DATAULTRASONIC.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BOTH):
             Detection_back = 1
 
         if (
