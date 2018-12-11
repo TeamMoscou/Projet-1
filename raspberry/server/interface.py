@@ -23,7 +23,10 @@ class Interface(threading.Thread):
 
     def run(self):
 
-        while True:
+        while not shutdown_interface.isSet():
+            
+            wait_interface.wait()
+            
             if (DATA_ULTRASONIC.message.value == 7 or DATA_LIDAR.message.value == 7):
                 #message to interface
                 message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
@@ -35,7 +38,10 @@ class Interface(threading.Thread):
 
             data = self.conn.recv(1024)
 
-            if not data: break
+            if not data: 
+                wait_decision.set()
+                wait_interface.clear()
+                continue
 
             header = data[0:3]
             payload = data[3:]
@@ -73,8 +79,13 @@ class Interface(threading.Thread):
             elif (header == b'AUT'):  # autonomous mode
                 DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
                 print(DATA_INTERFACE.message.value)
+            wait_decision.set()
+            wait_interface.clear()
+                
+        print("Interface Thread exit")
+        wait_decision.set()
 
-        conn.close()
+        self.conn.close()
 
 
 '''
