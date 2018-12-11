@@ -11,12 +11,6 @@ import os
 import struct
 import data
 
-global MODE
-global DATA_LIDAR
-global DATA_ULTRASONIC
-global DATA_INTERFACE
-global DATA_OUT
-
 if __name__ == "__main__":
 
     print('Bring up CAN0....')
