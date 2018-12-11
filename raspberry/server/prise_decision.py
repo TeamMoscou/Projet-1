@@ -35,12 +35,16 @@ class Prise_decision(threading.Thread):
 
     def run(self):
         
-        Detection_front = 0
-        Detection_back = 0
-        Stop_requested = 0
-        Forward = 0
-        Backward = 0
-
+      Detection_front = 0
+      Detection_back = 0
+      Stop_requested = 0
+      Forward = 0
+      Backward = 0
+      while not shutdown_decision.isSet():
+        #Recuperation donnees
+        
+            #Thread attend son tour
+        wait_decision.wait()
         # Recuperation donnees
         if (DATA_INTERFACE.message == Message.STOP):
             Stop_requested = 1
@@ -93,6 +97,11 @@ class Prise_decision(threading.Thread):
         # print("demande stop:" , Stop_requested)
         # print("backward:" , Backward)
         # print("forward:" , Forward)
+        wait_can.set()
+        wait_decision.clear()
+            
+      wait_can.set()
+      print("prise de decision thread exit")
 
 
 '''
