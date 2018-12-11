@@ -14,15 +14,11 @@ global DATA_LIDAR
 class Interface(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
-        self._stop = threading.Event()
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         s.listen(1)
         self.conn, addr = s.accept()
         print('Connected by', addr)
-
-    def stop(self):
-        self._stop.set()
 
     def run(self):
 
