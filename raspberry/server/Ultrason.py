@@ -25,45 +25,44 @@ class Ultrason(threading.Thread):
     def run(self):
         while True:
             msg = self.bus.recv()# Wait until a message is received.
-            arretUltrason=0
+            if msg.arbitration_id == US1 || msg.arbitration_id == US2:
+                flagUltrasonAvant=0
+                flagUltrasonArriere=0
             if msg.arbitration_id == US1:
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 print("Avant gauche = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonAvant=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_AVANT)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonAvant=1        
                 distance = int.from_bytes(msg.data[2:4],byteorder='big')
                 print("Avant droit = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonAvant=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_AVANT)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonAvant=1
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 print("Arriere centre = " + str(distance))
                 if distance <= 100:
-                    flagUltrasonArriere=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_ARRIERE)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonArriere=1
             elif msg.arbitration_id == US2:
                 # ultrason arriere gauche
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 print("Arriere gauche = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonArriere=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_ARRIERE)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonArriere=1
                 # ultrason arriere droit
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
                 print("Arriere droit = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonArriere=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_ARRIERE)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonArriere=1
                 # ultrason avant centre
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 print("Avant centre = " + str(distance))
                 if distance <= 100:
-                    flagUltrasonAvant=1;
-                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_AVANT)
-                    print(DATA_ULTRASONIC.message.value)
+                    flagUltrasonAvant=1
+            if flagUltrasonAvant==1 && flagUltrasonArriere==1:
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
+            elif flagUltrasonAvant==1:
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
+            elif flagUltrasonArriere==1:
+                DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
+            elif flagUltrasonArriere==0 && flagUltrasonAvant=0:
+                DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
+            print(DATA_ULTRASONIC.message.value)
