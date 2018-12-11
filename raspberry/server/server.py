@@ -1,5 +1,4 @@
 import Lidar_Detection_Thread
-import global_variables
 import prise_de_decision
 import interface
 import Ultrason
