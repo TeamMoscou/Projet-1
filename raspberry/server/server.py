@@ -1,4 +1,5 @@
 import Lidar_Detection_Thread
+import global_variables
 import prise_de_decision
 import interface
 import Ultrason
@@ -28,8 +29,8 @@ if __name__ == "__main__":
     lidar_instance = Lidar_Detection_Thread
     interface_instance = interface
     ultrason_instance = Ultrason
-    decision_instance = prise_de_decision
-    cansend_instance = can_send
+    decision_instance = prise_de_decision.Prise_decision()
+    cansend_instance = can_send.Can_send()
 
     lidar_thread = lidar_instance.LidarDetection()
     interface_thread = interface_instance.Interface()

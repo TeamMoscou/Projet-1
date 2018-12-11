@@ -15,47 +15,47 @@ class Can_send(threading.Thread):
         while True:
             self.speed_cmd = 60
             print("speed is fixed to ", self.speed_cmd)
-            if (DATA_OUT == FORWARD):
+            if (DATA_OUT.Message == FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move forward")
-            elif (DATA_OUT == FORWARD_LEFT):
+            elif (DATA_OUT.Message == FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move forward_left")
-            elif (DATA_OUT == FORWARD_RIGHT):
+            elif (DATA_OUT.Message == FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move forward_right")
-            elif (DATA_OUT == BACKWARD):
+            elif (DATA_OUT.Message == BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move backward")
-            elif (DATA_OUT == BACKWARD_LEFT):
+            elif (DATA_OUT.Message == BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move backward_left")
-            elif (DATA_OUT == BACKWARD_RIGHT):
+            elif (DATA_OUT.Message == BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move backward_right")
-            elif (DATA_OUT == LEFT):
+            elif (DATA_OUT.Message == LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("send cmd turn left")
-            elif (DATA_OUT == RIGHT):
+            elif (DATA_OUT.Message == RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("send cmd turn right")
-            elif (DATA_OUT == STOP):
+            elif (DATA_OUT.Message == STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0
