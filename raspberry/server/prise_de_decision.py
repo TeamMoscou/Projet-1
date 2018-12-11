@@ -4,6 +4,7 @@ import data
 from data import Data
 from data import ID
 from data import Message
+
 '''
 class ID(Enum):
     LIDAR = 1
@@ -25,79 +26,75 @@ class Message(Enum):
     BACKWARD_LEFT = 11
     BACKWARD_RIGHT = 12
 '''
+
+
 class Prise_decision(Thread):
 
     def prise_decision():
         global Mode
-        global DataLidar
-        global DataUltrason
-        global DataInterface
-        global DataOut # les noms sont à voir
+        global DATALIDAR
+        global DATAULTRASONIC
+        global DATAINTERFACE
+        global DATAOUT  # les noms sont à voir
         Detection_front = 0
         Detection_back = 0
         Stop_requested = 0
         Forward = 0
         Backward = 0
 
-        #Recuperation donnees
-        if (DataInterface.message == Message.STOP):
-        
+        # Recuperation donnees
+        if (DATAINTERFACE.message == Message.STOP):
             Stop_requested = 1
 
-        if (DataUltrason.message == Message.DETECTED_FRONT or DataLidar.message == Message.DETECTED_FRONT):
-
+        if (DATAULTRASONIC.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_FRONT):
             Detection_front = 1
 
-        if (DataUltrason.message == Message.DETECTED_BACK or DataLidar.message == Message.DETECTED_BACK):
-
+        if (DATAULTRASONIC.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BACK):
             Detection_back = 1
 
-        if (DataInterface.message == Message.FORWARD or DataInterface.message == Message.FORWARD_RIGHT or DataInterface.message == Message.FORWARD_LEFT):
-            
+        if (
+                DATAINTERFACE.message == Message.FORWARD or DATAINTERFACE.message == Message.FORWARD_RIGHT or DATAINTERFACE.message == Message.FORWARD_LEFT):
             Forward = 1
-        
-        if (DataInterface.message == Message.BACKWARD or DataInterface.message == Message.BACKWARD_RIGHT or DataInterface.message == Message.BACKWARD_LEFT):
 
+        if (
+                DATAINTERFACE.message == Message.BACKWARD or DATAINTERFACE.message == Message.BACKWARD_RIGHT or DATAINTERFACE.message == Message.BACKWARD_LEFT):
             Backward = 1
 
-    
-        #Utilisation donnes
-        
-        #Si stop demande, on stop
+        # Utilisation donnes
+
+        # Si stop demande, on stop
 
         if (Stop_requested):
-            
-            DataOut.message=Message.STOP
-            
-        #Si detection_avant et on avance, on stop
+
+            DATAOUT.message = Message.STOP
+
+        # Si detection_avant et on avance, on stop
         elif (Detection_front and Forward):
-            
-            DataOut.message=Message.STOP
-            
-            #Si mode pilote, on indique qu'on passe en autonome
-            if (Mode=="PILOTE"):
-                
-                Mode="AUTONOMOUS"
-                
-        #Si detection_arriere et on recule, on stop
+
+            DATAOUT.message = Message.STOP
+
+            # Si mode pilote, on indique qu'on passe en autonome
+            if (Mode == "PILOTE"):
+                Mode = "AUTONOMOUS"
+
+        # Si detection_arriere et on recule, on stop
         elif (Detection_back and Backward):
-            
-            DataOut.message=message.STOP
-            
-            #Si mode pilote, on indique qu'on passe en autonome
-            if (Mode=="PILOTE"):
-                
-                Mode="AUTONOMOUS"
-                
-        #Si aucun des cas precedents, on transmets juste le message de l'interface
+
+            DATAOUT.message = message.STOP
+
+            # Si mode pilote, on indique qu'on passe en autonome
+            if (Mode == "PILOTE"):
+                Mode = "AUTONOMOUS"
+
+        # Si aucun des cas precedents, on transmets juste le message de l'interface
         else:
-            DataOut.message=DataInterface.message
-        #print("detection avant:", Detection_front)
-        #print("detection arr:" , Detection_back)
-        #print("demande stop:" , Stop_requested)
-        #print("backward:" , Backward)
-        #print("forward:" , Forward)
-        
+            DATAOUT.message = DATAINTERFACE.message
+        # print("detection avant:", Detection_front)
+        # print("detection arr:" , Detection_back)
+        # print("demande stop:" , Stop_requested)
+        # print("backward:" , Backward)
+        # print("forward:" , Forward)
+
 
 '''
 #Partie test
