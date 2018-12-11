@@ -1,6 +1,6 @@
 import lidar_detection_thread
 import global_variables
-import prise_de_decision
+import prise_decision
 import interface
 import ultrason
 import can_send
