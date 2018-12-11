@@ -19,7 +19,9 @@ class Ultrason(threading.Thread):
         self.bus = bus
 
     def run(self):
-        while True:
+        while not shutdown_ultrason.isSet():
+        
+            wait_ultrason.wait()
             msg = self.bus.recv()# Wait until a message is received.
             if msg.arbitration_id == US1 or  msg.arbitration_id == US2:
                 flagUltrasonAvant=0
@@ -62,3 +64,8 @@ class Ultrason(threading.Thread):
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
             print(DATA_ULTRASONIC.message.value)
+            wait_interface.set()
+            wait_ultrason.clear()
+                    
+        wait_interface.set()
+        print("Ultrasonic Thread exit")
