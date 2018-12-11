@@ -2,14 +2,14 @@
 import threading
 import can
 import time
-import global_variables
-from global_variables import *
+import glob
+from glob import *
 
 class Can_send(threading.Thread):
     def __init__(self, bus):
         threading.Thread.__init__(self)
         self.bus = bus
-        global_variables.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
+        glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
         #global test_dec
 
     def run(self):
@@ -20,47 +20,47 @@ class Can_send(threading.Thread):
         while True:
             time.sleep(0.1)
             self.speed_cmd = 25
-            if (global_variables.DATA_DECISION.message == Message.FORWARD):
+            if (glob.DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move forward")
-            elif (global_variables.DATA_DECISION.message == Message.FORWARD_LEFT):
+            elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move forward_left")
-            elif (global_variables.DATA_DECISION.message == Message.FORWARD_RIGHT):
+            elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move forward_right")
-            elif (global_variables.DATA_DECISION.message == Message.BACKWARD):
+            elif (glob.DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move backward")
-            elif (global_variables.DATA_DECISION.message == Message.BACKWARD_LEFT):
+            elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move backward_left")
-            elif (global_variables.DATA_DECISION.message == Message.BACKWARD_RIGHT):
+            elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move backward_right")
-            elif (global_variables.DATA_DECISION.message == Message.LEFT):
+            elif (glob.DATA_DECISION.message == Message.LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("send cmd turn left")
-            elif (global_variables.DATA_DECISION.message == Message.RIGHT):
+            elif (glob.DATA_DECISION.message == Message.RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("send cmd turn right")
-            elif (global_variables.DATA_DECISION.message == Message.STOP):
+            elif (glob.DATA_DECISION.message == Message.STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0

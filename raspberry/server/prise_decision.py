@@ -1,10 +1,8 @@
 import threading
-import global_variables
-from global_variables import * 
+import glob
+from glob import * 
 import data
-from data import Data
-from data import ID
-from data import Message
+from data import *
 
 '''
 class ID(Enum):
@@ -42,21 +40,19 @@ class Prise_decision(threading.Thread):
         Backward = 0
 
         # Recuperation donnees
-        if (DATA_INTERFACE.message == Message.STOP):
+        if (glob.DATA_INTERFACE.message == Message.STOP):
             Stop_requested = 1
 
-        if (DATA_ULTRASONIC.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+        if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
             Detection_front = 1
 
-        if (DATA_ULTRASONIC.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+        if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
             Detection_back = 1
 
-        if (
-                DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT):
+        if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT):
             Forward = 1
 
-        if (
-                DATA_INTERFACE.message == Message.BACKWARD or DATA_INTERFACE.message == Message.BACKWARD_RIGHT or DATA_INTERFACE.message == Message.BACKWARD_LEFT):
+        if (glob.DATA_INTERFACE.message == Message.BACKWARD or glob.DATA_INTERFACE.message == Message.BACKWARD_RIGHT or glob.DATA_INTERFACE.message == Message.BACKWARD_LEFT):
             Backward = 1
 
         # Utilisation donnes
@@ -65,12 +61,12 @@ class Prise_decision(threading.Thread):
 
         if (Stop_requested):
 
-            DATA_DECISION.message = Message.STOP
+            glob.DATA_DECISION.message = Message.STOP
 
         # Si detection_avant et on avance, on stop
         elif (Detection_front and Forward):
 
-            DATA_DECISION.message = Message.STOP
+            glob.DATA_DECISION.message = Message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
             if (MODE == "PILOTE"):
@@ -79,7 +75,7 @@ class Prise_decision(threading.Thread):
         # Si detection_arriere et on recule, on stop
         elif (Detection_back and Backward):
 
-            DATA_DECISION.message = message.STOP
+            glob.DATA_DECISION.message = message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
             if (MODE == "PILOTE"):
@@ -87,7 +83,7 @@ class Prise_decision(threading.Thread):
 
         # Si aucun des cas precedents, on transmets juste le message de l'interface
         else:
-            DATA_DECISION.message = DATA_INTERFACE.message
+            glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
         # print("detection avant:", Detection_front)
         # print("detection arr:" , Detection_back)
         # print("demande stop:" , Stop_requested)

@@ -1,5 +1,5 @@
 import lidar_detection_thread
-import global_variables
+import glob
 import prise_decision
 import interface
 import ultrason
