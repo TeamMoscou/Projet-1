@@ -1,0 +1,99 @@
+# coding: utf-8
+import threading
+import socket
+from rplidar import RPLidar
+
+
+
+
+
+
+
+#---------------------Lidar Variables----------------------#
+lidar = RPLidar('/dev/ttyUSB0')
+SAFE_DISTANCE = 2000
+ANGLE_MAX_FRONT = 200
+ANGLE_MIN_FRONT = 160
+ANGLE_MAX_BACK = 340
+ANGLE_MIN_BACK = 20
+# flags set to 1 when the obstacle is detected
+Flag_FRONT = 0
+Flag_BACK = 0
+
+wait_lidar=threading.Event()
+wait_lidar.set()
+shutdown_lidar=threading.Event()
+shutdown_lidar.clear()
+
+
+DataLidar=Data(ID.LIDAR,Message.STOP)
+
+#--------------------------------------------------------------------------
+
+
+
+
+
+#---------------------Ultrasonic Variables----------------------#
+
+US1 = 0x000
+US2 = 0x001
+
+flagUltrasonAvant=0
+flagUltrasonArriere=0
+
+wait_ultrason=threading.Event()
+wait_ultrason.clear()
+shutdown_ultrason=threading.Event()
+shutdown_ultrason.clear()
+
+DataUltrason=Data(ID.ULTRASON,Message.STOP)
+#----------------------------------------------------------------------
+
+
+#-------------------Interface Variables----------------------#
+wait_interface=threading.Event()
+wait_interface.clear()
+shutdown_interface=threading.Event()
+shutdown_interface.clear()
+
+HOST = ''  ;# Symbolic name meaning all available interfaces
+PORT = 6666  ;# Arbitrary non-privileged 
+
+
+
+DataInterface=Data(ID.INTERFACE,Message.STOP)
+#---------------------------------------------------------------------------
+
+
+
+
+#---------------------Decision Variables----------------------#
+
+wait_decision=threading.Event()
+wait_decision.clear()
+
+shutdown_decision=threading.Event()
+shutdown_decision.clear()
+
+
+DataDecision=Data(ID.DECISION,Message.STOP)
+#--------------------------------------------------------------#
+
+
+
+
+#-------------- Can_send variables-----------------------#
+
+wait_can=threading.Event()
+wait_can.clear()
+shutdown_can=threading.Event()
+shutdown_can.clear()
+#---------------------------------------------------------#
+
+
+
+
+
+
+Mode="PILOTE"
