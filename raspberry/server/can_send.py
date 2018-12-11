@@ -15,47 +15,47 @@ class Can_send(threading.Thread):
         while True:
             self.speed_cmd = 60
             print("speed is fixed to ", self.speed_cmd)
-            if (DATAOUT == FORWARD):
+            if (DATA_OUT == FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move forward")
-            elif (DATAOUT == FORWARD_LEFT):
+            elif (DATA_OUT == FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move forward_left")
-            elif (DATAOUT == FORWARD_RIGHT):
+            elif (DATA_OUT == FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move forward_right")
-            elif (DATAOUT == BACKWARD):
+            elif (DATA_OUT == BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move backward")
-            elif (DATAOUT == BACKWARD_LEFT):
+            elif (DATA_OUT == BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move backward_left")
-            elif (DATAOUT == BACKWARD_RIGHT):
+            elif (DATA_OUT == BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move backward_right")
-            elif (DATAOUT == LEFT):
+            elif (DATA_OUT == LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("send cmd turn left")
-            elif (DATAOUT == RIGHT):
+            elif (DATA_OUT == RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("send cmd turn right")
-            elif (DATAOUT == STOP):
+            elif (DATA_OUT == STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0
