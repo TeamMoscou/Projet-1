@@ -1,4 +1,4 @@
-from threading import Thread
+import threading
 import threading
 import data
 from data import Data
@@ -28,9 +28,11 @@ class Message(Enum):
 '''
 
 
-class Prise_decision(Thread):
+class Prise_decision(threading.Thread)):
+    def __init__(self):
+        threading.Thread.__init__(self)
 
-    def prise_decision():
+    def run(self):
         global MODE
         global DATA_LIDAR
         global DATA_ULTRASONIC
