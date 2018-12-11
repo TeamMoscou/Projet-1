@@ -4,12 +4,13 @@ from data import Message
 import threading
 import socket
 
+from global_variables import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
 
-global DATA_INTERFACE  # global variable.
-global DATA_ULTRASONIC
-global DATA_LIDAR
+#global DATA_INTERFACE  # global variable.
+#global DATA_ULTRASONIC
+#global DATA_LIDAR
 
 class Interface(threading.Thread):
     def __init__(self):

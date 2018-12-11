@@ -11,12 +11,6 @@ import os
 import struct
 import data
 
-global MODE
-global DATA_LIDAR
-global DATA_ULTRASONIC
-global DATA_INTERFACE
-global DATA_OUT
-
 if __name__ == "__main__":
 
     print('Bring up CAN0....')
@@ -29,7 +23,7 @@ if __name__ == "__main__":
     lidar_instance = lidar_detection_thread
     interface_instance = interface
     ultrason_instance = ultrason
-    decision_instance = prise_de_decision
+    decision_instance = prise_decision
     cansend_instance = can_send
 
     lidar_thread = lidar_instance.LidarDetection()
