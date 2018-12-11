@@ -47,7 +47,7 @@ wait_ultrason.clear()
 shutdown_ultrason=threading.Event()
 shutdown_ultrason.clear()
 
-DATA_ULTASON=Data(ID.ULTRASON,Message.STOP)
+DATA_ULTRASONIC=Data(ID.ULTRASON,Message.STOP)
 #----------------------------------------------------------------------
 
 
