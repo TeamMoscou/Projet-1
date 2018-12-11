@@ -111,11 +111,11 @@ class LidarDetection(threading.Thread):
                 print("FLAG  back     ",Flag_BACK,"\n")
                 
                 if(Flag_BACK and Flag_FRONT) :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_BOTH)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BOTH)
                 elif (Flag_FRONT):
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_FRONT)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_FRONT)
                 elif (Flag_BACK) :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_BACK)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
                 else :
-                    DataLidar=Data(ID.LIDAR,Message.DETECTED_NULL)
+                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
                     
