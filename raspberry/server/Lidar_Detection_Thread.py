@@ -41,7 +41,6 @@ class LidarDetection(threading.Thread):
 		   
 			if shutdown_lidar.isSet():
 				print("Lidar thread exit")
-				wait_ultrason.set()
 				lidar.stop()
 				lidar.stop_motor()
 				lidar.disconnect()
@@ -129,6 +128,3 @@ class LidarDetection(threading.Thread):
 				else :
 					DataLidar=Data(ID.LIDAR,Message.DETECTED_NULL)
 					
-				wait_ultrason.set()
-				wait_lidar.clear()
-				wait_lidar.wait()
