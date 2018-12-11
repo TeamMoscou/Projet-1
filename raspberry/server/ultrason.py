@@ -3,10 +3,8 @@ import time
 import can
 import os
 import struct
-from global_variables import *
-from data import Data
-from data import ID
-from data import Message
+from glob import *
+from data import *
 
 """US1 = 0x000
 US2 = 0x001
@@ -54,11 +52,11 @@ class Ultrason(threading.Thread):
                 if distance <= 100:
                     flagUltrasonAvant=1
             if flagUltrasonAvant==1 and flagUltrasonArriere==1:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
+                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
             elif flagUltrasonAvant==1:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
+                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
             elif flagUltrasonArriere==1:
-                DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
+                glob.DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
-                DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
+                glob.DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
             print(DATA_ULTRASONIC.message.value)

@@ -1,6 +1,6 @@
-import lidar_detection_thread
+#import lidar_detection_thread
 import prise_decision
-import interface
+#import interface
 import ultrason
 import can_send
 import time
@@ -21,31 +21,31 @@ if __name__ == "__main__":
 
     #lidar_instance = lidar_detection_thread
     #interface_instance = interface
-    #ultrason_instance = ultrason
+    ultrason_instance = ultrason
     decision_instance = prise_decision
     cansend_instance = can_send
 
     #lidar_thread = lidar_instance.LidarDetection()
     #interface_thread = interface_instance.Interface()
-    #ultrason_thread = ultrason_instance.Ultrason(bus)
+    ultrason_thread = ultrason_instance.Ultrason(bus)
     decision_thread = decision_instance.Prise_decision()
     cansend_thread = cansend_instance.Can_send(bus)
 
     #lidar_thread.daemon = True
     #interface_thread.daemon = True
-    #ultrason_thread.daemon = True
+    ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
 
     #lidar_thread.start()
     #interface_thread.start()
-    #ultrason_thread.start()
+    ultrason_thread.start()
     decision_thread.start()
     cansend_thread.start()
 
     #lidar_thread.join()
     #interface_thread.join()
-    #ultrason_thread.join()
+    ultrason_thread.join()
     decision_thread.join()
     cansend_thread.join()
 

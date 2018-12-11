@@ -63,7 +63,7 @@ PORT = 6666  ;# Arbitrary non-privileged
 
 
 
-DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
+DATA_INTERFACE=Data(ID.INTERFACE,Message.FORWARD)
 #---------------------------------------------------------------------------
 
 

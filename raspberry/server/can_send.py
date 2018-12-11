@@ -9,7 +9,7 @@ class Can_send(threading.Thread):
     def __init__(self, bus):
         threading.Thread.__init__(self)
         self.bus = bus
-        glob.DATA_DECISION = Data(ID.DECISION, Message.FORWARD)  
+        glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
         #global test_dec
 
     def run(self):
@@ -78,7 +78,6 @@ class Can_send(threading.Thread):
                 #cmd_turn = 50 + self.turn * 20 & 0x80
 
 #            print("mv:", cmd_mv, "turn:", cmd_turn)
-
             msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
               
             #msg = can.Message(arbitration_id=0x010,data=[0x00,0x00,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
