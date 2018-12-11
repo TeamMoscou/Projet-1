@@ -25,7 +25,7 @@ class Ultrason(threading.Thread):
     def run(self):
         while True:
             msg = self.bus.recv()# Wait until a message is received.
-            if msg.arbitration_id == US1 || msg.arbitration_id == US2:
+            if msg.arbitration_id == US1 or  msg.arbitration_id == US2:
                 flagUltrasonAvant=0
                 flagUltrasonArriere=0
             if msg.arbitration_id == US1:
@@ -57,12 +57,12 @@ class Ultrason(threading.Thread):
                 print("Avant centre = " + str(distance))
                 if distance <= 100:
                     flagUltrasonAvant=1
-            if flagUltrasonAvant==1 && flagUltrasonArriere==1:
+            if flagUltrasonAvant==1 and flagUltrasonArriere==1:
                 DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
             elif flagUltrasonAvant==1:
                 DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
             elif flagUltrasonArriere==1:
                 DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
-            elif flagUltrasonArriere==0 && flagUltrasonAvant=0:
+            elif flagUltrasonArriere==0 and flagUltrasonAvant=0:
                 DATAULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
             print(DATA_ULTRASONIC.message.value)
