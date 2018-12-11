@@ -8,9 +8,6 @@ from data import Data
 from data import ID
 from data import Message
 
-from global_variables import *
-
-
 
 
 # the definition of the class thread of the lidar
@@ -32,23 +29,15 @@ class LidarDetection(threading.Thread):
 		distance = 0.0
 		
 		first_point_FRONT=True
-        first_point_BACK=True
-        refer_angle_FRONT=-1.0
-        refer_angle_BACK=-1.0
+        	first_point_BACK=True
+		refer_angle_FRONT=-1.0
+		refer_angle_BACK=-1.0
 
 		time.sleep(1)
 		for new_scan, quality, angle, distance in lidar.iter_measurments():
 		   
-			if shutdown_lidar.isSet():
-				print("Lidar thread exit")
-				lidar.stop()
-				lidar.stop_motor()
-				lidar.disconnect()
-				break
 				
-				
-			else :
-
+		
 				if(not(new_scan) and distance!=0) :
 
 					count_points=count_points+1
