@@ -29,7 +29,7 @@ if __name__ == "__main__":
     lidar_instance = lidar_detection_thread
     interface_instance = interface
     ultrason_instance = ultrason
-    decision_instance = prise_de_decision
+    decision_instance = prise_decision
     cansend_instance = can_send
 
     lidar_thread = lidar_instance.LidarDetection()
