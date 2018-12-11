@@ -26,7 +26,7 @@ shutdown_lidar=threading.Event()
 shutdown_lidar.clear()
 
 
-DataLidar=Data(ID.LIDAR,Message.STOP)
+DATA_LIDAR=Data(ID.LIDAR,Message.STOP)
 
 #--------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ wait_ultrason.clear()
 shutdown_ultrason=threading.Event()
 shutdown_ultrason.clear()
 
-DataUltrason=Data(ID.ULTRASON,Message.STOP)
+DATA_ULTRASONIC=Data(ID.ULTRASON,Message.STOP)
 #----------------------------------------------------------------------
 
 
@@ -62,7 +62,7 @@ PORT = 6666  ;# Arbitrary non-privileged
 
 
 
-DataInterface=Data(ID.INTERFACE,Message.STOP)
+DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
 #---------------------------------------------------------------------------
 
 
@@ -77,7 +77,7 @@ shutdown_decision=threading.Event()
 shutdown_decision.clear()
 
 
-DataDecision=Data(ID.DECISION,Message.STOP)
+DATA_DECISION=Data(ID.DECISION,Message.STOP)
 #--------------------------------------------------------------#
 
 
