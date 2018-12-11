@@ -4,10 +4,13 @@ import threading
 import os
 from rplidar import RPLidar
 import time
+import global_variables
 from data import Data
 from data import ID
 from data import Message
+from global_variables import *
 
+"""
 lidar = RPLidar('/dev/ttyUSB0')
 SAFE_DISTANCE = 2000
 ANGLE_MAX_FRONT = 200
@@ -16,7 +19,7 @@ ANGLE_MAX_BACK = 340
 ANGLE_MIN_BACK = 20
 # flags set to 1 when the obstacle is detected
 Flag_FRONT = 0
-Flag_BACK = 0
+Flag_BACK = 0"""
 
 
 
