@@ -93,7 +93,4 @@ shutdown_can.clear()
 
 
 
-
-
-
-Mode="PILOTE"
+MODE="PILOTE"
