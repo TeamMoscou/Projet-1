@@ -1,6 +1,7 @@
 # coding: utf-8
 import threading
 import global_variables
+from global_variables import *
 
 class Can_send(threading.Thread):
     def __init__(self, bus):
