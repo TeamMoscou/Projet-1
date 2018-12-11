@@ -3,7 +3,7 @@ import time
 import can
 import os
 import struct
-import global_variables
+from global_variables import *
 from data import Data
 from data import ID
 from data import Message
