@@ -1,5 +1,6 @@
 import threading
-import threading
+import global_variables
+from global_variables import * 
 import data
 from data import Data
 from data import ID
