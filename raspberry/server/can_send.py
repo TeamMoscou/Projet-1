@@ -1,5 +1,6 @@
 # coding: utf-8
 import threading
+import can
 import global_variables
 from global_variables import *
 
