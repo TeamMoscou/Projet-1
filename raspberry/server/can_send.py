@@ -17,47 +17,47 @@ class Can_send(threading.Thread):
         while True:
             self.speed_cmd = 60
             print("speed is fixed to ", self.speed_cmd)
-            if (DATA_DECISION.Message == Message.FORWARD):
+            if (DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move forward")
-            elif (DATA_DECISION.Message == Message.FORWARD_LEFT):
+            elif (DATA_DECISION.message == Message.FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move forward_left")
-            elif (DATA_DECISION.Message == Message.FORWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move forward_right")
-            elif (DATA_DECISION.Message == Message.BACKWARD):
+            elif (DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("send cmd move backward")
-            elif (DATA_DECISION.Message == Message.BACKWARD_LEFT):
+            elif (DATA_DECISION.message == Message.BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("send cmd move backward_left")
-            elif (DATA_DECISION.Message == Message.BACKWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
                 print("send cmd move backward_right")
-            elif (DATA_DECISION.Message == Message.LEFT):
+            elif (DATA_DECISION.message == Message.LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("send cmd turn left")
-            elif (DATA_DECISION.Message == Message.RIGHT):
+            elif (DATA_DECISION.message == Message.RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("send cmd turn right")
-            elif (DATA_DECISION.Message == Message.STOP):
+            elif (DATA_DECISION.message == Message.STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0
