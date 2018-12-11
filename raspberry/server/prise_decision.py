@@ -34,11 +34,7 @@ class Prise_decision(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        global MODE
-        global DATA_LIDAR
-        global DATA_ULTRASONIC
-        global DATA_INTERFACE
-        global DATA_OUT  # les noms sont à voir
+        
         Detection_front = 0
         Detection_back = 0
         Stop_requested = 0
@@ -69,12 +65,12 @@ class Prise_decision(threading.Thread):
 
         if (Stop_requested):
 
-            DATA_OUT.message = Message.STOP
+            DATA_DECISION.message = Message.STOP
 
         # Si detection_avant et on avance, on stop
         elif (Detection_front and Forward):
 
-            DATA_OUT.message = Message.STOP
+            DATA_DECISION.message = Message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
             if (MODE == "PILOTE"):
@@ -83,7 +79,7 @@ class Prise_decision(threading.Thread):
         # Si detection_arriere et on recule, on stop
         elif (Detection_back and Backward):
 
-            DATA_OUT.message = message.STOP
+            DATA_DECISION.message = message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
             if (MODE == "PILOTE"):
@@ -91,7 +87,7 @@ class Prise_decision(threading.Thread):
 
         # Si aucun des cas precedents, on transmets juste le message de l'interface
         else:
-            DATA_OUT.message = DATAINTERFACE.message
+            DATA_DECISION.message = DATA_INTERFACE.message
         # print("detection avant:", Detection_front)
         # print("detection arr:" , Detection_back)
         # print("demande stop:" , Stop_requested)
