@@ -28,7 +28,7 @@ class Message(Enum):
 '''
 
 
-class Prise_decision(threading.Thread)):
+class Prise_decision(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
 
