@@ -30,19 +30,15 @@ if __name__ == "__main__":
     ultrason_thread = ultrason_instance.Ultrason(bus)
     #decision_thread = decision_instance
 
+    lidar_thread.daemon = True
+    #interface_thread.daemon = True
+    ultrason_thread.daemon = True
+    #decision_thread.daemon = True
+
     lidar_thread.start()
     #interface_thread.start()
     ultrason_thread.start()
     #decision_thread.start()
-
-
-    try:
-        time.sleep(.1)
-    except KeyboardInterrupt:
-        lidar_thread._stop.clear()
-        # interface_thread._stop.clear()
-        ultrason_thread._stop.clear()
-        # decison_thread._stop.clear()
 
     lidar_thread.join()
     # interface_thread._stop.clear()

@@ -20,9 +20,7 @@ Flag_BACK = 0
 class LidarDetection(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
-        self._stop = threading.Event()
-    def stop(self):
-        self._stop.set()
+
     def run(self):
 
         print("Lidar thread in execution")
@@ -37,15 +35,9 @@ class LidarDetection(threading.Thread):
         angle = 0.0
         quality = 0
         distance = 0.0
-
-        time.sleep(5)
-        for new_scan, quality, angle, distance in lidar.iter_measurments():
-            if self._stop.is_set():
-                print('wait,shuting down')
-                break
-                
-            else :
-
+        try:
+            time.sleep(5)
+            for new_scan, quality, angle, distance in lidar.iter_measurments():
                 if (not (new_scan) and distance != 0):
                     count_points = count_points + 1
 
@@ -75,3 +67,7 @@ class LidarDetection(threading.Thread):
                 print("FLAG FRONT     ", Flag_FRONT, "\n")
                 print("FLAG  back     ", Flag_BACK, "\n")
 
+        except KeyboardInterrupt:
+            print('Stopping.')
+            lidar.stop()
+            lidar.disconnect()
