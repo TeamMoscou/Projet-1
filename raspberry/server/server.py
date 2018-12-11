@@ -11,11 +11,11 @@ import os
 import struct
 import data
 
-MODE
-DATA_LIDAR
-DATA_ULTRASONIC
-DATA_INTERFACE
-DATA_OUT
+global MODE
+global DATA_LIDAR
+global DATA_ULTRASONIC
+global DATA_INTERFACE
+global DATA_OUT
 
 if __name__ == "__main__":
 
@@ -29,14 +29,14 @@ if __name__ == "__main__":
     lidar_instance = Lidar_Detection_Thread
     interface_instance = interface
     ultrason_instance = Ultrason
-    decision_instance = prise_de_decision.Prise_decision()
-    cansend_instance = can_send.Can_send()
+    decision_instance = prise_de_decision
+    cansend_instance = can_send
 
     lidar_thread = lidar_instance.LidarDetection()
     interface_thread = interface_instance.Interface()
     ultrason_thread = ultrason_instance.Ultrason(bus)
-    decision_thread = decision_instance()
-    cansend_thread = cansend_instance(bus)
+    decision_thread = decision_instance.Prise_decision()
+    cansend_thread = cansend_instance.Can_send(bus)
 
     lidar_thread.daemon = True
     interface_thread.daemon = True
