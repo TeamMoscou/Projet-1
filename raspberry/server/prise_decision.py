@@ -39,57 +39,57 @@ class Prise_decision(threading.Thread):
         Stop_requested = 0
         Forward = 0
         Backward = 0
+        while True:
+            # Recuperation donnees
+            if (glob.DATA_INTERFACE.message == Message.STOP):
+                Stop_requested = 1
 
-        # Recuperation donnees
-        if (glob.DATA_INTERFACE.message == Message.STOP):
-            Stop_requested = 1
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+                Detection_front = 1
 
-        if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
-            Detection_front = 1
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+                Detection_back = 1
 
-        if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
-            Detection_back = 1
+            if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT):
+                Forward = 1
 
-        if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT):
-            Forward = 1
+            if (glob.DATA_INTERFACE.message == Message.BACKWARD or glob.DATA_INTERFACE.message == Message.BACKWARD_RIGHT or glob.DATA_INTERFACE.message == Message.BACKWARD_LEFT):
+                Backward = 1
 
-        if (glob.DATA_INTERFACE.message == Message.BACKWARD or glob.DATA_INTERFACE.message == Message.BACKWARD_RIGHT or glob.DATA_INTERFACE.message == Message.BACKWARD_LEFT):
-            Backward = 1
+            # Utilisation donnes
 
-        # Utilisation donnes
+            # Si stop demande, on stop
 
-        # Si stop demande, on stop
+            if (Stop_requested):
 
-        if (Stop_requested):
+                glob.DATA_DECISION.message = Message.STOP
 
-            glob.DATA_DECISION.message = Message.STOP
+            # Si detection_avant et on avance, on stop
+            elif (Detection_front and Forward):
 
-        # Si detection_avant et on avance, on stop
-        elif (Detection_front and Forward):
+                glob.DATA_DECISION.message = Message.STOP
 
-            glob.DATA_DECISION.message = Message.STOP
+                # Si mode pilote, on indique qu'on passe en autonome
+                if (MODE == "PILOTE"):
+                    MODE = "AUTONOMOUS"
 
-            # Si mode pilote, on indique qu'on passe en autonome
-            if (MODE == "PILOTE"):
-                MODE = "AUTONOMOUS"
+            # Si detection_arriere et on recule, on stop
+            elif (Detection_back and Backward):
 
-        # Si detection_arriere et on recule, on stop
-        elif (Detection_back and Backward):
+                glob.DATA_DECISION.message = message.STOP
 
-            glob.DATA_DECISION.message = message.STOP
+                # Si mode pilote, on indique qu'on passe en autonome
+                if (MODE == "PILOTE"):
+                    MODE = "AUTONOMOUS"
 
-            # Si mode pilote, on indique qu'on passe en autonome
-            if (MODE == "PILOTE"):
-                MODE = "AUTONOMOUS"
-
-        # Si aucun des cas precedents, on transmets juste le message de l'interface
-        else:
-            glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
-        # print("detection avant:", Detection_front)
-        # print("detection arr:" , Detection_back)
-        # print("demande stop:" , Stop_requested)
-        # print("backward:" , Backward)
-        # print("forward:" , Forward)
+            # Si aucun des cas precedents, on transmets juste le message de l'interface
+            else:
+                glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
+            # print("detection avant:", Detection_front)
+            # print("detection arr:" , Detection_back)
+            # print("demande stop:" , Stop_requested)
+            # print("backward:" , Backward)
+            # print("forward:" , Forward)
 
 
 '''
