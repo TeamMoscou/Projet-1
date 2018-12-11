@@ -1,7 +1,8 @@
-import Lidar_Detection_Thread
+import lidar_detection_thread
+import global_variables
 import prise_de_decision
 import interface
-import Ultrason
+import ultrason
 import can_send
 import time
 import can
@@ -25,9 +26,9 @@ if __name__ == "__main__":
 
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
 
-    lidar_instance = Lidar_Detection_Thread
+    lidar_instance = lidar_detection_thread
     interface_instance = interface
-    ultrason_instance = Ultrason
+    ultrason_instance = ultrason
     decision_instance = prise_de_decision
     cansend_instance = can_send
 
