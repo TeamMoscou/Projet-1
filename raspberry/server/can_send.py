@@ -15,7 +15,9 @@ class Can_send(threading.Thread):
         self.turn = 0
         self.enable = 0
 
-        while True:
+         while not shutdown_can.isSet() :
+            wait_can.wait()
+            
             self.speed_cmd = 60
             print("speed is fixed to ", self.speed_cmd)
             if (DATA_DECISION.message == Message.FORWARD):
@@ -83,4 +85,8 @@ class Can_send(threading.Thread):
             # msg = can.Message(arbitration_id=MCM,data=[0xBC,0xBC,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
             print(msg)
             self.bus.send(msg)
+            wait_lidar.set()
+            wait_can.clear()
+         
+         print("Can_send Thread exit")
 
