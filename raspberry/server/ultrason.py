@@ -3,24 +3,20 @@ import time
 import can
 import os
 import struct
-import server
+import global_variables
 from data import Data
 from data import ID
 from data import Message
 
-US1 = 0x000
+"""US1 = 0x000
 US2 = 0x001
 flagUltrasonAvant=0
-flagUltrasonArriere=0
+flagUltrasonArriere=0"""
 
 class Ultrason(threading.Thread):
     def __init__(self,bus):
         threading.Thread.__init__(self)
-        self._stop = threading.Event()
         self.bus = bus
-
-    def stop(self):
-        self._stop.set()
 
     def run(self):
         while True:
