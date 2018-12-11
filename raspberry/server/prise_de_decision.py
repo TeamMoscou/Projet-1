@@ -31,11 +31,11 @@ class Message(Enum):
 class Prise_decision(Thread):
 
     def prise_decision():
-        global Mode
-        global DATALIDAR
-        global DATAULTRASONIC
-        global DATAINTERFACE
-        global DATAOUT  # les noms sont à voir
+        global MODE
+        global DATA_LIDAR
+        global DATA_ULTRASONIC
+        global DATA_INTERFACE
+        global DATA_OUT  # les noms sont à voir
         Detection_front = 0
         Detection_back = 0
         Stop_requested = 0

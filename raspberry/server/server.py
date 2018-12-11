@@ -9,7 +9,13 @@ import can
 import sys
 import os
 import struct
+import data
 
+MODE
+DATA_LIDAR
+DATA_ULTRASONIC
+DATA_INTERFACE
+DATA_OUT
 
 if __name__ == "__main__":
 
