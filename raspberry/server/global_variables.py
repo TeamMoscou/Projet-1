@@ -2,6 +2,7 @@
 import threading
 import socket
 from rplidar import RPLidar
+from data import *
 
 
 
