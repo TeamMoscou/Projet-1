@@ -8,7 +8,15 @@ from data import Data
 from data import ID
 from data import Message
 
-
+lidar = RPLidar('/dev/ttyUSB0')
+SAFE_DISTANCE = 2000
+ANGLE_MAX_FRONT = 200
+ANGLE_MIN_FRONT = 160
+ANGLE_MAX_BACK = 340
+ANGLE_MIN_BACK = 20
+# flags set to 1 when the obstacle is detected
+Flag_FRONT = 0
+Flag_BACK = 0
 
 
 
