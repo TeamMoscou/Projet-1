@@ -43,21 +43,21 @@ class Prise_decision(Thread):
         Backward = 0
 
         # Recuperation donnees
-        if (DATAINTERFACE.message == Message.STOP):
+        if (DATA_INTERFACE.message == Message.STOP):
             Stop_requested = 1
 
-        if (DATAULTRASONIC.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_FRONT or DATALIDAR.message == Message.DETECTED_BOTH):
+        if (DATA_ULTRASONIC.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
             Detection_front = 1
 
-        if (DATAULTRASONIC.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BACK or DATALIDAR.message == Message.DETECTED_BOTH):
+        if (DATA_ULTRASONIC.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
             Detection_back = 1
 
         if (
-                DATAINTERFACE.message == Message.FORWARD or DATAINTERFACE.message == Message.FORWARD_RIGHT or DATAINTERFACE.message == Message.FORWARD_LEFT):
+                DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT):
             Forward = 1
 
         if (
-                DATAINTERFACE.message == Message.BACKWARD or DATAINTERFACE.message == Message.BACKWARD_RIGHT or DATAINTERFACE.message == Message.BACKWARD_LEFT):
+                DATA_INTERFACE.message == Message.BACKWARD or DATA_INTERFACE.message == Message.BACKWARD_RIGHT or DATA_INTERFACE.message == Message.BACKWARD_LEFT):
             Backward = 1
 
         # Utilisation donnes
@@ -66,29 +66,29 @@ class Prise_decision(Thread):
 
         if (Stop_requested):
 
-            DATAOUT.message = Message.STOP
+            DATA_OUT.message = Message.STOP
 
         # Si detection_avant et on avance, on stop
         elif (Detection_front and Forward):
 
-            DATAOUT.message = Message.STOP
+            DATA_OUT.message = Message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
-            if (Mode == "PILOTE"):
-                Mode = "AUTONOMOUS"
+            if (MODE == "PILOTE"):
+                MODE = "AUTONOMOUS"
 
         # Si detection_arriere et on recule, on stop
         elif (Detection_back and Backward):
 
-            DATAOUT.message = message.STOP
+            DATA_OUT.message = message.STOP
 
             # Si mode pilote, on indique qu'on passe en autonome
-            if (Mode == "PILOTE"):
-                Mode = "AUTONOMOUS"
+            if (MODE == "PILOTE"):
+                MODE = "AUTONOMOUS"
 
         # Si aucun des cas precedents, on transmets juste le message de l'interface
         else:
-            DATAOUT.message = DATAINTERFACE.message
+            DATA_OUT.message = DATAINTERFACE.message
         # print("detection avant:", Detection_front)
         # print("detection arr:" , Detection_back)
         # print("demande stop:" , Stop_requested)
