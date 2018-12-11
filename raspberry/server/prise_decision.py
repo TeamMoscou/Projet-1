@@ -3,6 +3,7 @@ import glob
 from glob import * 
 import data
 from data import *
+import time
 
 '''
 class ID(Enum):
@@ -32,7 +33,7 @@ class Prise_decision(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        
+        time.sleep(2)
         Detection_front = 0
         Detection_back = 0
         Stop_requested = 0

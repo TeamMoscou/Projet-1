@@ -9,7 +9,7 @@ class Can_send(threading.Thread):
     def __init__(self, bus):
         threading.Thread.__init__(self)
         self.bus = bus
-        glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
+        glob.DATA_DECISION = Data(ID.DECISION, Message.FORWARD)  
         #global test_dec
 
     def run(self):
