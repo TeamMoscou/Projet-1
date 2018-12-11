@@ -25,20 +25,20 @@ class Interface(threading.Thread):
         self._stop.set()
 
     def run(self):
-        
-        if (DATAULTRASONIC.message.value == 7 or DATALIDAR.message.value == 7):
-            #message to interface
-            message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
-            size = self.conn.send(message.encode())
-
-        if (DATAULTRASONIC.message.value == 8 or DATALIDAR.message.value == 8):
-            #message to interface
-            message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
-            size = self.conn.send(message.encode())
 
         while True:
-            data = self.conn.recv(1024)
+            if (DATAULTRASONIC.message.value == 7 or DATALIDAR.message.value == 7):
+                #message to interface
+                message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
+                size = self.conn.send(message.encode())
 
+            if (DATAULTRASONIC.message.value == 8 or DATALIDAR.message.value == 8):
+                #message to interface
+                message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
+                size = self.conn.send(message.encode())
+            
+            
+            data = self.conn.recv(1024)
             if not data: break
 
             header = data[0:3]
