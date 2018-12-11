@@ -20,6 +20,8 @@ class Message(Enum):
     FORWARD_RIGHT = 10
     BACKWARD_LEFT = 11
     BACKWARD_RIGHT = 12
+    DETECTED_BOTH = 13
+    DETECTED_NULL = 14
  
 
     def list():
@@ -30,7 +32,7 @@ class Data:
         if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.DECISION):
             raise ValueError('ID not valid')
         self.iDEnvoyeur = iDEnvoyeur
-        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_FRONT,Message.DETECTED_BACK,Message.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT ):
+        if message not in (Message.FORWARD,Message.BACKWARD,Message.LEFT,Message.RIGHT,Message.STOP,Message.AUTONOMOUS,Message.DETECTED_FRONT,Message.DETECTED_BACK,Message.FORWARD_RIGHT,Message.FORWARD_LEFT,Message.BACKWARD_LEFT,Message.BACKWARD_RIGHT, Message.DETECTED_BOTH, Message.DETECTED_NULL):
             raise ValueError('Message not valid')
         self.message = message
     
