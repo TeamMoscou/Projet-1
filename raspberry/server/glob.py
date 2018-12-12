@@ -1,7 +1,7 @@
 # coding: utf-8
 import threading
 import socket
-from rplidar import RPLidar
+#from rplidar import RPLidar
 from data import *
 
 
@@ -12,14 +12,14 @@ from data import *
 
 #---------------------Lidar Variables----------------------#
 #lidar = RPLidar('/dev/ttyUSB0')
-SAFE_DISTANCE = 2000
-ANGLE_MAX_FRONT = 200
-ANGLE_MIN_FRONT = 160
-ANGLE_MAX_BACK = 340
-ANGLE_MIN_BACK = 20
+#SAFE_DISTANCE = 2000
+#ANGLE_MAX_FRONT = 200
+#ANGLE_MIN_FRONT = 160
+#ANGLE_MAX_BACK = 340
+#ANGLE_MIN_BACK = 20
 # flags set to 1 when the obstacle is detected
-Flag_FRONT = 0
-Flag_BACK = 0
+#Flag_FRONT = 0
+#Flag_BACK = 0
 
 #wait_lidar=threading.Event()
 #wait_lidar.set()
