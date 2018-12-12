@@ -40,6 +40,12 @@ class Prise_decision(threading.Thread):
         Forward = 0
         Backward = 0
         while True:
+            Stop_requested = 0
+            Detection_front = 0
+            Detection_back = 0
+            Forward = 0
+            Backward = 0
+            time.sleep(0.1)
             # Recuperation donnees
             if (glob.DATA_INTERFACE.message == Message.STOP):
                 Stop_requested = 1
@@ -70,17 +76,17 @@ class Prise_decision(threading.Thread):
                 glob.DATA_DECISION.message = Message.STOP
 
                 # Si mode pilote, on indique qu'on passe en autonome
-                if (MODE == "PILOTE"):
-                    MODE = "AUTONOMOUS"
+                #if (MODE == "PILOTE"):
+                 #   MODE = "AUTONOMOUS"
 
             # Si detection_arriere et on recule, on stop
             elif (Detection_back and Backward):
 
-                glob.DATA_DECISION.message = message.STOP
+                glob.DATA_DECISION.message = Message.STOP
 
                 # Si mode pilote, on indique qu'on passe en autonome
-                if (MODE == "PILOTE"):
-                    MODE = "AUTONOMOUS"
+                #if (MODE == "PILOTE"):
+                 #   MODE = "AUTONOMOUS"
 
             # Si aucun des cas precedents, on transmets juste le message de l'interface
             else:
@@ -90,7 +96,7 @@ class Prise_decision(threading.Thread):
             # print("demande stop:" , Stop_requested)
             # print("backward:" , Backward)
             # print("forward:" , Forward)
-            print("Message PriseD: ".glob.DATA_DECISION)
+            print("Message PriseD: "+str(glob.DATA_DECISION.message))
 
 
 '''

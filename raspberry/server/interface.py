@@ -69,7 +69,7 @@ class Interface(threading.Thread):
             elif (header == b'AUT'):  # autonomous mode
                 glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
                 #print(glob.DATA_INTERFACE.message.value)
-            print("Message interface: ".glob.DATA_INTERFACE.message) 
+            print("Message interface: "+str(glob.DATA_INTERFACE.message)) 
         conn.close()
 
 

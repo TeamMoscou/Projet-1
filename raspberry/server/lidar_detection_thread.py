@@ -4,11 +4,11 @@ import threading
 import os
 from rplidar import RPLidar
 import time
-import global_variables
+from glob import *
 from data import Data
 from data import ID
 from data import Message
-from global_variables import *
+#from global_variables import *
 
 """
 lidar = RPLidar('/dev/ttyUSB0')
@@ -19,7 +19,7 @@ ANGLE_MAX_BACK = 340
 ANGLE_MIN_BACK = 20
 # flags set to 1 when the obstacle is detected
 Flag_FRONT = 0
-Flag_BACK = 0"""
+Flag_BACK = 0
 
 
 
@@ -97,8 +97,8 @@ class LidarDetection(threading.Thread):
                             refer_angle_BACK=relative_angle
                             count_points_detected_BACK=count_points_detected_BACK+1
 
-                print("number of points detected in front",count_points_detected_FRONT,"\n")
-                print("number of points detected in back",count_points_detected_BACK,"\n")
+                #print("number of points detected in front",count_points_detected_FRONT,"\n")
+                #print("number of points detected in back",count_points_detected_BACK,"\n")
 
                 if(count_points==320):
 
@@ -118,15 +118,15 @@ class LidarDetection(threading.Thread):
                    count_points_detected_BACK=0
                    first_point_BACK==True
 
-                print("FLAG FRONT     ",Flag_FRONT,"\n")
-                print("FLAG  back     ",Flag_BACK,"\n")
+                #print("FLAG FRONT     ",Flag_FRONT,"\n")
+                #print("FLAG  back     ",Flag_BACK,"\n")
                 
                 if(Flag_BACK and Flag_FRONT) :
-                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BOTH)
+                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BOTH)
                 elif (Flag_FRONT):
-                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_FRONT)
+                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_FRONT)
                 elif (Flag_BACK) :
-                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
+                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
                 else :
-                    DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
-                    
+                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
+                print("message from lidar : "+glob.DATA_LIDAR.message)                

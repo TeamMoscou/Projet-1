@@ -3,6 +3,7 @@ import time
 import can
 import os
 import struct
+import glob
 from glob import *
 from data import *
 
@@ -18,8 +19,9 @@ class Ultrason(threading.Thread):
 
     def run(self):
         flagUltrasonAvant = 0
-        flagUltrasonArrier = 0
+        flagUltrasonArriere = 0
         while True:
+            
             msg = self.bus.recv()# Wait until a message is received.
             if msg.arbitration_id == US1 or  msg.arbitration_id == US2:
                 flagUltrasonAvant=0
@@ -61,4 +63,4 @@ class Ultrason(threading.Thread):
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            print("Message ultrason: ".DATA_ULTRASONIC.message)
+            print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
