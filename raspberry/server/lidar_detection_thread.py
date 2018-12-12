@@ -10,11 +10,15 @@ from data import Message
 #from global_variables import *
 # the definition of the class thread of the lidar
 
-lidar = RPLidar('/dev/ttyUSB0')
+#lidar = RPLidar('/dev/ttyUSB0')
 class LidarDetection(threading.Thread):
+
     def __init__(self):
-        threading.Thread.__init__(self)     
-        #lidar = RPLidar('/dev/ttyUSB0')
+        threading.Thread.__init__(self)
+        self.lidar = RPLidar('/dev/ttyUSB0')
+
+    def run(self):
+
         SAFE_DISTANCE = 2000
         ANGLE_MAX_FRONT = 200
         ANGLE_MIN_FRONT = 160
@@ -22,10 +26,8 @@ class LidarDetection(threading.Thread):
         ANGLE_MIN_BACK = 20
         Flag_FRONT = 0
         Flag_BACK = 0
-    def run(self):
-
         print("Lidar thread in execution")
-        
+
         count_points = 0
         count_points_detected_FRONT = 0
         count_points_detected_BACK = 0
@@ -118,3 +120,4 @@ class LidarDetection(threading.Thread):
                     glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
                 else :
                     glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
+                print("Message Lidar: "+str(glob.DATA_LIDAR.message))
