@@ -17,6 +17,8 @@ class Ultrason(threading.Thread):
         self.bus = bus
 
     def run(self):
+        flagUltrasonAvant = 0
+        flagUltrasonArrier = 0
         while True:
             msg = self.bus.recv()# Wait until a message is received.
             if msg.arbitration_id == US1 or  msg.arbitration_id == US2:
