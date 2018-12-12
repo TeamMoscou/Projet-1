@@ -90,6 +90,7 @@ class Prise_decision(threading.Thread):
             # print("demande stop:" , Stop_requested)
             # print("backward:" , Backward)
             # print("forward:" , Forward)
+            print("Message PriseD: ".glob.DATA_DECISION)
 
 
 '''

@@ -1,16 +1,12 @@
-from data import Data
-from data import ID
-from data import Message
+from data import *
 import threading
 import socket
-
+import glob
 from glob import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
 
-#global DATA_INTERFACE  # global variable.
-#global DATA_ULTRASONIC
-#global DATA_LIDAR
+
 
 class Interface(threading.Thread):
     def __init__(self):
@@ -44,36 +40,36 @@ class Interface(threading.Thread):
             if (header == b'STE'):  # steer
                 if (payload == b'left'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.LEFT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'right'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.RIGHT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
             elif (header == b'MOV'):  # move
                 if (payload == b'stop'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.STOP)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forward'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backward'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backwardright'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backwardleft'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forwardleft'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forwardright'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
-                    print(glob.DATA_INTERFACE.message.value)
+                    #print(glob.DATA_INTERFACE.message.value)
             elif (header == b'AUT'):  # autonomous mode
                 glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
-                print(glob.DATA_INTERFACE.message.value)
-
+                #print(glob.DATA_INTERFACE.message.value)
+            print("Message interface: ".glob.DATA_INTERFACE.message) 
         conn.close()
 
 

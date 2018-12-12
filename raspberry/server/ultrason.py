@@ -61,4 +61,4 @@ class Ultrason(threading.Thread):
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            print(DATA_ULTRASONIC.message)
+            print("Message ultrason: ".DATA_ULTRASONIC.message)
