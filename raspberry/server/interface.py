@@ -4,7 +4,7 @@ from data import Message
 import threading
 import socket
 
-from global_variables import *
+from glob import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
 
