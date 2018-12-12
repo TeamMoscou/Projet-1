@@ -1,4 +1,4 @@
-#import lidar_detection_thread
+import lidar_detection_thread
 import prise_decision
 import interface
 import ultrason
