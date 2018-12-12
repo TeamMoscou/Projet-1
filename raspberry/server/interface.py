@@ -24,11 +24,11 @@ class Interface(threading.Thread):
     def run(self):
 
         while True:
-            if (DATA_ULTRASONIC.message.value == 7 or DATA_LIDAR.message.value == 7):
+            if (glob.DATA_ULTRASONIC.message.value == 7 or DATA_LIDAR.message.value == 7):
                 #message to interface
                 message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
-            if (DATA_ULTRASONIC.message.value == 8 or DATA_LIDAR.message.value == 8):
+            if (glob.DATA_ULTRASONIC.message.value == 8 or DATA_LIDAR.message.value == 8):
                 #message to interface
                 message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
                 size = self.conn.send(message.encode())
@@ -43,36 +43,36 @@ class Interface(threading.Thread):
 
             if (header == b'STE'):  # steer
                 if (payload == b'left'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.LEFT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.LEFT)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'right'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.RIGHT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.RIGHT)
+                    print(glob.DATA_INTERFACE.message.value)
             elif (header == b'MOV'):  # move
                 if (payload == b'stop'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.STOP)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.STOP)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forward'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backward'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backwardright'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'backwardleft'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forwardleft'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
+                    print(glob.DATA_INTERFACE.message.value)
                 elif (payload == b'forwardright'):
-                    DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
-                    print(DATA_INTERFACE.message.value)
+                    glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
+                    print(glob.DATA_INTERFACE.message.value)
             elif (header == b'AUT'):  # autonomous mode
-                DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
-                print(DATA_INTERFACE.message.value)
+                glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.AUTONOMOUS)
+                print(glob.DATA_INTERFACE.message.value)
 
         conn.close()
 
