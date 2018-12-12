@@ -24,11 +24,11 @@ class Interface(threading.Thread):
     def run(self):
 
         while True:
-            if (glob.DATA_ULTRASONIC.message.value == 7 or DATA_LIDAR.message.value == 7):
+            if (glob.DATA_ULTRASONIC.message.value == 7 or glob.DATA_LIDAR.message.value == 7):
                 #message to interface
                 message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message.value == 8 or DATA_LIDAR.message.value == 8):
+            if (glob.DATA_ULTRASONIC.message.value == 8 or glob.DATA_LIDAR.message.value == 8):
                 #message to interface
                 message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
                 size = self.conn.send(message.encode())
