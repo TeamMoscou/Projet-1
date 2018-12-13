@@ -22,14 +22,21 @@ class Interface(threading.Thread):
         while True:
             if (glob.DATA_ULTRASONIC.message.value == 7 or glob.DATA_LIDAR.message.value == 7):
                 #message to interface
-                message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
+                message = "OIF:" + str('1')+ ";"  #detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message.value == 8 or glob.DATA_LIDAR.message.value == 8):
+            elif (glob.DATA_ULTRASONIC.message.value == 8 or glob.DATA_LIDAR.message.value == 8):
                 #message to interface
-                message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
+                message = "OIB:" + str('1')+ ";"  #detection of obstacle in back of the car
+                size = self.conn.send(message.encode())
+            elif (glob.DATA_ULTRASONIC.message.value == 13 or glob.DATA_LIDAR.message.value == 13):
+                #message to interface
+                message = "OBB:" + str('1')+ ";"  #detection of obstacle in front and back of the car
+                size = self.conn.send(message.encode())
+            else: 
+                message = "OIF:" + str('0')+ ";"  # no detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
 
-            data = self.conn.recv(1024)
+            data = self.conn.recv(1024) #receve data from socket
 
             if not data: break
 
@@ -74,10 +81,11 @@ class Interface(threading.Thread):
 
 
 '''
+glob.DATA_ULTRASONIC = Data(ID.ULTRASONIC, Message.DETECTED_NULL)
 inter = Interface()
 inter.run()
-'''
 
+'''
 
 
 
