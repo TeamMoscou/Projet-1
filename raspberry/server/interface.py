@@ -6,20 +6,22 @@ from glob import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
 
-
-
-class Interface(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
+class ConnectInterface():
+    def getconn() :
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((HOST, PORT))
         s.listen(1)
-        self.conn, addr = s.accept()
+        conn, addr = s.accept()
         print('Connected by', addr)
-
+        return conn 
+    
+        
+class ReturnInterface(threading.Thread):
+    def __init__(self,conn):
+        self.conn = conn
+        threading.Thread.__init__(self)
     def run(self):
-
-        while True:
+        while True: 
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #message to interface
                 message = "OIF:" + str('1')+ ";"  #detection of obstacle in front of the car
@@ -36,6 +38,12 @@ class Interface(threading.Thread):
                 message = "NOD:" + str('1')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
 
+class Interface(threading.Thread):
+    def __init__(self, conn):
+        self.conn = conn
+        threading.Thread.__init__(self)
+    def run(self):
+        while True:
             data = self.conn.recv(1024) #receve data from socket
 
             if not data: break
