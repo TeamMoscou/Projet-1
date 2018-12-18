@@ -54,10 +54,10 @@ class LidarDetection(threading.Thread):
                             first_angle_FRONT=angle
                             count_points_detected_FRONT=1
                             print("first point :",first_angle_FRONT,"\n")
-                        elif(abs(angle-refer_angle_FRONT)<2 ):
+                        elif(abs(angle-refer_angle_FRONT)<3):
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-                        elif(abs(angle-refer_angle_FRONT)>2 and count_points_detected_FRONT<10) :
+                        elif(abs(angle-refer_angle_FRONT)>3 and count_points_detected_FRONT<20) :
                             refer_angle_FRONT = angle
                             last_point_FRONT = angle
                             print("number :", count_points_detected_FRONT,"\n")
