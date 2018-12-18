@@ -34,7 +34,7 @@ class Ultrason(threading.Thread):
                 #print("Avant gauche = " + str(distance))
                 if distance <= 30:
                     flagUltrasonAvantGauche=1
-                    print ("Avant gauche detecté")   
+                    print ("Avant gauche detected")   
                 else:
                     flagUltrasonAvantGauche=0     
                     
@@ -42,14 +42,14 @@ class Ultrason(threading.Thread):
                 #print("Avant droit = " + str(distance))
                 if distance <= 30:
                     flagUltrasonAvantDroit=1
-                    print("Avant droit detecté")
+                    print("Avant droit detected")
                 else:
                     flagUltrasonAvantDroit=0     
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Arriere centre = " + str(distance))
                 if distance <= 100:
                     flagUltrasonArriereCentre=1
-                    print("Arriere centre detecté")
+                    print("Arriere centre detected")
                 else:
                     flagUltrasonArriereCentre=0     
             elif msg.arbitration_id == US2:
@@ -58,7 +58,7 @@ class Ultrason(threading.Thread):
                 #print("Arriere gauche = " + str(distance))
                 if distance <= 30:
                     flagUltrasonArriereGauche=1
-                    print("Arriere gauche detecté")
+                    print("Arriere gauche detected")
                 else:
                     flagUltrasonArriereGauche=0     
                 # ultrason arriere droit
@@ -66,7 +66,7 @@ class Ultrason(threading.Thread):
                 #print("Arriere droit = " + str(distance))
                 if distance <= 30:
                     flagUltrasonArriereDroit=1
-                    print("Arriere droit detecté")
+                    print("Arriere droit detected")
                 else:
                     flagUltrasonArriereDroit=0     
                 # ultrason avant centre
@@ -74,7 +74,7 @@ class Ultrason(threading.Thread):
                 #print("Avant centre = " + str(distance))
                 if distance <= 100:
                     flagUltrasonAvantCentre=1
-                    print("Avant centre detecté") 
+                    print("Avant centre detected") 
                 else:
                     flagUltrasonAvantCentre=0     
 
@@ -94,4 +94,4 @@ class Ultrason(threading.Thread):
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            #print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
+            print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
