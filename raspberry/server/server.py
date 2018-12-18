@@ -20,7 +20,9 @@ def signal_handler(sig, frame):
   shutdown_ultrason.set()
   shutdown_interface.set()
   shutdown_decision.set()
-
+  lidar.stop()
+  lidar.stop_motor()
+  lidar.disconnect()
 
 
 if __name__ == "__main__":
