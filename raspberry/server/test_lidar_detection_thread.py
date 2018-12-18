@@ -20,8 +20,8 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         SAFE_DISTANCE = 2000
-        ANGLE_MAX_FRONT = 190
-        ANGLE_MIN_FRONT = 170
+        ANGLE_MAX_FRONT = 200
+        ANGLE_MIN_FRONT = 160
         ANGLE_MAX_BACK = 340
         ANGLE_MIN_BACK = 20
         Flag_FRONT = 0
@@ -54,22 +54,19 @@ class LidarDetection(threading.Thread):
                             first_angle_FRONT=angle
                             count_points_detected_FRONT=1
                             print("first point :",first_angle_FRONT,"\n")
-                            # print("number of points detected in back",count_points_detected_BACK,"\n")
-                        elif ( abs(angle-refer_angle_FRONT)< 4 ):
+                        elif(abs(angle-refer_angle_FRONT)<2 ):
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-                        elif(abs(angle-refer_angle_FRONT)>4 and count_points_detected_FRONT<10) :
+                        elif(abs(angle-refer_angle_FRONT)>2 and count_points_detected_FRONT<10) :
                             refer_angle_FRONT = angle
-                            first_point_FRONT=True
-                            count_points_detected_FRONT=0
+                            last_point_FRONT = angle
+                            print("number :", count_points_detected_FRONT,"\n")
+                            print("last point :", last_point_FRONT, "\n")
+                            first_point_FRONT = True
+                            count_points_detected_FRONT = 0
                         else:
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-                    if (distance > SAFE_DISTANCE and angle >= ANGLE_MAX_FRONT and angle <= ANGLE_MAX_FRONT):
-                        last_point_FRONT = angle
-                        print("last point :", last_point_FRONT, "\n")
-                #print("number of points detected in front",count_points_detected_FRONT,"\n")
-                #print("number of points detected in back",count_points_detected_BACK,"\n")
 
                 if(count_points==320):
 
