@@ -29,10 +29,6 @@ namespace BrakeOrDie
                 connectLabel.Text = "Connected";
                 nwStream = clientSocket.GetStream();
                 Receive();
-                //Send initial speed value
-                //byte[] bytes = Encoding.ASCII.GetBytes("SPE" + getSpeed.Text);
-                //nwStream.Write(bytes, 0, bytes.Length);
-
             }
             catch (SocketException ex)
             {
@@ -40,27 +36,6 @@ namespace BrakeOrDie
                 Console.WriteLine(ex.Message);
             }
         }
-
-
-       /* partial void SetSpeedToCar(UIButton sender)
-        {
-            int speed = Int32.Parse(getSpeed.Text);
-            if (bconnected)
-            {
-                if (speed < 0){
-                    byte[] bytes = Encoding.ASCII.GetBytes("SPE" + "0");
-                    nwStream.Write(bytes, 0, bytes.Length);
-                } else if (speed > 20){
-                    byte[] bytes = Encoding.ASCII.GetBytes("SPE" + "20");
-                    nwStream.Write(bytes, 0, bytes.Length);
-                } else {
-                    byte[] bytes = Encoding.ASCII.GetBytes("SPE" + getSpeed.Text);
-                    nwStream.Write(bytes, 0, bytes.Length);
-                }
-            }
-
-        }*/
-
         partial void StopWheelButtonPushed(UIButton sender)
         {
             modeLabel.Text = "NominalMode";
@@ -136,12 +111,19 @@ namespace BrakeOrDie
                     Console.WriteLine(msg);
                     String[] elt = msg.Split(':');
                     switch (elt[0])
+                    switch (elt[0])
                     {
                         case "OIF":
-                            modeLabel.Text = "Obstacle in front";
+                            ObstacleInfront();
                             break;
                         case "OIB":
-                            modeLabel.Text = "Obstacle in back";
+                            ObstacleInBack(); 
+                            break;
+                        case "OBB":
+                            modeLabel.Text = "Obstacle!";
+                            break;
+                        case "NOD":
+                            NoObstacleDetected();
                             break;
                         default:
                             cmpt = (cmpt + 1) % 100;
@@ -153,6 +135,30 @@ namespace BrakeOrDie
             }
         }
 
+        private void ObstacleInBack(){
+            modeLabel.Text = "Obstacle in back";
+            downButton.TintColor = UIColor.Gray;
+            backwardLeft.TintColor = UIColor.Gray;
+            backwardRight.TintColor = UIColor.Gray;
+        }
+
+        private void ObstacleInfront(){
+            modeLabel.Text = "Obstacle in front";
+            upButton.TintColor = UIColor.Gray;
+            forwardLeft.TintColor = UIColor.Gray;
+            forwardRight.TintColor = UIColor.Gray;
+        }
+
+        private void NoObstacleDetected(){
+            modeLabel.Text = "NominalMode";
+            upButton.TintColor = new UIColor(red: 0.04f, green: 0.38f, blue: 1.00f, alpha: 1.0f);
+            forwardLeft.TintColor = new UIColor(red: 0.35f, green: 0.78f, blue: 1.00f, alpha: 1.0f);
+            forwardRight.TintColor = new UIColor(red: 0.35f, green: 0.78f, blue: 1.00f, alpha: 1.0f);
+            downButton.TintColor = new UIColor(red: 0.04f, green: 0.38f, blue: 1.00f, alpha: 1.0f);
+            backwardLeft.TintColor = new UIColor(red: 0.35f, green: 0.78f, blue: 1.00f, alpha: 1.0f);
+            backwardRight.TintColor = new UIColor(red: 0.35f, green: 0.78f, blue: 1.00f, alpha: 1.0f);
+        }
+        
         partial void BackwardRight(UIButton sender)
         {
             modeLabel.Text = "NominalMode";
