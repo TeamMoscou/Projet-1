@@ -62,13 +62,12 @@ class LidarDetection(threading.Thread):
                             refer_angle_FRONT = angle
                             first_point_FRONT=True
                             count_points_detected_FRONT=0
-                        elif(distance>SAFE_DISTANCE and angle>=ANGLE_MAX_FRONT and angle<=ANGLE_MAX_FRONT) :
-                            last_point_FRONT = angle
-                            print("last point :", last_point_FRONT, "\n")
                         else:
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-
+                    if (distance > SAFE_DISTANCE and angle >= ANGLE_MAX_FRONT and angle <= ANGLE_MAX_FRONT):
+                        last_point_FRONT = angle
+                        print("last point :", last_point_FRONT, "\n")
                 #print("number of points detected in front",count_points_detected_FRONT,"\n")
                 #print("number of points detected in back",count_points_detected_BACK,"\n")
 
