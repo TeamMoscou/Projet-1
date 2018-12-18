@@ -1,4 +1,4 @@
-import lidar_detection_thread
+#import lidar_detection_thread
 import prise_decision
 import interface
 import ultrason
@@ -35,12 +35,14 @@ if __name__ == "__main__":
     decision_thread = decision_instance.Prise_decision()
     cansend_thread = cansend_instance.Can_send(bus)
 
+
     lidar_thread.daemon = True
     interface_thread.daemon = True
     interfaceReturn_thread = True
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
+
 
     lidar_thread.start()
     interface_thread.start()

@@ -51,67 +51,22 @@ class LidarDetection(threading.Thread):
                         if (first_point_FRONT==True):
                             first_point_FRONT=False
                             refer_angle_FRONT=angle
-                            count_points_detected_FRONT=1
-                        elif ( abs(angle-refer_angle_FRONT)< 4 ):
-                            refer_angle_FRONT=angle
-                            count_points_detected_FRONT=count_points_detected_FRONT+1
-                        elif(abs(angle-refer_angle_FRONT)>4 and count_points_detected_FRONT<10) :
-
-                            refer_angle_FRONT = angle
-                            first_point_FRONT=True
-                            count_points_detected_FRONT=0
-
-                        else:
-                            refer_angle_FRONT=angle
-                            count_points_detected_FRONT=count_points_detected_FRONT+1
-
-                    elif (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
-                        if (first_point_FRONT==True):
-                            first_point_FRONT=False
-                            refer_angle_FRONT=angle
-                            first_angle_LEFT=angle
+                            first_angle_FRONT=angle
                             count_points_detected_FRONT=1
                             print("first point :",first_angle_FRONT,"\n")
-                            # print("number of points detected in back",count_points_detected_BACK,"\n")
-                        elif ( abs(angle-refer_angle_FRONT)< 4 ):
+                        elif(abs(angle-refer_angle_FRONT)<3):
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-                        elif(abs(angle-refer_angle_FRONT)>4 and count_points_detected_FRONT<10) :
+                        elif(abs(angle-refer_angle_FRONT)>3 and count_points_detected_FRONT<20) :
                             refer_angle_FRONT = angle
-                            first_point_FRONT=True
-                            count_points_detected_FRONT=0
-                        elif(distance>SAFE_DISTANCE and angle>=ANGLE_MAX_FRONT and angle<=ANGLE_MAX_FRONT) :
                             last_point_FRONT = angle
+                            print("number :", count_points_detected_FRONT,"\n")
                             print("last point :", last_point_FRONT, "\n")
+                            first_point_FRONT = True
+                            count_points_detected_FRONT = 0
                         else:
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-
-                    #Back        
-                    elif(distance<=SAFE_DISTANCE and angle>=ANGLE_MAX_BACK or angle<=ANGLE_MIN_BACK):
-                        if(angle>=ANGLE_MAX_BACK) :
-                            relative_angle=angle-360.0
-                        else :
-                            relative_angle=angle
-
-                        if (first_point_BACK==True):
-                            first_point_BACK=False
-                            refer_angle_BACK=relative_angle
-                            count_points_detected_BACK=1
-
-                        elif (abs(relative_angle-refer_angle_BACK)<4):
-                            refer_angle_BACK=relative_angle
-                            count_points_detected_BACK=count_points_detected_BACK+1
-                        elif(abs(relative_angle-refer_angle_BACK)>4 and count_points_detected_BACK<4) :
-                            first_point_BACK=True
-                            count_points_detected_BACK=0
-
-                        else:
-                            refer_angle_BACK=relative_angle
-                            count_points_detected_BACK=count_points_detected_BACK+1
-
-                #print("number of points detected in front",count_points_detected_FRONT,"\n")
-                #print("number of points detected in back",count_points_detected_BACK,"\n")
 
                 if(count_points==320):
 
