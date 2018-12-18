@@ -24,13 +24,16 @@ class Interface(threading.Thread):
                 #message to interface
                 message = "OIF:" + str('1')+ ";"  #detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message.value == 8 or glob.DATA_LIDAR.message.value == 8):
+            elif (glob.DATA_ULTRASONIC.message.value == 8 or glob.DATA_LIDAR.message.value == 8):
                 #message to interface
                 message = "OIB:" + str('1')+ ";"  #detection of obstacle in back of the car
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message.value == 13 or glob.DATA_LIDAR.message.value == 13):
+            elif (glob.DATA_ULTRASONIC.message.value == 13 or glob.DATA_LIDAR.message.value == 13):
                 #message to interface
                 message = "OBB:" + str('1')+ ";"  #detection of obstacle in front and back of the car
+                size = self.conn.send(message.encode())
+            else :
+                message = "NOD:" + str('1')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
 
             data = self.conn.recv(1024) #receve data from socket
