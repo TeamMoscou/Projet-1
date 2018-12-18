@@ -16,19 +16,16 @@ class Ultrason(threading.Thread):
     def __init__(self,bus):
         threading.Thread.__init__(self)
         self.bus = bus
-        flagUltrasonAvant=0
-        flagUltrasonArriere=0
+
+    def run(self):
+        flagUltrasonAvant = 0
+        flagUltrasonArriere = 0
         flagUltrasonAvantGauche = 0
         flagUltrasonAvantDroit = 0
         flagUltrasonAvantCentre = 0
         flagUltrasonArriereDroit = 0
         flagUltrasonArriereGauche = 0
         flagUltrasonArriereCentre = 0
-
-
-    def run(self):
-        flagUltrasonAvant = 0
-        flagUltrasonArriere = 0
         while True:
             
             msg = self.bus.recv()# Wait until a message is received.
