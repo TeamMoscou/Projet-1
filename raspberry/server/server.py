@@ -11,6 +11,14 @@ import struct
 import data
 import socket
 
+def signal_handler(sig, frame):
+  print('You pressed Ctrl+C!')
+  lidar.stop()
+  lidar.stop_motor()
+  lidar.disconnect()
+
+
+
 HOST = ''
 PORT = 6666
 if __name__ == "__main__":
@@ -49,8 +57,9 @@ if __name__ == "__main__":
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
+    signal.signal(signal.SIGINT, signal_handler)
 
-
+    
     interface_thread.start()
     interfaceReturn_thread.start()
     lidar_thread.start()
