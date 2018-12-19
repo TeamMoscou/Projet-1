@@ -27,6 +27,8 @@ class LidarDetection(threading.Thread):
         Flag_FRONT = 0
         Flag_BACK = 0
         print("Lidar thread in execution")
+        left = 0
+        right = 0
 
         count_points = 0
         count_points_detected_FRONT = 0
@@ -54,10 +56,10 @@ class LidarDetection(threading.Thread):
                             first_angle_FRONT=angle
                             count_points_detected_FRONT=1
                             print("first point :",first_angle_FRONT,"\n")
-                        elif(abs(angle-refer_angle_FRONT)<3):
+                        elif(abs(angle-refer_angle_FRONT)<1.5):
                             refer_angle_FRONT=angle
                             count_points_detected_FRONT=count_points_detected_FRONT+1
-                        elif(abs(angle-refer_angle_FRONT)>3 and count_points_detected_FRONT<20) :
+                        elif(abs(angle-refer_angle_FRONT)>1.5 and count_points_detected_FRONT<20) :
                             refer_angle_FRONT = angle
                             last_point_FRONT = angle
                             print("number :", count_points_detected_FRONT,"\n")
@@ -69,10 +71,9 @@ class LidarDetection(threading.Thread):
                             count_points_detected_FRONT=count_points_detected_FRONT+1
 
                 if(count_points==320):
-
                    count_points=0
-
-                   if(count_points_detected_FRONT>4) :
+                   #left = ANGLE_MIN_FRONT - 
+                   if(count_points_detected_FRONT>1.5) :
                       Flag_FRONT=1
                    else :
                       Flag_FRONT=0
