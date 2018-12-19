@@ -2,46 +2,38 @@ from data import *
 import threading
 import socket
 import glob
+import time
 from glob import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
-
-class ConnectInterface():
-    def getconn() :
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((HOST, PORT))
-        s.listen(1)
-        conn, addr = s.accept()
-        print('Connected by', addr)
-        return conn 
-    
         
 class ReturnInterface(threading.Thread):
     def __init__(self,conn):
-        self.conn = conn
         threading.Thread.__init__(self)
+        self.conn = conn
     def run(self):
         while True: 
+            time.sleep(0.1)
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #message to interface
-                message = "OIF:" + str('1')+ ";"  #detection of obstacle in front of the car
+                message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
                 size = self.conn.send(message.encode())
             elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
                 #message to interface
-                message = "OIB:" + str('1')+ ";"  #detection of obstacle in back of the car
+                message = "OIB:" + str('')+ ";"  #detection of obstacle in back of the car
                 size = self.conn.send(message.encode())
             elif (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 #message to interface
-                message = "OBB:" + str('1')+ ";"  #detection of obstacle in front and back of the car
+                message = "OBB:" + str('')+ ";"  #detection of obstacle in front and back of the car
                 size = self.conn.send(message.encode())
             else :
-                message = "NOD:" + str('1')+ ";"  #no obstacle detected
+                message = "NOD:" + str('')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
 
 class Interface(threading.Thread):
     def __init__(self, conn):
-        self.conn = conn
         threading.Thread.__init__(self)
+        self.conn = conn
     def run(self):
         while True:
             data = self.conn.recv(1024) #receve data from socket

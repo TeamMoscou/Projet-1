@@ -1,4 +1,4 @@
-#import lidar_detection_thread
+import lidar_detection_thread
 import prise_decision
 import interface
 import ultrason
@@ -9,7 +9,20 @@ import sys
 import os
 import struct
 import data
+import socket
+import signal
 
+
+def signal_handler(sig, frame):
+  print('You pressed Ctrl+C!')
+  lidar.stop()
+  lidar.stop_motor()
+  lidar.disconnect()
+
+
+
+HOST = ''
+PORT = 6666
 if __name__ == "__main__":
 
     print('Bring up CAN0....')
@@ -18,19 +31,23 @@ if __name__ == "__main__":
     time.sleep(0.1)
 
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
-    connectInterface = ConnectInterface()
-    conn = connectInterface.getconn
+    
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((HOST, PORT))
+    s.listen(1)
+    conn, addr = s.accept()
+    print('Connected by', addr)
     
     lidar_instance = lidar_detection_thread
     interface_instance = interface
-    interfaceReturn_instance = interface
+    #interfaceReturn_instance = interface
     ultrason_instance = ultrason
     decision_instance = prise_decision
     cansend_instance = can_send
 
     lidar_thread = lidar_instance.LidarDetection()
     interface_thread = interface_instance.Interface(conn)
-    interfaceReturn_thread = interfaceReturn_instance.ReturnInterface(conn)
+    interfaceReturn_thread = interface_instance.ReturnInterface(conn)
     ultrason_thread = ultrason_instance.Ultrason(bus)
     decision_thread = decision_instance.Prise_decision()
     cansend_thread = cansend_instance.Can_send(bus)
@@ -38,15 +55,18 @@ if __name__ == "__main__":
 
     lidar_thread.daemon = True
     interface_thread.daemon = True
-    interfaceReturn_thread = True
+    interfaceReturn_thread.daemon = True
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
+    
+    
+    signal.signal(signal.SIGINT, signal_handler)
 
-
-    lidar_thread.start()
+    
     interface_thread.start()
     interfaceReturn_thread.start()
+    lidar_thread.start()
     ultrason_thread.start()
     decision_thread.start()
     cansend_thread.start()
