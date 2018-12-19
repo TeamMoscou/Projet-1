@@ -2,6 +2,7 @@ import time
 import can
 import os
 import struct
+import Turn90
 
 OM1 = 0x101
 
@@ -29,7 +30,7 @@ try:
     #bus.send(msg)
     #time.sleep(10.5)
     #msg = can.Message(arbitration_id=0x010,data=[0x00,0x00,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
-    while True:
+    '''while True:
         msg = bus.recv()
         if msg.arbitration_id == OM1:
             yaw = struct.unpack('>f',msg.data[0:4])
@@ -42,8 +43,12 @@ try:
         if msg.arbitration_id == OM1:
             yaw = struct.unpack('>f',msg.data[0:4])
             print("angle : " + str(int(yaw[0])))
-            if abs(int(yaw[0])) > angle+90 and  abs(int(yaw[0])) < angle+90 : break 
-    bus.send(arret)      
+            if (int(yaw[0])) > angleObj and  (int(yaw[0])) < angleObj : break 
+    bus.send(arret)'''      
+    Turn90.turner_Droit(bus,20)
+    bus.send(toutDroit)
+    time.sleep(2)
+    bus.send(arret)
 
 except KeyboardInterrupt:
 	#Catch keyboard interrupt
