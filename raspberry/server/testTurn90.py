@@ -45,10 +45,11 @@ try:
             print("angle : " + str(int(yaw[0])))
             if (int(yaw[0])) > angleObj and  (int(yaw[0])) < angleObj : break 
     bus.send(arret)'''      
-    Turn90.turner_Droit(bus,20)
+    Turn90.tourner_Droit(bus,0)
     bus.send(toutDroit)
     time.sleep(2)
     bus.send(arret)
+    Turn90.tourner_Gauche(bus,90)
 
 except KeyboardInterrupt:
 	#Catch keyboard interrupt
