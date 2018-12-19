@@ -10,6 +10,8 @@ import os
 import struct
 import data
 import socket
+import signal
+
 
 def signal_handler(sig, frame):
   print('You pressed Ctrl+C!')
@@ -57,6 +59,8 @@ if __name__ == "__main__":
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
+    
+    
     signal.signal(signal.SIGINT, signal_handler)
 
     
