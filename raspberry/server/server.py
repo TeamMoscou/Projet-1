@@ -18,8 +18,12 @@ if __name__ == "__main__":
     time.sleep(0.1)
 
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
-    connectInterface = interface.ConnectInterface()
-    conn = connectInterface.getconn
+    
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((HOST, PORT))
+    s.listen(1)
+    conn, addr = s.accept()
+    print('Connected by', addr)
     
     lidar_instance = lidar_detection_thread
     interface_instance = interface
