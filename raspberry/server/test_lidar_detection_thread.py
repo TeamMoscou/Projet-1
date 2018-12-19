@@ -21,7 +21,7 @@ class LidarDetection(threading.Thread):
 
         SAFE_DISTANCE = 2000
         ANGLE_MAX_FRONT = 200
-        ANGLE_MIN_FRONT = 160
+        ANGLE_MIN_FRONT = 170
         ANGLE_MAX_BACK = 340
         ANGLE_MIN_BACK = 20
         Flag_FRONT = 0
