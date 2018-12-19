@@ -9,7 +9,10 @@ import sys
 import os
 import struct
 import data
+import socket
 
+HOST = ''
+PORT = 6666
 if __name__ == "__main__":
 
     print('Bring up CAN0....')

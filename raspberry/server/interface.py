@@ -2,6 +2,7 @@ from data import *
 import threading
 import socket
 import glob
+import time
 from glob import *
 HOST = ''  # Symbolic name meaning all available interfaces
 PORT = 6666  # Arbitrary non-privileged port
@@ -12,6 +13,7 @@ class ReturnInterface(threading.Thread):
         self.conn = conn
     def run(self):
         while True: 
+            time.sleep(0.1)
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #message to interface
                 message = "OIF:" + str('')+ ";"  #detection of obstacle in front of the car
@@ -34,7 +36,7 @@ class Interface(threading.Thread):
         self.conn = conn
     def run(self):
         while True:
-            data = conn.recv(1024) #receve data from socket
+            data = self.conn.recv(1024) #receve data from socket
 
             if not data: break
 
