@@ -18,8 +18,8 @@ class ConnectInterface():
         
 class ReturnInterface(threading.Thread):
     def __init__(self,conn):
-        self.conn = conn
         threading.Thread.__init__(self)
+        self.conn = conn
     def run(self):
         while True: 
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
@@ -40,11 +40,11 @@ class ReturnInterface(threading.Thread):
 
 class Interface(threading.Thread):
     def __init__(self, conn):
-        self.conn = conn
         threading.Thread.__init__(self)
+        self.conn = conn
     def run(self):
         while True:
-            data = self.conn.recv(1024) #receve data from socket
+            data = conn.recv(1024) #receve data from socket
 
             if not data: break
 
