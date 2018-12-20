@@ -23,7 +23,14 @@ class LidarDetection(threading.Thread):
         SAFE_DISTANCE = 2000
         ANGLE_MAX_FRONT = 200
         ANGLE_MIN_FRONT = 160
-        arr = np.arange(6) 
+        k = 6
+        arr = np.arange(k)
+        Flag_ZONE = np.arange(k-1)
+        Flag_ZONE = [[0]*5 for i in range(k-1)] 
+        resultlist = []
+        for s in Flag_ZONE:
+            if 'True' in s:
+                resultlist.append(s)
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
         ANGLE_MAX_BACK = 340
@@ -59,24 +66,37 @@ class LidarDetection(threading.Thread):
                     arr[3]=arr[2]+ANGLE_DIFF_INIT
                     arr[4]=arr[3]+ANGLE_DIFF_INIT
                     arr[5]=arr[4]+ANGLE_DIFF_INIT 
-                    print("1:",arr[0],"\n")
-                    print("2:",arr[1],"\n")
-                    print("3:",arr[2],"\n")
-                    print("4:",arr[3],"\n")
-                    print("5:",arr[4],"\n")
-                    print("6:",arr[5],"\n")
+#                    print("1:",arr[0],"\n")
+#                    print("2:",arr[1],"\n")
+#                    print("3:",arr[2],"\n")
+#                    print("4:",arr[3],"\n")
+#                    print("5:",arr[4],"\n")
+#                    print("6:",arr[5],"\n")
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
                         if (arr[0]<angle and angle < arr[1]):
                             print("OBS Z1 dist : %d",distance)
+                            Flag_ZONE[0][0] = True
+                            Flag_ZONE[0][1] = distance
                         elif (arr[1]<angle and angle < arr[2]):
                             print("OBS Z2 dist : %d",distance)
+                            Flag_ZONE[1][0] = True
+                            Flag_ZONE[1][1] = distance
                         elif (arr[2]<angle and angle < arr[3]):
                             print("OBS Z3 dist : %d",distance)
+                            Flag_ZONE[2][0] = True
+                            Flag_ZONE[2][1] = distance
                         elif (arr[3]<angle and angle < arr[4]):
                             print("OBS Z4 dist : %d",distance)
+                            Flag_ZONE[3][0] = True
+                            Flag_ZONE[3][1] = distance
                         elif (arr[4]<angle and angle < arr[5]):
-                            print("OBS Z5 dist : %d",distance)   
+                            print("OBS Z5 dist : %d",distance)
+                            Flag_ZONE[4][0] = True
+                            Flag_ZONE[4][1] = distance
+                        else
+                            print(resultlist)
+
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
