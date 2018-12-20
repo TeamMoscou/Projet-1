@@ -70,6 +70,8 @@ class LidarDetection(threading.Thread):
 #                    print("6:",arr[5],"\n")
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
+                        index = np.where(Flag_ZONE == True)
+                        print("where?:",index)
                         if (arr[0]<angle and angle < arr[1]):
                             print("OBS Z1 dist : %d",distance)
                             Flag_ZONE[0][0] = True
@@ -90,9 +92,6 @@ class LidarDetection(threading.Thread):
                             print("OBS Z5 dist : %d",distance)
                             Flag_ZONE[4][0] = True
                             Flag_ZONE[4][1] = distance
-                        else:
-                            index = numpy.where(Flag_ZONE == True)
-                            print("where?:"index)
 
                 if(count_points==320):
                    count_points=0
