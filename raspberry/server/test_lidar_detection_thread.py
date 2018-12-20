@@ -28,9 +28,6 @@ class LidarDetection(threading.Thread):
         Flag_ZONE = np.arange(k-1)
         Flag_ZONE = [[0]*5 for i in range(k-1)] 
         resultlist = []
-        for s in Flag_ZONE:
-            if 'True' in s:
-                resultlist.append(s)
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
         ANGLE_MAX_BACK = 340
@@ -95,7 +92,10 @@ class LidarDetection(threading.Thread):
                             Flag_ZONE[4][0] = True
                             Flag_ZONE[4][1] = distance
                         else
-                            print(resultlist)
+                            for s in Flag_ZONE:
+                                if 'True' in s:
+                                    resultlist.append(s)
+                                    print(resultlist)
 
                 if(count_points==320):
                    count_points=0
