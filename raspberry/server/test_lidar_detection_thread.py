@@ -26,8 +26,7 @@ class LidarDetection(threading.Thread):
         k = 6
         arr = np.arange(k)
         Flag_ZONE = np.arange(k-1)
-        Flag_ZONE = [[0]*5 for i in range(k-1)] 
-        resultlist = []
+        Flag_ZONE = [[0]*5 for i in range(k-1)]
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
         ANGLE_MAX_BACK = 340
@@ -91,11 +90,9 @@ class LidarDetection(threading.Thread):
                             print("OBS Z5 dist : %d",distance)
                             Flag_ZONE[4][0] = True
                             Flag_ZONE[4][1] = distance
-                        else
-                            for s in Flag_ZONE:
-                                if 'True' in s:
-                                    resultlist.append(s)
-                                    print(resultlist)
+                        else:
+                            index = numpy.where(Flag_ZONE == True)
+                            print("where?:"index)
 
                 if(count_points==320):
                    count_points=0
