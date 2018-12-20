@@ -74,27 +74,27 @@ class LidarDetection(threading.Thread):
                         if (arr[0]<angle and angle < arr[1]):
                             print("OBS Z1 dist : %d",distance)
                             Flag_ZONE[0] = 1
-                            if (Flag_ZONE[0]):
+                            if (Flag_ZONE[0]==1):
                                 Flag_DISTANCE[0] = distance
                         elif (arr[1]<angle and angle < arr[2]):
                             print("OBS Z2 dist : %d",distance)
                             Flag_ZONE[1] = 1
-                            if (Flag_ZONE[1]):
+                            if (Flag_ZONE[1]==1):
                                 Flag_DISTANCE[1] = distance
                         elif (arr[2]<angle and angle < arr[3]):
                             print("OBS Z3 dist : %d",distance)
                             Flag_ZONE[2] = 1
-                            if (Flag_ZONE[2]):
+                            if (Flag_ZONE[2]==1):
                                 Flag_DISTANCE[2] = distance
                         elif (arr[3]<angle and angle < arr[4]):
                             print("OBS Z4 dist : %d",distance)
                             Flag_ZONE[3] = 1
-                            if (Flag_ZONE[3]):
+                            if (Flag_ZONE[3]==1):
                                 Flag_DISTANCE[3] = distance
                         elif (arr[4]<angle and angle < arr[5]):
                             print("OBS Z5 dist : %d",distance)
                             Flag_ZONE[4] = 1
-                            if (Flag_ZONE[4]):
+                            if (Flag_ZONE[4]==1):
                                 Flag_DISTANCE[4] = distance
                         index_where = np.where(Flag_ZONE == 1)
                         index_distance = np.argmin(Flag_DISTANCE)
