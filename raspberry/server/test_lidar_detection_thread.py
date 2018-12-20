@@ -26,7 +26,8 @@ class LidarDetection(threading.Thread):
         k = 6
         arr = np.arange(k)
         Flag_ZONE = np.arange(k-1)
-        Flag_DISTANCE = np.arange(k-1)
+        #Flag_DISTANCE = np.arange(k-1)
+        Flag_DISTANCE = np.array([1000,1000,1000,1000,1000])
         #Flag_ZONE = [[0]*5 for i in range(k-1)]
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
@@ -97,7 +98,7 @@ class LidarDetection(threading.Thread):
                             if (Flag_ZONE[4]==1):
                                 Flag_DISTANCE[4] = distance
                         index_where = np.where(Flag_ZONE == 1)
-                        index_distance = np.argmax(Flag_DISTANCE[0])
+                        index_distance = np.min(Flag_DISTANCE)
                         #print("where?:",index)
                         print("Detected zone :",index_where)
                         #Flag_ZONE=0
