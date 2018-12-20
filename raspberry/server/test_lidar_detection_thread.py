@@ -73,7 +73,6 @@ class LidarDetection(threading.Thread):
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
                         if (arr[0]<angle and angle < arr[1]):
-                            print("OBS Z1 dist : %d",distance)
                             Flag_ZONE[0] = 1
                             if (Flag_ZONE[0]==1):
                                 Flag_DISTANCE[0] = distance
