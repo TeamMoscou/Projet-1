@@ -97,12 +97,12 @@ class LidarDetection(threading.Thread):
                             if (Flag_ZONE[4]==1):
                                 Flag_DISTANCE[4] = distance
                         index_where = np.where(Flag_ZONE == 1)
-                        index_distance = np.argmin(Flag_DISTANCE)
+                        index_distance = np.argmax(Flag_DISTANCE[0])
                         #print("where?:",index)
                         print("Detected zone :",index_where)
-                        Flag_ZONE=0
+                        #Flag_ZONE=0
                         print("shortest distance :",index_distance)        
-                        Flag_DISTANCE=0
+                        #Flag_DISTANCE=0
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
