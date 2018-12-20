@@ -21,8 +21,8 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         SAFE_DISTANCE = 2000
-        ANGLE_MAX_FRONT = 195
-        ANGLE_MIN_FRONT = 165
+        ANGLE_MAX_FRONT = 200
+        ANGLE_MIN_FRONT = 160
         arr = np.arange(6) 
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
@@ -67,25 +67,16 @@ class LidarDetection(threading.Thread):
                     print("6:",arr[5],"\n")
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
-                        if (first_point_FRONT==True):
-                            first_point_FRONT=False
-                            refer_angle_FRONT=angle
-                            count_points_detected_FRONT=1
-                            print("detected 1")
-                        elif(abs(angle-refer_angle_FRONT)<4):
-                            refer_angle_FRONT=angle
-                            count_points_detected_FRONT=count_points_detected_FRONT+1
-                            print("detected 2")
-                        elif(abs(angle-refer_angle_FRONT)>4 and count_points_detected_FRONT<10) :
-                            refer_angle_FRONT = angle
-                            first_point_FRONT = True
-                            count_points_detected_FRONT = 0
-                            print("detected 3")
-                        else:
-                            refer_angle_FRONT=angle
-                            count_points_detected_FRONT=count_points_detected_FRONT+1
-                            print("detected 4")
-
+                        if (arr[0]<angle and angle < arr[1]):
+                            print("OBS Z1 dist : %d",distance)
+                        elif (arr[1]<angle and angle < arr[2]):
+                            print("OBS Z2 dist : %d",distance)
+                        elif (arr[2]<angle and angle < arr[3]):
+                            print("OBS Z3 dist : %d",distance)
+                        elif (arr[3]<angle and angle < arr[4]):
+                            print("OBS Z4 dist : %d",distance)
+                        elif (arr[4]<angle and angle < arr[5]):
+                            print("OBS Z5 dist : %d",distance)   
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
