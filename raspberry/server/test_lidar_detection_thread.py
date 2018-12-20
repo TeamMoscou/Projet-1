@@ -26,6 +26,7 @@ class LidarDetection(threading.Thread):
         k = 6
         arr = np.arange(k)
         Flag_ZONE = np.arange(k-1)
+        Flag_DISTANCE = np.arange(k-1)
         #Flag_ZONE = [[0]*5 for i in range(k-1)]
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
@@ -73,26 +74,35 @@ class LidarDetection(threading.Thread):
                         if (arr[0]<angle and angle < arr[1]):
                             print("OBS Z1 dist : %d",distance)
                             Flag_ZONE[0] = 1
-                            #Flag_ZONE[0][1] = distance
+                            if (Flag_ZONE[0]):
+                                Flag_DISTANCE[0] = distance
                         elif (arr[1]<angle and angle < arr[2]):
                             print("OBS Z2 dist : %d",distance)
                             Flag_ZONE[1] = 1
-                            #Flag_ZONE[1][1] = distance
+                            if (Flag_ZONE[1]):
+                                Flag_DISTANCE[1] = distance
                         elif (arr[2]<angle and angle < arr[3]):
                             print("OBS Z3 dist : %d",distance)
                             Flag_ZONE[2] = 1
-                            #Flag_ZONE[2][1] = distance
+                            if (Flag_ZONE[2]):
+                                Flag_DISTANCE[2] = distance
                         elif (arr[3]<angle and angle < arr[4]):
                             print("OBS Z4 dist : %d",distance)
                             Flag_ZONE[3] = 1
-                            #Flag_ZONE[3][1] = distance
+                            if (Flag_ZONE[3]):
+                                Flag_DISTANCE[3] = distance
                         elif (arr[4]<angle and angle < arr[5]):
                             print("OBS Z5 dist : %d",distance)
-                            Flag_ZONE[4]= 1
-                            #Flag_ZONE[4][1] = distance
-                        index = np.where(Flag_ZONE == 1)
-                        print("where?:",index)        
-
+                            Flag_ZONE[4] = 1
+                            if (Flag_ZONE[4]):
+                                Flag_DISTANCE[4] = distance
+                        index_where = np.where(Flag_ZONE == 1)
+                        index_distance = np.argmin(Flag_DISTANCE)
+                        #print("where?:",index)
+                        print("Detected zone :",index_where)
+                        Flag_ZONE=0
+                        print("shortest distance :",index_distance)        
+                        Flag_DISTANCE=0
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
