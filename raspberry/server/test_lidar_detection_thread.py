@@ -23,7 +23,7 @@ class LidarDetection(threading.Thread):
         SAFE_DISTANCE = 2000
         ANGLE_MAX_FRONT = 195
         ANGLE_MIN_FRONT = 165
-        arr = np.arange(5) 
+        arr = np.arange(6) 
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
         ANGLE_MAX_BACK = 340
@@ -53,16 +53,18 @@ class LidarDetection(threading.Thread):
                 if(not(new_scan) and distance!=0) :
                     count_points=count_points+1
                     ANGLE_DIFF_INIT=ANGLE_DIFF/5
-                    arr[0]=ANGLE_MIN_FRONT+ANGLE_DIFF_INIT
+                    arr[0]=ANGLE_MIN_FRONT
                     arr[1]=arr[0]+ANGLE_DIFF_INIT
                     arr[2]=arr[1]+ANGLE_DIFF_INIT
                     arr[3]=arr[2]+ANGLE_DIFF_INIT
-                    arr[4]=ANGLE_MAX_FRONT-ANGLE_DIFF_INIT 
+                    arr[4]=arr[3]+ANGLE_DIFF_INIT
+                    arr[5]=ANGLE_MAX_FRONT-arr[4] 
                     print("1:",arr[0],"\n")
                     print("2:",arr[1],"\n")
                     print("3:",arr[2],"\n")
                     print("4:",arr[3],"\n")
                     print("5:",arr[4],"\n")
+                    print("6:",arr[5],"\n")
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
                         if (first_point_FRONT==True):
