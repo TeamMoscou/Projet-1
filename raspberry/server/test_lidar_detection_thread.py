@@ -87,21 +87,32 @@ class LidarDetection(threading.Thread):
                 if(not(new_scan) and distance!=0) :
                     count_points=count_points+1
                     #Front
-                    if (distance<=SAFE_DISTANCE)
-                        if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
-                            if (angle < ANGLE_FRONT_MIDDLE_LEFT):
+                    
+                    if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
+                        if (angle < ANGLE_FRONT_MIDDLE_LEFT):
+                            if (distance<=4000):
                                 detected_zone["FRONT_LEFT"] = 1
-                            if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
+                            else:
+                                detected_zone["FRONT_LEFT"] = 0
+                        if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
+                            if (distance<=4000):
                                 detected_zone["FRONT_MIDDLE_LEFT"] = 1
-                            if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                            else:
+                                detected_zone["FRONT_MIDDLE_LEFT"] = 0
+                        if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                            if (distance<=4000):
                                 detected_zone["FRONT_MIDDLE_RIGHT"] = 1
-                            if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
+                            else:
+                                detected_zone["FRONT_MIDDLE_RIGHT"] = 0
+                        if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
+                            if (distance<=4000):
                                 detected_zone["FRONT_RIGHT"] = 1
-                            print("Detected zone :",detected_zone)
-                            #Flag_ZONE = np.array([0,0,0,0,0])s
-                            #print("shortest distance :",index_distance)        
-                        else :
-                            print("other detection")        
+                            else:
+                                detected_zone["FRONT_RIGHT"] = 0
+                        print("Detected zone :",detected_zone)
+                        #Flag_ZONE = np.array([0,0,0,0,0])s
+                        #print("shortest distance :",index_distance)        
+                        
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
