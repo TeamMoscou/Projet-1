@@ -125,3 +125,17 @@ class LidarDetection(threading.Thread):
                 else :
                     glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
                 #print("Message Lidar: "+str(glob.DATA_LIDAR.message))
+
+
+
+if __name__ == "__main__":
+
+    
+    lidar_instance = lidar_detection_thread
+
+    lidar_thread = lidar_instance.LidarDetection()
+
+    lidar_thread.daemon = True
+    
+    
+    lidar_thread.start()
