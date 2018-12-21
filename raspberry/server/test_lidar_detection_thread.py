@@ -116,7 +116,7 @@ class LidarDetection(threading.Thread):
                                 detected_zone["RIGHT_BACK"] = 1
                             else:
                                 detected_zone["RIGHT_BACK"] = 0
-                        if (angle > ANGLE_BACK_RIGHT and angle < ANGLE_BACK_MIDDLE):
+                        if (angle > ANGLE_BACK_RIGHT and angle < ANGLE_BACK_MIDDLE+360):
                             if (distance<=3500):
                                 detected_zone["BACK_RIGHT"] = 1
                             else:
@@ -136,6 +136,7 @@ class LidarDetection(threading.Thread):
                                 detected_zone["LEFT_FRONT"] = 1
                             else:
                                 detected_zone["LEFT_FRONT"] = 0                       
+                    print("Zone",detected_zone)    
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
