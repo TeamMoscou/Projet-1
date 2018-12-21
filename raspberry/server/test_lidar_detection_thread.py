@@ -21,27 +21,40 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         SAFE_DISTANCE = 2000
-        ANGLE_FRONT_LEFT = 160
-        ANGLE_FRONT_MIDDLE_LEFT = 170
-        ANGLE_FRONT_MIDDLE = 180
-        ANGLE_FRONT_MIDDLE_RIGHT = 190
-        ANGLE_FRONT_RIGHT = 200
-        #ANGLE_RIGHT_FRONT = 250
-        #ANGLE_RIGHT_BACK = 300
-        ANGLE_BACK_RIGHT = 340
-        ANGLE_BACK_MIDDLE = 0
-        ANGLE_BACK_LEFT = 20
-        #ANGLE_LEFT_FRONT = 250
-        #ANGLE_LEFT_BACK = 300
-        detected_zone = 
         
-        k = 5
-        arr = np.arange(k)
-        Flag_ZONE = np.arange(k-1)
-        #Flag_DISTANCE = np.arange(k-1)
+        ANGLE_FRONT_LEFT = 160
+        #Zone FRONT LEFT (160 - 170)
+        ANGLE_FRONT_MIDDLE_LEFT = 170
+        #Zone FRONT MIDDLE LEFT (170 - 180)
+        ANGLE_FRONT_MIDDLE = 180
+        #Zone FRONT MIDDLE RIGHT (180 - 190)
+        ANGLE_FRONT_MIDDLE_RIGHT = 190
+        #Zone FRONT RIGHT (190 - 200)
+        ANGLE_FRONT_RIGHT = 200
+        #Zone FRONT LEFT (160 - 170)
+        #ANGLE_RIGHT_FRONT = 250
+        #Zone FRONT LEFT (160 - 170)
+        #ANGLE_RIGHT_BACK = 300
+        #Zone FRONT LEFT (160 - 170)
+        ANGLE_BACK_RIGHT = 340
+        #Zone FRONT LEFT (160 - 170)
+        ANGLE_BACK_MIDDLE = 0
+        #Zone FRONT LEFT (160 - 170)
+        ANGLE_BACK_LEFT = 20
+        #Zone FRONT LEFT (160 - 170)
+        #ANGLE_LEFT_FRONT = 250
+        #Zone FRONT LEFT (160 - 170)
+        #ANGLE_LEFT_BACK = 300
+        #Zone FRONT LEFT (160 - 170)
+        
+        detected_zone = {}
+        detected_zone["FRONT_LEFT"] = 0
+        detected_zone["FRONT_MIDDLE_LEFT"] = 0
+        detected_zone["FRONT_MIDDLE_RIGHT"] = 0
+        detected_zone["FRONT_RIGHT"] = 0
+        
+        
         Flag_DISTANCE = np.array([1000,1000,1000,1000])
-        #Flag_ZONE = [[0]*5 for i in range(k-1)]
-        ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
         ANGLE_MAX_BACK = 340
         ANGLE_MIN_BACK = 20
@@ -72,30 +85,16 @@ class LidarDetection(threading.Thread):
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            Flag_ZONE[0] = 1
-                            if (Flag_ZONE[0]==1):
-                                Flag_DISTANCE[0] = distance
+                            detected_zone["FRONT_LEFT"] = 1
                         elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
-                            print("OBS Z2 dist : %d",distance)
-                            Flag_ZONE[1] = 1
-                            if (Flag_ZONE[1]==1):
-                                Flag_DISTANCE[1] = distance
+                            detected_zone["FRONT_MIDDLE_LEFT"]
                         elif (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            print("OBS Z3 dist : %d",distance)
-                            Flag_ZONE[2] = 1
-                            if (Flag_ZONE[2]==1):
-                                Flag_DISTANCE[2] = distance
+                            detected_zone["FRONT_MIDDLE_RIGHT"]
                         elif (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
-                            print("OBS Z4 dist : %d",distance)
-                            Flag_ZONE[3] = 1
-                            if (Flag_ZONE[3]==1):
-                                Flag_DISTANCE[3] = distance
-                        index_where = np.where(Flag_ZONE == 1)
-                        index_distance = np.min(Flag_DISTANCE)
-                        #print("where?:",index)
-                        print("Detected zone :",index_where)
+                            detected_zone["FRONT_RIGHT"]
+                        print("Detected zone :",detected_zone)
                         #Flag_ZONE = np.array([0,0,0,0,0])s
-                        print("shortest distance :",index_distance)        
+                        #print("shortest distance :",index_distance)        
                         
                 if(count_points==320):
                    count_points=0
