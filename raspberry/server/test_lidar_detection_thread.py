@@ -21,13 +21,25 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         SAFE_DISTANCE = 2000
-        ANGLE_MAX_FRONT = 200
-        ANGLE_MIN_FRONT = 160
-        k = 6
+        ANGLE_FRONT_LEFT = 160
+        ANGLE_FRONT_MIDDLE_LEFT = 170
+        ANGLE_FRONT_MIDDLE = 180
+        ANGLE_FRONT_MIDDLE_RIGHT = 190
+        ANGLE_FRONT_RIGHT = 200
+        #ANGLE_RIGHT_FRONT = 250
+        #ANGLE_RIGHT_BACK = 300
+        ANGLE_BACK_RIGHT = 340
+        ANGLE_BACK_MIDDLE = 0
+        ANGLE_BACK_LEFT = 20
+        #ANGLE_LEFT_FRONT = 250
+        #ANGLE_LEFT_BACK = 300
+        
+        
+        k = 5
         arr = np.arange(k)
         Flag_ZONE = np.arange(k-1)
         #Flag_DISTANCE = np.arange(k-1)
-        Flag_DISTANCE = np.array([1000,1000,1000,1000,1000])
+        Flag_DISTANCE = np.array([1000,1000,1000,1000])
         #Flag_ZONE = [[0]*5 for i in range(k-1)]
         ANGLE_DIFF = ANGLE_MAX_FRONT - ANGLE_MIN_FRONT
 
@@ -59,7 +71,7 @@ class LidarDetection(threading.Thread):
                     count_points=count_points+1
                     ANGLE_DIFF_INIT=ANGLE_DIFF/5
                     arr[0]=ANGLE_MIN_FRONT
-                    arr[1]=arr[0]+ANGLE_DIFF_INIT
+                    arr[1]=arr[0]+
                     arr[2]=arr[1]+ANGLE_DIFF_INIT
                     arr[3]=arr[2]+ANGLE_DIFF_INIT
                     arr[4]=arr[3]+ANGLE_DIFF_INIT
@@ -71,36 +83,31 @@ class LidarDetection(threading.Thread):
 #                    print("5:",arr[4],"\n")
 #                    print("6:",arr[5],"\n")
                     #Front
-                    if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
-                        if (arr[0]<angle and angle < arr[1]):
+                    if (distance<=SAFE_DISTANCE and angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
+                        if (angle < ANGLE_FRONT_MIDDLE_LEFT):
                             Flag_ZONE[0] = 1
                             if (Flag_ZONE[0]==1):
                                 Flag_DISTANCE[0] = distance
-                        elif (arr[1]<angle and angle < arr[2]):
+                        elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
                             print("OBS Z2 dist : %d",distance)
                             Flag_ZONE[1] = 1
                             if (Flag_ZONE[1]==1):
                                 Flag_DISTANCE[1] = distance
-                        elif (arr[2]<angle and angle < arr[3]):
+                        elif (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
                             print("OBS Z3 dist : %d",distance)
                             Flag_ZONE[2] = 1
                             if (Flag_ZONE[2]==1):
                                 Flag_DISTANCE[2] = distance
-                        elif (arr[3]<angle and angle < arr[4]):
+                        elif (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
                             print("OBS Z4 dist : %d",distance)
                             Flag_ZONE[3] = 1
                             if (Flag_ZONE[3]==1):
                                 Flag_DISTANCE[3] = distance
-                        elif (arr[4]<angle and angle < arr[5]):
-                            print("OBS Z5 dist : %d",distance)
-                            Flag_ZONE[4] = 1
-                            if (Flag_ZONE[4]==1):
-                                Flag_DISTANCE[4] = distance
                         index_where = np.where(Flag_ZONE == 1)
                         index_distance = np.min(Flag_DISTANCE)
                         #print("where?:",index)
                         print("Detected zone :",index_where)
-                        #Flag_ZONE = np.array([0,0,0,0,0])
+                        #Flag_ZONE = np.array([0,0,0,0,0])s
                         print("shortest distance :",index_distance)        
                         
                 if(count_points==320):
