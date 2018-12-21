@@ -26,8 +26,9 @@ class Ultrason(threading.Thread):
         flagUltrasonArriereDroit = 0
         flagUltrasonArriereGauche = 0
         flagUltrasonArriereCentre = 0
+        NbVal = 5 #Nombre de valeur consecutives voulues avant de considerer OK
         compteur[6]=[0,0,0,0,0,0] #Membre : 0 :  AvantGauche, 1 : AvantDroite, 2 : Avant centre, 3 : Arriere Gauche, 4 : Arriere Droit, 5 : Arriere Centre 
-        compteurON[6]=[0,0,0,0,0,0] #Verifie si au message précédent c'était la même valeur ou pas : Si 1 : Il y avait qq chose au tour précédent, si 0 rien.
+        compteurON[6]=[0,0,0,0,0,0] #Verifie si au message precedent c'etait la meme valeur ou pas : Si 1 : Il y avait qq chose au tour precedent, si 0 rien.
         while True:
             
             msg = self.bus.recv()# Wait until a message is received.
@@ -35,14 +36,14 @@ class Ultrason(threading.Thread):
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 #print("Avant gauche = " + str(distance))
                 if distance <= 30:
-                    #On verifie si on voyait la même chose avant (obstacle ici). Si c'est le cas on incrémente le compteur. 
+                    #On verifie si on voyait la meme chose avant (obstacle ici). Si c'est le cas on incremente le compteur. 
                     if compteurON[0] == 1 :
                         compteur[0] = compteur[0] + 1 
                     else : 
                         compteurON[0] = 1
                         compteur[0] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[0] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[0] >= NbVal :
                         flagUltrasonAvantGauche=1
                         print ("Avant gauche detected")   
                 else:
@@ -51,8 +52,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[0] = 0
                         compteur[0] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[0] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[0] >= NbVal :
                         flagUltrasonAvantGauche=0     
                     
                 distance = int.from_bytes(msg.data[2:4],byteorder='big')
@@ -63,8 +64,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[1] = 1
                         compteur[1] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[1] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[1] >= NbVal :
                         flagUltrasonAvantDroit=1
                         print("Avant droit detected")
                 else:
@@ -73,8 +74,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[1] = 0
                         compteur[1] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[1] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[1] >= NbVal :
                      flagUltrasonAvantDroit=0     
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Arriere centre = " + str(distance))
@@ -84,8 +85,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[5] = 1
                         compteur[5] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[5] >= 5 :                
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[5] >= NbVal :                
                         flagUltrasonArriereCentre=1
                         print("Arriere centre detected")
                 else:
@@ -94,8 +95,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[5] = 0
                         compteur[5] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[5] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[5] >= NbVal :
                         flagUltrasonArriereCentre=0     
             elif msg.arbitration_id == US2:
                 # ultrason arriere gauche
@@ -107,8 +108,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[3] = 1
                         compteur[3] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[3] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[3] >= NbVal :
                         flagUltrasonArriereGauche=1
                         print("Arriere gauche detected")
                 else:
@@ -117,8 +118,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[3] = 0
                         compteur[3] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[3] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[3] >= NbVal :
                         flagUltrasonArriereGauche=0     
                 # ultrason arriere droit
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
@@ -129,8 +130,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[4] = 1
                         compteur[4] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[4] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[4] >= NbVal :
                         flagUltrasonArriereDroit=1
                         print("Arriere droit detected")
                 else:
@@ -139,8 +140,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[4] = 0
                         compteur[4] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[4] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[4] >= NbVal :
                         flagUltrasonArriereDroit=0     
                 # ultrason avant centre
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
@@ -151,8 +152,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[2] = 1
                         compteur[2] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[2] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[2] >= NbVal :
                         flagUltrasonAvantCentre=1
                         print("Avant centre detected") 
                 else:
@@ -161,8 +162,8 @@ class Ultrason(threading.Thread):
                     else : 
                         compteurON[2] = 0
                         compteur[2] = 1
-                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
-                    if compteur[2] >= 5 :
+                    #Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
+                    if compteur[2] >= NbVal :
                         flagUltrasonAvantCentre=0     
 
             if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
