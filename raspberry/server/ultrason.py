@@ -26,6 +26,8 @@ class Ultrason(threading.Thread):
         flagUltrasonArriereDroit = 0
         flagUltrasonArriereGauche = 0
         flagUltrasonArriereCentre = 0
+        compteur[6]=[0,0,0,0,0,0] #Membre : 0 :  AvantGauche, 1 : AvantDroite, 2 : Avant centre, 3 : Arriere Gauche, 4 : Arriere Droit, 5 : Arriere Centre 
+        compteurON[6]=[0,0,0,0,0,0] #Verifie si au message précédent c'était la même valeur ou pas : Si 1 : Il y avait qq chose au tour précédent, si 0 rien.
         while True:
             
             msg = self.bus.recv()# Wait until a message is received.
@@ -33,50 +35,135 @@ class Ultrason(threading.Thread):
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 #print("Avant gauche = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonAvantGauche=1
-                    print ("Avant gauche detected")   
+                    #On verifie si on voyait la même chose avant (obstacle ici). Si c'est le cas on incrémente le compteur. 
+                    if compteurON[0] == 1 :
+                        compteur[0] = compteur[0] + 1 
+                    else : 
+                        compteurON[0] = 1
+                        compteur[0] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[0] >= 5 :
+                        flagUltrasonAvantGauche=1
+                        print ("Avant gauche detected")   
                 else:
-                    flagUltrasonAvantGauche=0     
+                    if compteurON[0] == 0 :
+                        compteur[0] = compteur[0] + 1 
+                    else : 
+                        compteurON[0] = 0
+                        compteur[0] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[0] >= 5 :
+                        flagUltrasonAvantGauche=0     
                     
                 distance = int.from_bytes(msg.data[2:4],byteorder='big')
                 #print("Avant droit = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonAvantDroit=1
-                    print("Avant droit detected")
+                    if compteurON[1] == 1 :
+                        compteur[1] = compteur[1] + 1 
+                    else : 
+                        compteurON[1] = 1
+                        compteur[1] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[1] >= 5 :
+                        flagUltrasonAvantDroit=1
+                        print("Avant droit detected")
                 else:
-                    flagUltrasonAvantDroit=0     
+                    if compteurON[1] == 0 :
+                        compteur[1] = compteur[1] + 1 
+                    else : 
+                        compteurON[1] = 0
+                        compteur[1] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[1] >= 5 :
+                     flagUltrasonAvantDroit=0     
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Arriere centre = " + str(distance))
                 if distance <= 100:
-                    flagUltrasonArriereCentre=1
-                    print("Arriere centre detected")
+                    if compteurON[5] == 1 :
+                        compteur[5] = compteur[5] + 1 
+                    else : 
+                        compteurON[5] = 1
+                        compteur[5] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[5] >= 5 :                
+                        flagUltrasonArriereCentre=1
+                        print("Arriere centre detected")
                 else:
-                    flagUltrasonArriereCentre=0     
+                    if compteurON[5] == 0 :
+                        compteur[5] = compteur[5] + 1 
+                    else : 
+                        compteurON[5] = 0
+                        compteur[5] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[5] >= 5 :
+                        flagUltrasonArriereCentre=0     
             elif msg.arbitration_id == US2:
                 # ultrason arriere gauche
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 #print("Arriere gauche = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonArriereGauche=1
-                    print("Arriere gauche detected")
+                    if compteurON[3] == 1 :
+                        compteur[3] = compteur[3] + 1 
+                    else : 
+                        compteurON[3] = 1
+                        compteur[3] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[3] >= 5 :
+                        flagUltrasonArriereGauche=1
+                        print("Arriere gauche detected")
                 else:
-                    flagUltrasonArriereGauche=0     
+                    if compteurON[3] == 0 :
+                        compteur[3] = compteur[3] + 1 
+                    else : 
+                        compteurON[3] = 0
+                        compteur[3] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[3] >= 5 :
+                        flagUltrasonArriereGauche=0     
                 # ultrason arriere droit
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
                 #print("Arriere droit = " + str(distance))
                 if distance <= 30:
-                    flagUltrasonArriereDroit=1
-                    print("Arriere droit detected")
+                    if compteurON[4] == 1 :
+                        compteur[4] = compteur[4] + 1 
+                    else : 
+                        compteurON[4] = 1
+                        compteur[4] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[4] >= 5 :
+                        flagUltrasonArriereDroit=1
+                        print("Arriere droit detected")
                 else:
-                    flagUltrasonArriereDroit=0     
+                    if compteurON[4] == 0 :
+                        compteur[4] = compteur[4] + 1 
+                    else : 
+                        compteurON[4] = 0
+                        compteur[4] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[4] >= 5 :
+                        flagUltrasonArriereDroit=0     
                 # ultrason avant centre
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Avant centre = " + str(distance))
                 if distance <= 100:
-                    flagUltrasonAvantCentre=1
-                    print("Avant centre detected") 
+                    if compteurON[2] == 1 :
+                        compteur[2] = compteur[2] + 1 
+                    else : 
+                        compteurON[2] = 1
+                        compteur[2] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[2] >= 5 :
+                        flagUltrasonAvantCentre=1
+                        print("Avant centre detected") 
                 else:
-                    flagUltrasonAvantCentre=0     
+                    if compteurON[2] == 0 :
+                        compteur[2] = compteur[2] + 1 
+                    else : 
+                        compteurON[2] = 0
+                        compteur[2] = 1
+                    #Une fois arrivé à 5 valeurs consécutives ou plus, on considere qu'un obstacle est présent 
+                    if compteur[2] >= 5 :
+                        flagUltrasonAvantCentre=0     
 
             if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
                 flagUltrasonAvant = 1
