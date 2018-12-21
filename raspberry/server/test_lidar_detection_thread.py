@@ -87,19 +87,21 @@ class LidarDetection(threading.Thread):
                 if(not(new_scan) and distance!=0) :
                     count_points=count_points+1
                     #Front
-                    if (distance<=SAFE_DISTANCE and angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
-                        if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            detected_zone["FRONT_LEFT"] = 1
-                        if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
-                            detected_zone["FRONT_MIDDLE_LEFT"] = 1
-                        if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            detected_zone["FRONT_MIDDLE_RIGHT"] = 1
-                        if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
-                            detected_zone["FRONT_RIGHT"] = 1
-                        print("Detected zone :",detected_zone)
-                        #Flag_ZONE = np.array([0,0,0,0,0])s
-                        #print("shortest distance :",index_distance)        
-                        
+                    if (distance<=SAFE_DISTANCE)
+                        if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
+                            if (angle < ANGLE_FRONT_MIDDLE_LEFT):
+                                detected_zone["FRONT_LEFT"] = 1
+                            if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
+                                detected_zone["FRONT_MIDDLE_LEFT"] = 1
+                            if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                                detected_zone["FRONT_MIDDLE_RIGHT"] = 1
+                            if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
+                                detected_zone["FRONT_RIGHT"] = 1
+                            print("Detected zone :",detected_zone)
+                            #Flag_ZONE = np.array([0,0,0,0,0])s
+                            #print("shortest distance :",index_distance)        
+                        else :
+                            print("other detection")        
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 
