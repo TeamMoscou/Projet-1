@@ -23,36 +23,37 @@ class LidarDetection(threading.Thread):
         SAFE_DISTANCE = 2000
         
         ANGLE_FRONT_LEFT = 160
-        #Zone FRONT LEFT (160 - 170)
+        #Zone FRONT_LEFT (160 - 170)
         ANGLE_FRONT_MIDDLE_LEFT = 170
-        #Zone FRONT MIDDLE LEFT (170 - 180)
+        #Zone FRONT_MIDDLE_LEFT (170 - 180)
         ANGLE_FRONT_MIDDLE = 180
-        #Zone FRONT MIDDLE RIGHT (180 - 190)
+        #Zone FRONT_MIDDLE_RIGHT (180 - 190)
         ANGLE_FRONT_MIDDLE_RIGHT = 190
-        #Zone FRONT RIGHT (190 - 200)
+        #Zone FRONT_RIGHT (190 - 200)
         ANGLE_FRONT_RIGHT = 200
-        #Zone FRONT LEFT (160 - 170)
-        #ANGLE_RIGHT_FRONT = 250
-        #Zone FRONT LEFT (160 - 170)
-        #ANGLE_RIGHT_BACK = 300
-        #Zone FRONT LEFT (160 - 170)
-        ANGLE_BACK_RIGHT = 340
-        #Zone FRONT LEFT (160 - 170)
+        #Zone RIGHT_FRONT (200 - 255)
+        ANGLE_RIGHT_MIDDLE = 255
+        #Zone RIGHT_BACK (255 - 310)
+        ANGLE_BACK_RIGHT = 310
+        #Zone BACK_RIGHT (310 - 360)
         ANGLE_BACK_MIDDLE = 0
-        #Zone FRONT LEFT (160 - 170)
-        ANGLE_BACK_LEFT = 20
-        #Zone FRONT LEFT (160 - 170)
-        #ANGLE_LEFT_FRONT = 250
-        #Zone FRONT LEFT (160 - 170)
-        #ANGLE_LEFT_BACK = 300
-        #Zone FRONT LEFT (160 - 170)
+        #Zone BACK_LEFT (0 - 50)
+        ANGLE_BACK_LEFT = 50
+        #Zone LEFT_BACK (50 - 105)
+        ANGLE_LEFT_MIDDLE = 105
+        #Zone LEFT_FRONT (105 - 160)
         
         detected_zone = {}
         detected_zone["FRONT_LEFT"] = 0
         detected_zone["FRONT_MIDDLE_LEFT"] = 0
         detected_zone["FRONT_MIDDLE_RIGHT"] = 0
         detected_zone["FRONT_RIGHT"] = 0
-        
+        detected_zone["RIGHT_FRONT"] = 0
+        detected_zone["RIGHT_BACK"] = 0
+        detected_zone["BACK_RIGHT"] = 0
+        detected_zone["BACK_LEFT"] = 0
+        detected_zone["LEFT_BACK"] = 0
+        detected_zone["LEFT_FRONT"] = 0      
         
         Flag_DISTANCE = np.array([1000,1000,1000,1000])
 
@@ -80,39 +81,61 @@ class LidarDetection(threading.Thread):
 
         time.sleep(1)
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-                detected_zone["FRONT_LEFT"] = 0
-                detected_zone["FRONT_MIDDLE_LEFT"] = 0
-                detected_zone["FRONT_MIDDLE_RIGHT"] = 0
-                detected_zone["FRONT_RIGHT"] = 0
                 if(not(new_scan) and distance!=0) :
                     count_points=count_points+1
                     #Front
-                    
                     if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            if (distance<=4000):
+                            if (distance<=3500):
                                 detected_zone["FRONT_LEFT"] = 1
                             else:
                                 detected_zone["FRONT_LEFT"] = 0
                         if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
-                            if (distance<=4000):
+                            if (distance<=3500):
                                 detected_zone["FRONT_MIDDLE_LEFT"] = 1
                             else:
                                 detected_zone["FRONT_MIDDLE_LEFT"] = 0
                         if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            if (distance<=4000):
+                            if (distance<=3500):
                                 detected_zone["FRONT_MIDDLE_RIGHT"] = 1
                             else:
                                 detected_zone["FRONT_MIDDLE_RIGHT"] = 0
                         if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
-                            if (distance<=4000):
+                            if (distance<=3500):
                                 detected_zone["FRONT_RIGHT"] = 1
                             else:
                                 detected_zone["FRONT_RIGHT"] = 0
-                        print("Detected zone :",detected_zone)
-                        #Flag_ZONE = np.array([0,0,0,0,0])s
-                        #print("shortest distance :",index_distance)        
-                        
+                    else: 
+                        if (angle > ANGLE_FRONT_RIGHT and angle < ANGLE_RIGHT_MIDDLE):
+                            if (distance<=3500):
+                                detected_zone["RIGHT_FRONT"] = 1
+                            else:
+                                detected_zone["RIGHT_FRONT"] = 0
+                        if (angle > ANGLE_RIGHT_MIDDLE and angle < ANGLE_BACK_RIGHT):
+                            if (distance<=3500):
+                                detected_zone["RIGHT_BACK"] = 1
+                            else:
+                                detected_zone["RIGHT_BACK"] = 0
+                        if (angle > ANGLE_BACK_RIGHT and angle < ANGLE_BACK_MIDDLE):
+                            if (distance<=3500):
+                                detected_zone["BACK_RIGHT"] = 1
+                            else:
+                                detected_zone["BACK_RIGHT"] = 0
+                        if (angle > ANGLE_BACK_MIDDLE and angle < ANGLE_BACK_LEFT):
+                            if (distance<=3500):
+                                detected_zone["BACK_LEFT"] = 1
+                            else:
+                                detected_zone["BACK_LEFT"] = 0 
+                        if (angle > ANGLE_BACK_LEFT and angle < ANGLE_LEFT_MIDDLE):
+                            if (distance<=3500):
+                                detected_zone["LEFT_BACK"] = 1
+                            else:
+                                detected_zone["LEFT_BACK"] = 0
+                        if (angle > ANGLE_LEFT_MIDDLE and angle < ANGLE_FRONT_LEFT):
+                            if (distance<=3500):
+                                detected_zone["LEFT_FRONT"] = 1
+                            else:
+                                detected_zone["LEFT_FRONT"] = 0                       
                 if(count_points==320):
                    count_points=0
                    #left = ANGLE_MIN_FRONT - 

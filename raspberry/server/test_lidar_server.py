@@ -3,7 +3,7 @@ import lidar_detection_thread
 import prise_decision
 import interface
 import ultrason
-import can_send
+#import can_send
 import time
 import can
 import sys
