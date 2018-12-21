@@ -6,12 +6,10 @@ import glob
 import os
 from glob import *
 
+
 #la valeur retournée par le capteur d'angle des roues en position milieu
 theta=1650
-#gain proportionnel du regulateur de position des roues.
-Kp=-0.2
-#à rajouter dans le fichier glob
-MS=0x100
+
 
 class Can_send(threading.Thread):
     def __init__(self, bus):
