@@ -33,7 +33,7 @@ class LidarDetection(threading.Thread):
         ANGLE_BACK_LEFT = 20
         #ANGLE_LEFT_FRONT = 250
         #ANGLE_LEFT_BACK = 300
-        
+        detected_zone = 
         
         k = 5
         arr = np.arange(k)
