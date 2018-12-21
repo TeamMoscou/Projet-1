@@ -35,7 +35,7 @@ class Ultrason(threading.Thread):
             if msg.arbitration_id == US1:
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 #print("Avant gauche = " + str(distance))
-                if distance <= 30:
+                if distance <= 20:
                     #On verifie si on voyait la meme chose avant (obstacle ici). Si c'est le cas on incremente le compteur. 
                     if compteurON[0] == 1 :
                         compteur[0] = compteur[0] + 1 
@@ -58,7 +58,7 @@ class Ultrason(threading.Thread):
                     
                 distance = int.from_bytes(msg.data[2:4],byteorder='big')
                 #print("Avant droit = " + str(distance))
-                if distance <= 30:
+                if distance <= 20:
                     if compteurON[1] == 1 :
                         compteur[1] = compteur[1] + 1 
                     else : 
@@ -79,7 +79,7 @@ class Ultrason(threading.Thread):
                      flagUltrasonAvantDroit=0     
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Arriere centre = " + str(distance))
-                if distance <= 100:
+                if distance <= 50:
                     if compteurON[5] == 1 :
                         compteur[5] = compteur[5] + 1 
                     else : 
@@ -102,7 +102,7 @@ class Ultrason(threading.Thread):
                 # ultrason arriere gauche
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 #print("Arriere gauche = " + str(distance))
-                if distance <= 30:
+                if distance <= 20:
                     if compteurON[3] == 1 :
                         compteur[3] = compteur[3] + 1 
                     else : 
@@ -124,7 +124,7 @@ class Ultrason(threading.Thread):
                 # ultrason arriere droit
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
                 #print("Arriere droit = " + str(distance))
-                if distance <= 30:
+                if distance <= 20:
                     if compteurON[4] == 1 :
                         compteur[4] = compteur[4] + 1 
                     else : 
@@ -146,7 +146,7 @@ class Ultrason(threading.Thread):
                 # ultrason avant centre
                 distance = int.from_bytes(msg.data[4:6], byteorder='big')
                 #print("Avant centre = " + str(distance))
-                if distance <= 100:
+                if distance <= 50:
                     if compteurON[2] == 1 :
                         compteur[2] = compteur[2] + 1 
                     else : 
