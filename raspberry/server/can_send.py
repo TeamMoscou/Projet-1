@@ -28,6 +28,66 @@ class Can_send(threading.Thread):
 
         while True:
             
+            
+                
+            self.speed_cmd = 25
+            if (glob.DATA_DECISION.message == Message.FORWARD):
+                self.move = 1
+                #self.turn = 0
+		theta=1650
+                self.enable = 1
+                print("send cmd move forward")
+            elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
+                self.move = 1
+		theta=2096
+                #self.turn = -1
+                self.enable = 1
+                print("send cmd move forward_left")
+            elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
+                self.move = 1
+		theta=1292
+                #self.turn = 1
+                self.enable = 1
+                print("send cmd move forward_right")
+            elif (glob.DATA_DECISION.message == Message.BACKWARD):
+                self.move = -1
+		theta=1650
+                #self.turn = 0
+                self.enable = 1
+                print("send cmd move backward")
+            elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
+                self.move = -1
+		theta=2096
+                #self.turn = -1
+                self.enable = 1
+                print("send cmd move backward_left")
+            elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
+                self.move = -1
+		theta=1292
+                #self.turn = 1
+                self.enable = 1
+                print("send cmd move backward_right")
+            elif (glob.DATA_DECISION.message == Message.LEFT):
+                self.move = 0
+		theta=2096
+                #self.turn = -1
+                self.enable = 1
+                print("send cmd turn left")
+            elif (glob.DATA_DECISION.message == Message.RIGHT):
+                self.move = 0
+		theta=1292
+                #self.turn = 1
+                self.enable = 1
+                print("send cmd turn right")
+            elif (glob.DATA_DECISION.message == Message.STOP):
+                self.move = 0
+		theta=1650
+                #self.turn = 0
+                self.enable = 0
+                print("send cmd move stop")
+
+ #           print("Data decision: ", DATA_DECISION.message)
+
             msg = bus.recv();# Wait until a message is received.
             
             #steering control
@@ -41,7 +101,7 @@ class Can_send(threading.Thread):
                  prev_steer_angle=steer_angle
 
                  #print("steering angle", steer_angle)
-                 delta_angle=  - steer_angle
+                 delta_angle=  theta- steer_angle
 				 #si delta_angle<0 -> les roues sont déviés vers la gauche -> tourner à droit
 				 #si delta_angle>0 -> les roues sont déviés vers la droit ->  tourner à gauche
                  #print("Kp*Delta angle",Kp*delta_angle)
@@ -50,55 +110,6 @@ class Can_send(threading.Thread):
             
                  #print("delta command turn", delta_cmd_turn)
                 
-                
-            self.speed_cmd = 25
-            if (glob.DATA_DECISION.message == Message.FORWARD):
-                self.move = 1
-                #self.turn = 0
-                self.enable = 1
-                print("send cmd move forward")
-            elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
-                self.move = 1
-                #self.turn = -1
-                self.enable = 1
-                print("send cmd move forward_left")
-            elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
-                self.move = 1
-                #self.turn = 1
-                self.enable = 1
-                print("send cmd move forward_right")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD):
-                self.move = -1
-                #self.turn = 0
-                self.enable = 1
-                print("send cmd move backward")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
-                self.move = -1
-                #self.turn = -1
-                self.enable = 1
-                print("send cmd move backward_left")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
-                self.move = -1
-                #self.turn = 1
-                self.enable = 1
-                print("send cmd move backward_right")
-            elif (glob.DATA_DECISION.message == Message.LEFT):
-                self.move = 0
-                #self.turn = -1
-                self.enable = 1
-                print("send cmd turn left")
-            elif (glob.DATA_DECISION.message == Message.RIGHT):
-                self.move = 0
-                #self.turn = 1
-                self.enable = 1
-                print("send cmd turn right")
-            elif (glob.DATA_DECISION.message == Message.STOP):
-                self.move = 0
-                #self.turn = 0
-                self.enable = 0
-                print("send cmd move stop")
-
- #           print("Data decision: ", DATA_DECISION.message)
 
             if self.enable:
                 cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
