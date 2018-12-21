@@ -77,7 +77,6 @@ class Interface(threading.Thread):
                 glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
                 #print(glob.DATA_INTERFACE.message.value)
             print("Message interface: "+str(glob.DATA_INTERFACE.message)) 
-        conn.close()
 
 
 '''

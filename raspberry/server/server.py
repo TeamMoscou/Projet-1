@@ -18,6 +18,7 @@ def signal_handler(sig, frame):
   lidar.stop()
   lidar.stop_motor()
   lidar.disconnect()
+  conn.close()
 
 
 
