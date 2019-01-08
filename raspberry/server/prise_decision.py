@@ -93,7 +93,7 @@ class Prise_decision(threading.Thread):
             else:
                 if (glob.MODE == "PILOTE"):
                     glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
-                elif (glob.MODE == "AUTONOMOUS")
+                elif (glob.MODE == "AUTONOMOUS"):
                     glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
             # print("detection avant:", Detection_front)
             # print("detection arr:" , Detection_back)

@@ -150,7 +150,7 @@ class LidarDetection(threading.Thread):
                 
                 #UPDATE global variable autonomous
                 if(flag_front):
-                    if(flag_fright && flag_fleft):
+                    if(flag_fright and flag_fleft):
                         glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
                     elif(flag_fright):
                         glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)

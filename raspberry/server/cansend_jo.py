@@ -20,7 +20,7 @@ class Can_send(Thread):
         self.enable = 0
         while True :
             self.speed_cmd = 60
-	            print("speed is fixed to ", self.speed_cmd)
+                    print("speed is fixed to ", self.speed_cmd)
 	            if (DATA_FINAL == FORWARD):
 	                self.move = 1
 	                self.turn = 0
