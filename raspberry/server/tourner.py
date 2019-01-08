@@ -19,8 +19,10 @@ def tourner_Droit(bus,angleTournage):
             print("angle 0 : " + str(angle))
             break
     angleObj = angle - angleTournage
-    if angleObj < -180
+    print("angle Obj : " + str(angleObj))
+    if angleObj < -180:
         angleObj = 360 + angleObj
+    print("angle Obj : " + str(angleObj))
     bus.send(tournerDroit)
     while True:
         msg = bus.recv()
@@ -39,8 +41,10 @@ def tourner_Gauche(bus,angleTournage):
             print("angle 0 : " + str(angle))
             break
     angleObj = angle + angleTournage
-    if angleObj > 180
+    print("angle Obj : " + str(angleObj))
+    if angleObj > 180:
         angleObj = -360 + angleObj
+    print("angle Obj : " + str(angleObj))
     bus.send(tournerGauche)
     while True:
         msg = bus.recv()

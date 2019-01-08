@@ -45,7 +45,7 @@ try:
             print("angle : " + str(int(yaw[0])))
             if (int(yaw[0])) > angleObj and  (int(yaw[0])) < angleObj : break 
     bus.send(arret)'''      
-    tourner.tourner_Droit(bus,45)
+    tourner.tourner_Droit(bus,90)
     #bus.send(toutDroit)
     #time.sleep(2)
     #bus.send(arret)
