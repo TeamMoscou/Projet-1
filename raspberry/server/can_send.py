@@ -87,7 +87,7 @@ class Can_send(threading.Thread):
             
             delta_cmd_turn = 0
             prev_current_angle=None
-            
+
             if (abs(delta_angle)>=5):
                 while abs(delta_angle)>=5: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
 
@@ -121,12 +121,17 @@ class Can_send(threading.Thread):
                         cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
                     else:
                         cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
-    #envoyer la trame CAN correspondante
+
                     print("mv:", cmd_mv, "turn:", cmd_turn)
                     msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                     self.bus.send(msg)
-           else:     
+            else:     
                 #envoyer la trame CAN correspondante
+                if self.enable:
+                        cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
+                    else:
+                        cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
+
                 print("mv:", cmd_mv, "turn:", cmd_turn)
-                msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
+                msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv,0x00, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                 self.bus.send(msg)
