@@ -114,6 +114,10 @@ class Can_send(threading.Thread):
                         #si delta_angle>0 ==> les roues sont déviés vers la droit ==> il faut  tourner à gauche
                         #print("Kp*Delta angle",Kp*delta_angle)
                         delta_cmd_turn=int(glob.Kp*delta_angle)
+                        if(delta_cmd_turn>=20):
+                            delta_cmd_turn=20
+                        elsif delta_cmd_turn<=-20 :
+                            delta_cmd_turn=-20
                         cmd_turn = (50 + delta_cmd_turn) | 0x80
                         print(delta_angle)
                         print("delta command turn", delta_cmd_turn)
