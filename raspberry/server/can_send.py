@@ -129,7 +129,7 @@ class Can_send(threading.Thread):
                 #envoyer la trame CAN correspondante
                 if self.enable:
                         cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
-                    else:
+                else:
                         cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
 
                 print("mv:", cmd_mv, "turn:", cmd_turn)
