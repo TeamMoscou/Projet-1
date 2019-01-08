@@ -97,6 +97,6 @@ DATA_DECISION=Data(ID.DECISION,Message.STOP)
 #shutdown_can.clear()
 #---------------------------------------------------------#
 
-MODE="AUTONOMOUS"
+MODE="PILOTE"
 
 
