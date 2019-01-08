@@ -23,15 +23,18 @@ def signal_handler(sig, frame):
   lidar.disconnect()
   conn.close()
 
+
+
+HOST = ''
+PORT = 6666
+lidar=RPLidar('/dev/ttyUSB0')
+
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(1)
 conn, addr = s.accept()
 print('Connected by', addr)
 
-HOST = ''
-PORT = 6666
-lidar=RPLidar('/dev/ttyUSB0')
 if __name__ == "__main__":
   try:
     print('Bring up CAN0....')
