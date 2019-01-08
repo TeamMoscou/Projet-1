@@ -82,7 +82,7 @@ class Can_send(threading.Thread):
                 self.enable = 0
                 print("send cmd move stop")
 
-            print("Data decision: ", DATA_DECISION.message)
+            print("Data decision: ", glob.DATA_DECISION.message)
             
             
             delta_cmd_turn = 0
