@@ -23,8 +23,8 @@ class Can_send(threading.Thread):
         self.move = 0
         self.turn = 0
         self.enable = 0
-        cmd_mv = 0
-        cmd_turn = 0
+        cmd_mv = 50
+        cmd_turn = 50
         delta_angle=0.0
         while True:
             
@@ -133,6 +133,6 @@ class Can_send(threading.Thread):
                 else:
                         cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
 
-                print("mv:", cmd_mv, "turn:", cmd_turn)
+                #print("mv:", cmd_mv, "turn:", cmd_turn)
                 msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv,0x00, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                 self.bus.send(msg)
