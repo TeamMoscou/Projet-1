@@ -85,11 +85,11 @@ class Can_send(threading.Thread):
 
             print("Data decision: ", glob.DATA_DECISION.message)
             
-            delta_angle=50 ;#pour rentrer au moins une fois
+            delta_angle=10 ;#pour rentrer au moins une fois
             delta_cmd_turn = 0
             prev_current_angle=None
 
-            if (abs(delta_angle)>=50):
+            if (abs(delta_angle)>=10):
                 while abs(delta_angle)>=50: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
                     print("le while")
                     msg = self.bus.recv();# Wait until a message is received.
