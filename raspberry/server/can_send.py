@@ -113,7 +113,7 @@ class Can_send(threading.Thread):
                         #print("Kp*Delta angle",Kp*delta_angle)
                         delta_cmd_turn=int(Kp*delta_angle)
                         cmd_turn = (50 + delta_cmd_turn) | 0x80
-                    
+                        print(delta_angle)
                         print("delta command turn", delta_cmd_turn)
                         
                     
