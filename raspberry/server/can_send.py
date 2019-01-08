@@ -85,7 +85,7 @@ class Can_send(threading.Thread):
 
             print("Data decision: ", glob.DATA_DECISION.message)
             
-            
+            delta_angle=5 ;#pour rentrer au moins une fois
             delta_cmd_turn = 0
             prev_current_angle=None
 
@@ -101,7 +101,6 @@ class Can_send(threading.Thread):
                         #une sorte de filtrage pour éliminer des points bruités 
                         if prev_current_angle==None :
                                 prev_current_angle=current_angle
-                        #une sorte de filtrage
                         elif abs(prev_current_angle-current_angle)>15 :
                                 continue
                         prev_current_angle=current_angle
