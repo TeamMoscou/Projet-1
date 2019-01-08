@@ -30,7 +30,8 @@ MS=0x100
 #shutdown_lidar.clear()
 
 
-DATA_LIDAR=Data(ID.LIDAR,Message.STOP)
+DATA_LIDAR = Data(ID.LIDAR,Message.STOP)
+DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR, Message.STOP)
 
 #--------------------------------------------------------------------------
 
@@ -96,6 +97,6 @@ DATA_DECISION=Data(ID.DECISION,Message.STOP)
 #shutdown_can.clear()
 #---------------------------------------------------------#
 
+MODE="AUTONOME"
 
 
-MODE="PILOTE"

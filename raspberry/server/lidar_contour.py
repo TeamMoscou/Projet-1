@@ -48,11 +48,6 @@ class LidarDetection(threading.Thread):
         ANGLE_LEFT_MIDDLE = 105
         #Zone LEFT_FRONT (105 - 160)
     
-        
-        number_point = 0
-
-        Flag_DISTANCE = np.array([1000,1000,1000,1000])
-    
 
 
         count_front = 0
@@ -84,6 +79,7 @@ class LidarDetection(threading.Thread):
                 
                 #Check detection on one full rotation
                 if(angle > previous_angle):
+                    previous_angle = angle
                     #Check if there are enough detection
                     if(count_front > 4):
                         flag_front = True
@@ -110,6 +106,7 @@ class LidarDetection(threading.Thread):
                     else :
                         flag_back_danger = False
                 else:
+                    previous_angle = 0
                     count_front = 0
                     count_fright = 0
                     count_fleft = 0
@@ -127,9 +124,8 @@ class LidarDetection(threading.Thread):
                     #Detection zone accurate
                     if (distance <= MAX_DETECTED_DISTANCE):
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            count_fright = count_fleft + 1
+                            count_fleft = count_fleft + 1
                         elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            front_middle_distance = distance
                             count_front = count_front + 1
                         else :
                             count_fright = count_fright + 1
