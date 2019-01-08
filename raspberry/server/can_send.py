@@ -48,7 +48,7 @@ class Can_send(threading.Thread):
                 print("send cmd move forward_right")
             elif (glob.DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
-                theta=1650;; #l'angle de consigne pour dresser les roues
+                theta=1650; #l'angle de consigne pour dresser les roues
                 self.enable = 1
                 print("send cmd move backward")
                 
