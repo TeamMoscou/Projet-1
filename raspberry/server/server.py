@@ -25,9 +25,9 @@ def signal_handler(sig, frame):
 
 HOST = ''
 PORT = 6666
+lidar=RPLidar('/dev/ttyUSB0')
 if __name__ == "__main__":
   try:
-    lidar=RPLidar('/dev/ttyUSB0')
     print('Bring up CAN0....')
     os.system("sudo ifconfig can0 down")
     os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
