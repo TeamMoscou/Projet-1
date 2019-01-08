@@ -23,7 +23,8 @@ class Can_send(threading.Thread):
         self.move = 0
         self.turn = 0
         self.enable = 0
-        
+        cmd_mv = 0
+        cmd_turn = 0
         delta_angle=0.0
         while True:
             
