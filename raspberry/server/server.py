@@ -10,6 +10,7 @@ import os
 import struct
 import data
 import socket
+from rplidar import RPLidar
 import signal
 
 
@@ -20,7 +21,7 @@ def signal_handler(sig, frame):
   lidar.disconnect()
   conn.close()
 
-
+lidar=RPLidar('/dev/ttyUSB0')
 
 HOST = ''
 PORT = 6666
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     decision_instance = prise_decision
     cansend_instance = can_send
 
-    lidar_thread = lidar_instance.LidarDetection()
+    lidar_thread = lidar_instance.LidarDetection(lidar)
     interface_thread = interface_instance.Interface(conn)
     interfaceReturn_thread = interface_instance.ReturnInterface(conn)
     ultrason_thread = ultrason_instance.Ultrason(bus)
