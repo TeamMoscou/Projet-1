@@ -81,7 +81,7 @@ if __name__ == "__main__":
     cansend_thread.join()
 
   except:
-    print('You pressed Ctrl+C!')
+    print('an exception raised!')
     lidar.stop()
     lidar.stop_motor()
     lidar.disconnect()
