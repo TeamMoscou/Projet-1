@@ -80,7 +80,7 @@ if __name__ == "__main__":
     decision_thread.join()
     cansend_thread.join()
 
-  Except:
+  except:
     print('You pressed Ctrl+C!')
     lidar.stop()
     lidar.stop_motor()
