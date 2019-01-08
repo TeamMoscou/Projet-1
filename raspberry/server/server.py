@@ -23,7 +23,11 @@ def signal_handler(sig, frame):
   lidar.disconnect()
   conn.close()
 
-
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST, PORT))
+s.listen(1)
+conn, addr = s.accept()
+print('Connected by', addr)
 
 HOST = ''
 PORT = 6666
@@ -37,11 +41,7 @@ if __name__ == "__main__":
 
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
     
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((HOST, PORT))
-    s.listen(1)
-    conn, addr = s.accept()
-    print('Connected by', addr)
+    
     
     #lidar_instance = lidar_contour
     lidar_instance = lidar_detection_thread
