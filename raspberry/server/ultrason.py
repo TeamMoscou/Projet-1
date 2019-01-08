@@ -29,9 +29,9 @@ class Ultrason(threading.Thread):
         #Nombre de valeur consecutives voulues avant de considerer OK
         NbVal = 5 
         #Membre : 0 :  AvantGauche, 1 : AvantDroite, 2 : Avant centre, 3 : Arriere Gauche, 4 : Arriere Droit, 5 : Arriere Centre 
-        compteur[6]=[0,0,0,0,0,0]
+        compteur=[0,0,0,0,0,0]
         #Verifie si au message precedent c'etait la meme valeur ou pas : Si 1 : Il y avait qq chose au tour precedent, si 0 rien. 
-        compteurON[6]=[0,0,0,0,0,0] 
+        compteurON=[0,0,0,0,0,0] 
         while True:
             
             msg = self.bus.recv()# Wait until a message is received.
