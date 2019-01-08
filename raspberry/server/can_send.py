@@ -88,39 +88,44 @@ class Can_send(threading.Thread):
             delta_cmd_turn = 0
             prev_current_angle=None
             
-            while abs(delta_angle)>=5: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
+            if (abs(delta_angle)>=5):
+                while abs(delta_angle)>=5: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
 
-                msg = bus.recv();# Wait until a message is received.
-                
-                if msg.arbitration_id == MS:
-                    #récuperer l'angle actuelle
-                    current_angle = int.from_bytes(msg.data[0:2], byteorder='big')
+                    msg = bus.recv();# Wait until a message is received.
                     
-                    #une sorte de filtrage pour éliminer des points bruités 
-                    if prev_current_angle==None :
-                            prev_current_angle=current_angle
-                    #une sorte de filtrage
-                    elif abs(prev_current_angle-current_angle)>15 :
-                            continue
-                    prev_current_angle=current_angle
+                    if msg.arbitration_id == MS:
+                        #récuperer l'angle actuelle
+                        current_angle = int.from_bytes(msg.data[0:2], byteorder='big')
+                        
+                        #une sorte de filtrage pour éliminer des points bruités 
+                        if prev_current_angle==None :
+                                prev_current_angle=current_angle
+                        #une sorte de filtrage
+                        elif abs(prev_current_angle-current_angle)>15 :
+                                continue
+                        prev_current_angle=current_angle
 
-                    #print("steering angle", current_angle)
-                     
-                    delta_angle=  theta- current_angle
-                    #si delta_angle<0 ==> les roues sont déviés vers la gauche ==> il faut tourner à droit
-                    #si delta_angle>0 ==> les roues sont déviés vers la droit ==> il faut  tourner à gauche
-                    #print("Kp*Delta angle",Kp*delta_angle)
-                    delta_cmd_turn=int(Kp*delta_angle)
-                    cmd_turn = (50 + delta_cmd_turn) | 0x80
-                
-                    print("delta command turn", delta_cmd_turn)
+                        #print("steering angle", current_angle)
+                         
+                        delta_angle=  theta- current_angle
+                        #si delta_angle<0 ==> les roues sont déviés vers la gauche ==> il faut tourner à droit
+                        #si delta_angle>0 ==> les roues sont déviés vers la droit ==> il faut  tourner à gauche
+                        #print("Kp*Delta angle",Kp*delta_angle)
+                        delta_cmd_turn=int(Kp*delta_angle)
+                        cmd_turn = (50 + delta_cmd_turn) | 0x80
                     
-                
-                if self.enable:
-                    cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
-                else:
-                    cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
-
+                        print("delta command turn", delta_cmd_turn)
+                        
+                    
+                    if self.enable:
+                        cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
+                    else:
+                        cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
+    #envoyer la trame CAN correspondante
+                    print("mv:", cmd_mv, "turn:", cmd_turn)
+                    msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
+                    self.bus.send(msg)
+           else:     
                 #envoyer la trame CAN correspondante
                 print("mv:", cmd_mv, "turn:", cmd_turn)
                 msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
