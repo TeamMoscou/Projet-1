@@ -70,12 +70,12 @@ class LidarDetection(threading.Thread):
         distance = 0.0
 
         previous_angle = 0
-
+        i = 0
         time.sleep(1)
 
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-                
-            if(not(new_scan) and distance!=0) :
+            i = (i+1)%2    
+            if(not(new_scan) and distance!=0 and i!=0) :
                 
                 #Check detection on one full rotation
                 if(angle > previous_angle):
@@ -162,8 +162,8 @@ class LidarDetection(threading.Thread):
                     glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
                 
                 
-                #print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
-                #print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
+                print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
+                print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
 
 
 

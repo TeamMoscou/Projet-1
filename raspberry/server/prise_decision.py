@@ -66,14 +66,15 @@ class Prise_decision(threading.Thread):
 
             # Si stop demande, on stop
 
-         
+            print("mode",glob.MODE)         
             if (Stop_requested):
 
                 glob.DATA_DECISION.message = Message.STOP
+                print("coucou")
 
             # Si detection_avant et on avance, on stop
             elif (Detection_front and Forward):
-
+                print("ui")
                 glob.DATA_DECISION.message = Message.STOP
 
                 # Si mode pilote, on indique qu'on passe en autonome
@@ -82,7 +83,7 @@ class Prise_decision(threading.Thread):
 
             # Si detection_arriere et on recule, on stop
             elif (Detection_back and Backward):
-
+                print("efu")
                 glob.DATA_DECISION.message = Message.STOP
 
                 # Si mode pilote, on indique qu'on passe en autonome
@@ -91,9 +92,12 @@ class Prise_decision(threading.Thread):
 
             # Si aucun des cas precedents, on transmets juste le message de l'interface
             else:
+                print("je sui sfou")  
                 if (glob.MODE == "PILOTE"):
+                    print("moi aussi")
                     glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
                 elif (glob.MODE == "AUTONOMOUS"):
+                    print("yeah")
                     glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
             # print("detection avant:", Detection_front)
             # print("detection arr:" , Detection_back)
