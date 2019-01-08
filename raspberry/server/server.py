@@ -10,6 +10,7 @@ import os
 import struct
 import data
 import socket
+from rplidar import RPLidar
 import signal
 
 
@@ -24,8 +25,9 @@ def signal_handler(sig, frame):
 
 HOST = ''
 PORT = 6666
+lidar=RPLidar('/dev/ttyUSB0')
 if __name__ == "__main__":
-
+  try:
     print('Bring up CAN0....')
     os.system("sudo ifconfig can0 down")
     os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
@@ -46,7 +48,7 @@ if __name__ == "__main__":
     decision_instance = prise_decision
     cansend_instance = can_send
 
-    lidar_thread = lidar_instance.LidarDetection()
+    lidar_thread = lidar_instance.LidarDetection(lidar)
     interface_thread = interface_instance.Interface(conn)
     interfaceReturn_thread = interface_instance.ReturnInterface(conn)
     ultrason_thread = ultrason_instance.Ultrason(bus)
@@ -79,3 +81,10 @@ if __name__ == "__main__":
     decision_thread.join()
     cansend_thread.join()
 
+  except:
+    print('an exception raised!')
+    lidar.stop()
+    lidar.stop_motor()
+    lidar.disconnect()
+    conn.close()
+    

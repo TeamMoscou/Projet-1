@@ -13,9 +13,9 @@ from data import Message
 #lidar = RPLidar('/dev/ttyUSB0')
 class LidarDetection(threading.Thread):
 
-    def __init__(self):
+    def __init__(self,lidar):
         threading.Thread.__init__(self)
-        self.lidar = RPLidar('/dev/ttyUSB0')
+        self.lidar = lidar
 
     def run(self):
 
