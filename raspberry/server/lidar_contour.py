@@ -6,9 +6,7 @@ import glob
 import numpy as np
 import math
 from glob import *
-from data import Data
-from data import ID
-from data import Message
+from data import *
 #from global_variables import *
 # the definition of the class thread of the lidar
 
@@ -20,204 +18,156 @@ class LidarDetection(threading.Thread):
         threading.Thread.__init__(self)
         self.lidar = RPLidar('/dev/ttyUSB0')
 
-    def compute_angle(distance):
-        #Compute the angle to take to avoid an obstacle in front of us with a security distance minimal of 50 cm
-        return math.atanh(500/(distance-1000))+5
-
-    def compute_distance():
-        #Compute the angle to take to avoid an obstacle in front of us with a security distance minimal of 50 cm
-        return 500/math.tan(15)
-
     def run(self):
 
-        SAFE_DISTANCE = 2000
+        print("Lidar thread in execution")
+        
+        SAFE_DISTANCE_FRONT = 2000
+        SAFE_DISTANCE_BACK = 1000
+        #Distance with few errors
+        MAX_DETECTED_DISTANCE = 3500
         
         ANGLE_FRONT_LEFT = 160
         #Zone FRONT_LEFT (160 - 170)
         ANGLE_FRONT_MIDDLE_LEFT = 170
-        #Zone FRONT_MIDDLE_LEFT (170 - 180)
+        #Zone FRONT_MIDDLE (170 - 180)
         ANGLE_FRONT_MIDDLE = 180
-        #Zone FRONT_MIDDLE_RIGHT (180 - 190)
+        #Zone FRONT_MIDDLE (180 - 190)
         ANGLE_FRONT_MIDDLE_RIGHT = 190
         #Zone FRONT_RIGHT (190 - 200)
         ANGLE_FRONT_RIGHT = 200
         #Zone RIGHT_FRONT (200 - 255)
         ANGLE_RIGHT_MIDDLE = 255
-        #Zone RIGHT_BACK (255 - 310)
-        ANGLE_BACK_RIGHT = 310
-        #Zone BACK_RIGHT (310 - 360)
+        #Zone RIGHT_BACK (255 - 330)
+        ANGLE_BACK_RIGHT = 340
+        #Zone BACK_RIGHT (340 - 360)
         ANGLE_BACK_MIDDLE = 0
-        #Zone BACK_LEFT (0 - 50)
-        ANGLE_BACK_LEFT = 50
-        #Zone LEFT_BACK (50 - 105)
+        #Zone BACK_LEFT (0 - 20)
+        ANGLE_BACK_LEFT = 20
+        #Zone LEFT_BACK (20 - 105)
         ANGLE_LEFT_MIDDLE = 105
         #Zone LEFT_FRONT (105 - 160)
-        
-        detected_zone = {}
-        detected_zone["FRONT_LEFT"] = 0
-        detected_zone["FRONT_MIDDLE_LEFT"] = 0
-        detected_zone["FRONT_MIDDLE_RIGHT"] = 0
-        detected_zone["FRONT_RIGHT"] = 0
-        detected_zone["RIGHT_FRONT"] = 0
-        detected_zone["RIGHT_BACK"] = 0
-        detected_zone["BACK_RIGHT"] = 0
-        detected_zone["BACK_LEFT"] = 0
-        detected_zone["LEFT_BACK"] = 0
-        detected_zone["LEFT_FRONT"] = 0      
+    
         
         number_point = 0
 
         Flag_DISTANCE = np.array([1000,1000,1000,1000])
+    
 
-        ANGLE_MAX_BACK = 340
-        ANGLE_MIN_BACK = 20
-        Flag_FRONT = 0
-        Flag_BACK = 0
-        print("Lidar thread in execution")
-        left = 0
-        right = 0
 
-        count_points = 0
-        count_points_front = 0
-        count_points_right = 0 
-        count_points_left = 0
-        count_points_detected_FRONT = 0
-        count_points_detected_BACK = 0
+        count_front = 0
+        #front_right
+        count_fright = 0 
+        #front_left
+        count_fleft = 0
+        count_front_danger = 0
+        count_back_danger = 0
+        
+        flag_front = False
+        flag_fright = False
+        flag_fleft = False
+        flag_front_danger = False
+        flag_back_danger = False
 
         new_scan = True
         angle = 0.0
         quality = 0
         distance = 0.0
-        
-        first_point_FRONT=True
-        first_point_BACK=True
-        refer_angle_FRONT=-1.0
-        refer_angle_BACK=-1.0
 
-
+        previous_angle = 0
 
         time.sleep(1)
+
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-                if(not(new_scan) and distance!=0) :
-                    count_points=count_points+1
-                    #Front
-                    if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
+                
+            if(not(new_scan) and distance!=0) :
+                
+                #Check detection on one full rotation
+                if(angle > previous_angle):
+                    #Check if there are enough detection
+                    if(count_front > 4):
+                        flag_front = True
+                    else :
+                        flag_front = False
+
+                    if(count_fright > 4):
+                        flag_fright = True
+                    else :
+                        flag_fright = False
+
+                    if(count_fleft > 4):
+                        flag_fleft = True
+                    else :
+                        flag_fleft = False
+
+                    if(count_front_danger > 4):
+                        flag_front_danger = True
+                    else :
+                        flag_front_danger = False
+
+                    if(count_back_danger > 4):
+                        flag_back_danger = True
+                    else :
+                        flag_back_danger = False
+                else:
+                    count_front = 0
+                    count_fright = 0
+                    count_fleft = 0
+                    count_front_danger = 0
+                    count_back_danger = 0
+                    
+
+                #FRONT
+                if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
+                    
+                    #Danger zone
+                    if (distance <= SAFE_DISTANCE_FRONT):
+                        count_front_danger = count_front_danger + 1
+                    
+                    #Detection zone accurate
+                    if (distance <= MAX_DETECTED_DISTANCE):
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            if (distance<=3500):
-                                detected_zone["FRONT_LEFT"] = 1
-                                count_points_right++
-                            else:
-                                detected_zone["FRONT_LEFT"] = 0
-                        if (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE):
-                            if (distance<=3500):
-                                detected_zone["FRONT_MIDDLE_LEFT"] = 1
-                                front_middle_left_distance = distance
-                                count_points_front++
-                            else:
-                                detected_zone["FRONT_MIDDLE_LEFT"] = 0
-                        if (angle > ANGLE_FRONT_MIDDLE and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            if (distance<=3500):
-                                detected_zone["FRONT_MIDDLE_RIGHT"] = 1
-                                front_middle_right_distance = distance
-                                count_points_front++
-                            else:
-                                detected_zone["FRONT_MIDDLE_RIGHT"] = 0
-                        if (angle > ANGLE_FRONT_MIDDLE_RIGHT and angle < ANGLE_FRONT_RIGHT):
-                            if (distance<=3500):
-                                detected_zone["FRONT_RIGHT"] = 1
-                                count_points_right++
-                            else:
-                                detected_zone["FRONT_RIGHT"] = 0
-                    else: 
-                        if (angle > ANGLE_FRONT_RIGHT and angle < ANGLE_RIGHT_MIDDLE):
-                            if (distance<=3500):
-                                detected_zone["RIGHT_FRONT"] = 1
-                            else:
-                                detected_zone["RIGHT_FRONT"] = 0
-                        if (angle > ANGLE_RIGHT_MIDDLE and angle < ANGLE_BACK_RIGHT):
-                            if (distance<=3500):
-                                detected_zone["RIGHT_BACK"] = 1
-                            else:
-                                detected_zone["RIGHT_BACK"] = 0
-                        if (angle > ANGLE_BACK_RIGHT and angle < ANGLE_BACK_MIDDLE+360):
-                            if (distance<=3500):
-                                detected_zone["BACK_RIGHT"] = 1
-                            else:
-                                detected_zone["BACK_RIGHT"] = 0
-                        if (angle > ANGLE_BACK_MIDDLE and angle < ANGLE_BACK_LEFT):
-                            if (distance<=3500):
-                                detected_zone["BACK_LEFT"] = 1
-                            else:
-                                detected_zone["BACK_LEFT"] = 0 
-                        if (angle > ANGLE_BACK_LEFT and angle < ANGLE_LEFT_MIDDLE):
-                            if (distance<=3500):
-                                detected_zone["LEFT_BACK"] = 1
-                            else:
-                                detected_zone["LEFT_BACK"] = 0
-                        if (angle > ANGLE_LEFT_MIDDLE and angle < ANGLE_FRONT_LEFT):
-                            if (distance<=3500):
-                                detected_zone["LEFT_FRONT"] = 1
-                            else:
-                                detected_zone["LEFT_FRONT"] = 0                       
-                    print("Zone",detected_zone)
+                            count_fright = count_fleft + 1
+                        elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                            front_middle_distance = distance
+                            count_front = count_front + 1
+                        else :
+                            count_fright = count_fright + 1
 
-                final_angle = 0
+                #BACK
+                elif (angle >= ANGLE_BACK_RIGHT and angle <= ANGLE_BACK_LEFT) :
+
+                    #Danger zone
+                    if (distance <= SAFE_DISTANCE_BACK):
+                        count_back_danger = count_back_danger + 1 
+
+                                 
+                #UPDATE global variable detection
+                if(flag_front_danger and flag_back_danger):
+                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
+                elif (flag_front_danger):
+                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
+                elif (flag_back_danger):
+                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+                else:
+                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
                 
-
-                if(count_points==320):
-                    count_points=0
-                    if(count_points_front>4) :
-                        Flag_FRONT=1
-                    else :
-                        Flag_FRONT=0
-                    if(count_points_right>4) :
-                        Flag_RIGHT=1
-                    else :
-                        Flag_RIGHT=0
-                    if(count_points_left>4) :
-                        Flag_LEFT=1
-                    else :
-                        Flag_LEFT=0
-
-
-                   if(count_points_detected_FRONT>4) :
-                      Flag_FRONT=1
-                   else :
-                      Flag_FRONT=0
-                   count_points_detected_FRONT=0
-                   first_point_FRONT=True
-
-                   if(count_points_detected_BACK>4) :
-                      Flag_BACK=1
-                   else :
-                      Flag_BACK=0
-                   count_points_detected_BACK=0
-                   first_point_BACK==True
-
-                if(detected_zone["FRONT_MIDDLE_LEFT"]==1 && detected_zone["FRONT_MIDDLE_RIGHT"]==1):
-                    final_angle = compute_angle((front_middle_right_distance + front_middle_left_distance)/2)
-                    if(detected_zone["FRONT_RIGHT"] == 1)
-                        final_angle = -final_angle
-                        glob.DATA_FINAL_ANGLE = final_angle
-                if(Flag_FRONT):
-                    glob.DATA_FINAL_ANGLE = DROITE
-                    if(Flag_RIGHT):
-                        glob.DATA_FINAL_ANGLE = GAUCHE
-                    elif(detected_zone["FRONT_LEFT"] == 1):
-                        glob.DATA_FINAL_ANGLE = DROITE
-
-                #print("FLAG FRONT     ",Flag_FRONT,"\n")
-                #print("FLAG  back     ",Flag_BACK,"\n")
+                #UPDATE global variable autonomous
+                if(flag_front):
+                    if(flag_fright && flag_fleft):
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                    elif(flag_fright):
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                    elif(flag_fleft):
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
+                    else:
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                else:
+                    glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
                 
-                if(Flag_BACK and Flag_FRONT) :
-                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BOTH)
-                elif (Flag_FRONT):
-                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_FRONT)
-                elif (Flag_BACK) :
-                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_BACK)
-                else :
-                    glob.DATA_LIDAR=Data(ID.LIDAR,Message.DETECTED_NULL)
-                #print("Message Lidar: "+str(glob.DATA_LIDAR.message))
+                
+                #print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
+                #print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
 
 
 
