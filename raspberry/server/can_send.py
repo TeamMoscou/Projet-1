@@ -85,7 +85,7 @@ class Can_send(threading.Thread):
 
             print("Data decision: ", glob.DATA_DECISION.message)
             
-            delta_angle=5 ;#pour rentrer au moins une fois
+            delta_angle=50 ;#pour rentrer au moins une fois
             delta_cmd_turn = 0
             prev_current_angle=None
 
