@@ -3,15 +3,15 @@ from threading import Thread
 class Can_send(Thread):
     def __init__(self, bus):
         Thread.__init__(self)
-        print('Bring up CAN0....')
-        os.system("sudo ifconfig can0 down")
-        os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
-        time.sleep(0.1)
-        try:
-            self.bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
-        except OSError:
-            print('Cannot find PiCAN board.')
-            exit()
+        #print('Bring up CAN0....')
+        #os.system("sudo ifconfig can0 down")
+        #os.system("sudo /sbin/ip link set can0 up type can bitrate 400000")
+        #time.sleep(0.1)
+        #try:
+        self.bus = bus
+        #except OSError:
+         #   print('Cannot find PiCAN board.')
+          #  exit()
       
     def run(self):
         self.speed_cmd = 0
