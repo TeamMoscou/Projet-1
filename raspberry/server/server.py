@@ -25,6 +25,7 @@ def signal_handler(sig, frame):
 HOST = ''
 PORT = 6666
 if __name__ == "__main__":
+  try:
 
     print('Bring up CAN0....')
     os.system("sudo ifconfig can0 down")
@@ -79,3 +80,10 @@ if __name__ == "__main__":
     decision_thread.join()
     cansend_thread.join()
 
+  Except:
+    print('You pressed Ctrl+C!')
+    lidar.stop()
+    lidar.stop_motor()
+    lidar.disconnect()
+    conn.close()
+    
