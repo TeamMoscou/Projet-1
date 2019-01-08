@@ -24,14 +24,14 @@ class Can_send(threading.Thread):
         self.turn = 0
         self.enable = 0
         
-
+        delta_angle=0.0
         while True:
             
            
             self.speed_cmd = 25
             if (glob.DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
-                theta=1650; ; #l'angle de consigne pour dresser les roues
+                theta=1650; #l'angle de consigne pour dresser les roues
                 self.enable = 1
                 print("send cmd move forward")
                 
