@@ -116,7 +116,7 @@ class Can_send(threading.Thread):
                         delta_cmd_turn=int(glob.Kp*delta_angle)
                         if(delta_cmd_turn>=20):
                             delta_cmd_turn=20
-                        elsif delta_cmd_turn<=-20 :
+                        elif delta_cmd_turn<=-20 :
                             delta_cmd_turn=-20
                         cmd_turn = (50 + delta_cmd_turn) | 0x80
                         print(delta_angle)
