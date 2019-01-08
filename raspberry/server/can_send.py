@@ -100,13 +100,13 @@ class Can_send(threading.Thread):
                         current_angle = int.from_bytes(msg.data[0:2], byteorder='big')
                         
                         #une sorte de filtrage pour éliminer des points bruités 
-"""
+                        """
                         if prev_current_angle==None :
                                 prev_current_angle=current_angle
                         elif abs(prev_current_angle-current_angle)>15 :
                                 continue
                         prev_current_angle=current_angle
-"""
+                        """
                         #print("steering angle", current_angle)
                          
                         delta_angle=  theta- current_angle
