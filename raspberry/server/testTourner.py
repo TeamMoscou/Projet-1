@@ -27,10 +27,7 @@ except OSError:
 # Main loop
 try:    
     tourner.tourner_Droit(bus,45)
-    #bus.send(toutDroit)
-    #time.sleep(2)
-    #bus.send(arret)
-    #tourner.tourner_Gauche(bus,90)
+
 
 except KeyboardInterrupt:
     bus.send(arret)
