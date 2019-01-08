@@ -2,7 +2,7 @@ import time
 import can
 import os
 import struct
-import tournage
+import tourner
 
 OM1 = 0x101
 
@@ -45,11 +45,11 @@ try:
             print("angle : " + str(int(yaw[0])))
             if (int(yaw[0])) > angleObj and  (int(yaw[0])) < angleObj : break 
     bus.send(arret)'''      
-    tournage.tourner_Droit(bus,90)
-    bus.send(toutDroit)
-    time.sleep(2)
-    bus.send(arret)
-    tournage.tourner_Gauche(bus,90)
+    tourner.tourner_Droit(bus,45)
+    #bus.send(toutDroit)
+    #time.sleep(2)
+    #bus.send(arret)
+    #tourner.tourner_Gauche(bus,90)
 
 except KeyboardInterrupt:
 	#Catch keyboard interrupt
