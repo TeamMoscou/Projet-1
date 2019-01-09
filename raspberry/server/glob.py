@@ -83,7 +83,7 @@ DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
 #shutdown_decision.clear()
 
 #global DATA_DECISION
-DATA_DECISION=Data(ID.DECISION,Message.FORWARD_RIGHT)
+DATA_DECISION=Data(ID.DECISION,Message.STOP)
 #--------------------------------------------------------------#
 
 

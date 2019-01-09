@@ -75,7 +75,7 @@ class LidarDetection(threading.Thread):
 
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
                 
-            if(not(new_scan) and distance!=0 ) :
+            if(distance != 0 ) :
                 
                 #Check detection on one full rotation
                 if(angle > previous_angle):
@@ -122,10 +122,10 @@ class LidarDetection(threading.Thread):
                     #UPDATE global variable detection
                     if(flag_front_danger and flag_back_danger):
                         glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
+                        #glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
                     elif (flag_front_danger):
                         glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
+                        #glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
                     elif (flag_back_danger):
                         glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
                     else:
