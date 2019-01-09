@@ -8,7 +8,7 @@ from data import *
 
 
 #gain proportionnel du regulateur de position des roues.
-Kp=-0.3
+Kp=-0.2
 #à rajouter dans le fichier glob
 MS=0x100
 
