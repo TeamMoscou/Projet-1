@@ -163,18 +163,5 @@ class LidarDetection(threading.Thread):
                     if (distance <= SAFE_DISTANCE_BACK):
                         count_back_danger = count_back_danger + 1 
 
-                                 
-               
-                
-                
-                
-                
-                 ANGLE_BACK_RIGHT = 340
-        #Zone BACK_RIGHT (340 - 360)
-        ANGLE_BACK_MIDDLE = 0
-        #Zone BACK_LEFT (0 - 20)
-        ANGLE_BACK_LEFT = 20
-
-        SAFE_DISTANCE_BACK = 1000
 
 
