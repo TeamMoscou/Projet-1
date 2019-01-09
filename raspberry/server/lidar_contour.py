@@ -74,8 +74,8 @@ class LidarDetection(threading.Thread):
         time.sleep(1)
 
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-            i = (i+1)%2    
-            if(not(new_scan) and distance!=0 and i!=0) :
+                
+            if(not(new_scan) and distance!=0 ) :
                 
                 #Check detection on one full rotation
                 if(angle > previous_angle):
@@ -106,6 +106,32 @@ class LidarDetection(threading.Thread):
                     else :
                         flag_back_danger = False
                 else:
+                     #UPDATE global variable autonomous
+                    if(flag_front):
+                        if(flag_fright and flag_fleft):
+                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                        elif(flag_fright):
+                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                        elif(flag_fleft):
+                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
+                        else:
+                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                    else:
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
+
+                    #UPDATE global variable detection
+                    if(flag_front_danger and flag_back_danger):
+                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
+                    elif (flag_front_danger):
+                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
+                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
+                    elif (flag_back_danger):
+                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+                    else:
+                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
+                    print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
+                    print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
                     previous_angle = 0
                     count_front = 0
                     count_fright = 0
@@ -138,36 +164,12 @@ class LidarDetection(threading.Thread):
                         count_back_danger = count_back_danger + 1 
 
                                  
-                #UPDATE global variable autonomous
-                if(flag_front):
-                    if(flag_fright and flag_fleft):
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                    elif(flag_fright):
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                    elif(flag_fleft):
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
-                    else:
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                else:
-                    glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
-
-                #UPDATE global variable detection
-                if(flag_front_danger and flag_back_danger):
-                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
-                    glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
-                elif (flag_front_danger):
-                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
-                    glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.STOP)
-                elif (flag_back_danger):
-                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
-                else:
-                    glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
+               
                 
                 
                 
                 
-                print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
-                print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
+                
 
 
 
