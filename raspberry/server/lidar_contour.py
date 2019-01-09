@@ -74,8 +74,8 @@ class LidarDetection(threading.Thread):
         time.sleep(1)
 
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-                
-            if(distance != 0 ) :
+            i = (i+1)%2    
+            if(distance != 0 and i == 0) :
                 
                 #Check detection on one full rotation
                 if(angle > previous_angle):
@@ -96,12 +96,12 @@ class LidarDetection(threading.Thread):
                     else :
                         flag_fleft = False
 
-                    if(count_front_danger > 4):
+                    if(count_front_danger > 2):
                         flag_front_danger = True
                     else :
                         flag_front_danger = False
 
-                    if(count_back_danger > 4):
+                    if(count_back_danger > 2):
                         flag_back_danger = True
                     else :
                         flag_back_danger = False
