@@ -131,7 +131,7 @@ class LidarDetection(threading.Thread):
                     else:
                         glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
                     print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
-                    print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
+                    #print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
                     previous_angle = 0
                     count_front = 0
                     count_fright = 0
