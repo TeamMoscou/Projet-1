@@ -8,8 +8,7 @@ from glob import *
 class Can_send(threading.Thread):
     def __init__(self, bus):
         threading.Thread.__init__(self)
-        self.bus = bus
-        glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
+        self.bus = bus 
         #global test_dec
 
     def run(self):

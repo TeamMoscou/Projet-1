@@ -1,6 +1,6 @@
 #import lidar_detection_thread
-#import lidar_contour
-#import prise_decision
+import lidar_contour
+import prise_decision
 #import interface
 #import ultrason
 #import can_send
@@ -27,7 +27,7 @@ def signal_handler(sig, frame):
 
 #HOST = ''
 #PORT = 6666
-#lidar=RPLidar('/dev/ttyUSB0')
+lidar=RPLidar('/dev/ttyUSB0')
 
 #s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #s.bind((HOST, PORT))
@@ -46,12 +46,12 @@ if __name__ == "__main__":
     
     
     
-    #lidar_instance = lidar_contour
+    lidar_instance = lidar_contour
     #lidar_instance = lidar_detection_thread
     #interface_instance = interface
     #interfaceReturn_instance = interface
     #ultrason_instance = ultrason
-    #decision_instance = prise_decision
+    decision_instance = prise_decision
     #cansend_instance = can_send'''
     cansend_instance = cansend_jo
 
@@ -63,11 +63,11 @@ if __name__ == "__main__":
     cansend_thread = cansend_instance.Can_send(bus)
 
 
-    #lidar_thread.daemon = True
+    lidar_thread.daemon = True
     #interface_thread.daemon = True
     #interfaceReturn_thread.daemon = True
     #ultrason_thread.daemon = True
-    #decision_thread.daemon = True
+    decision_thread.daemon = True
     cansend_thread.daemon = True
     
     
@@ -76,22 +76,22 @@ if __name__ == "__main__":
     
     #interface_thread.start()
     #interfaceReturn_thread.start()
-    #lidar_thread.start()
+    lidar_thread.start()
     #ultrason_thread.start()
-    #decision_thread.start()
+    decision_thread.start()
     cansend_thread.start()
 
-    #lidar_thread.join()
+    lidar_thread.join()
     #interface_thread.join()
     #interfaceReturn_thread.join()
     #ultrason_thread.join()
-    #decision_thread.join()
+    decision_thread.join()
     cansend_thread.join()
 
   except:
     print('an exception raised!')
-    #lidar.stop()
-    #lidar.stop_motor()
-    #lidar.disconnect()
+    lidar.stop()
+    lidar.stop_motor()
+    lidar.disconnect()
     #conn.close()
     
