@@ -41,10 +41,11 @@ class LidarDetection(threading.Thread):
         first_point_BACK=True
         refer_angle_FRONT=-1.0
         refer_angle_BACK=-1.0
-
+        i = 0
         time.sleep(1)
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-                if(not(new_scan) and distance!=0) :
+                i = (i+1)%2
+                if(not(new_scan) and distance!=0 and i == 0) :
                     count_points=count_points+1
                     #Front
                     if (distance<=SAFE_DISTANCE and angle>=ANGLE_MIN_FRONT and angle<=ANGLE_MAX_FRONT) :
