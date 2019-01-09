@@ -14,7 +14,7 @@ class Can_send(threading.Thread):
     def __init__(self, bus):
         threading.Thread.__init__(self)
         self.bus = bus
-        glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
+        #glob.DATA_DECISION = Data(ID.DECISION, Message.STOP)  
         #global test_dec
 
     def run(self):
@@ -118,6 +118,8 @@ class Can_send(threading.Thread):
                             delta_cmd_turn=20
                         elif delta_cmd_turn<=-20 :
                             delta_cmd_turn=-20
+
+
                         cmd_turn = (50 + delta_cmd_turn) | 0x80
                         print(delta_angle)
                         print("delta command turn", delta_cmd_turn)
