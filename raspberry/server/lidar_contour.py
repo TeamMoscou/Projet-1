@@ -157,7 +157,7 @@ class LidarDetection(threading.Thread):
                             count_fright = count_fright + 1
 
                 #BACK
-                elif (angle >= ANGLE_BACK_RIGHT and angle <= ANGLE_BACK_LEFT) :
+                elif (angle >= ANGLE_BACK_RIGHT or angle <= ANGLE_BACK_LEFT) :
 
                     #Danger zone
                     if (distance <= SAFE_DISTANCE_BACK):
@@ -169,8 +169,12 @@ class LidarDetection(threading.Thread):
                 
                 
                 
-                
+                 ANGLE_BACK_RIGHT = 340
+        #Zone BACK_RIGHT (340 - 360)
+        ANGLE_BACK_MIDDLE = 0
+        #Zone BACK_LEFT (0 - 20)
+        ANGLE_BACK_LEFT = 20
 
-
+        SAFE_DISTANCE_BACK = 1000
 
 
