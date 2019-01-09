@@ -26,6 +26,8 @@ class ReturnInterface(threading.Thread):
                 #message to interface
                 message = "OBB:" + str('')+ ";"  #detection of obstacle in front and back of the car
                 size = self.conn.send(message.encode())
+            elif (glob.MODE == "AUTONOMOUS"): 
+                message = "AUT:" + str('')+ ";"  #autonomouse mode
             else :
                 message = "NOD:" + str('')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
