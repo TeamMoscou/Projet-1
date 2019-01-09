@@ -67,7 +67,7 @@ class LidarDetection(threading.Thread):
 
 
                     #Back        
-                    elif(distance<=SAFE_DISTANCE and angle>=ANGLE_MAX_BACK or angle<=ANGLE_MIN_BACK):
+                    elif(distance<=SAFE_DISTANCE and (angle>=ANGLE_MAX_BACK or angle<=ANGLE_MIN_BACK)):
                         if(angle>=ANGLE_MAX_BACK) :
                             relative_angle=angle-360.0
                         else :
