@@ -32,7 +32,7 @@ class Can_send(threading.Thread):
             self.speed_cmd = 25
             if (glob.DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
-                theta=1700; #l'angle de consigne pour dresser les roues
+                theta=1650; #l'angle de consigne pour dresser les roues
                 self.enable = 1
                 print("send cmd move forward")
                 
@@ -49,7 +49,7 @@ class Can_send(threading.Thread):
                 print("send cmd move forward_right")
             elif (glob.DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
-                theta=1700; #l'angle de consigne pour dresser les roues
+                theta=1650; #l'angle de consigne pour dresser les roues
                 self.enable = 1
                 print("send cmd move backward")
                 
@@ -79,7 +79,7 @@ class Can_send(threading.Thread):
                 
             elif (glob.DATA_DECISION.message == Message.STOP):
                 self.move = 0
-                theta=1700; #l'angle de consigne pour dresser les roues
+                theta=1650; #l'angle de consigne pour dresser les roues
                 self.enable = 0
                 print("send cmd move stop")
 
