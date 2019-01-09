@@ -56,7 +56,7 @@ class Prise_decision(threading.Thread):
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 Detection_back = 1
 
-            if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT):
+            if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT or glob.MODE == "AUTONOMOUS"):
                 Forward = 1
 
             if (glob.DATA_INTERFACE.message == Message.BACKWARD or glob.DATA_INTERFACE.message == Message.BACKWARD_RIGHT or glob.DATA_INTERFACE.message == Message.BACKWARD_LEFT):
@@ -73,7 +73,7 @@ class Prise_decision(threading.Thread):
                 print("coucou")
 
             # Si detection_avant et on avance, on stop
-            elif (Detection_front and Forward):
+            elif (Detection_front and Forward ):
                 print("ui")
                 glob.DATA_DECISION.message = Message.STOP
 
