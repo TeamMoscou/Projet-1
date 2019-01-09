@@ -68,7 +68,7 @@ PORT = 6666  ;# Arbitrary non-privileged
 
 
 
-DATA_INTERFACE=Data(ID.INTERFACE,Message.FORWARD)
+DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
 #---------------------------------------------------------------------------
 
 
@@ -83,7 +83,7 @@ DATA_INTERFACE=Data(ID.INTERFACE,Message.FORWARD)
 #shutdown_decision.clear()
 
 #global DATA_DECISION
-DATA_DECISION=Data(ID.DECISION,Message.STOP)
+DATA_DECISION=Data(ID.DECISION,Message.FORWARD_RIGHT)
 #--------------------------------------------------------------#
 
 
