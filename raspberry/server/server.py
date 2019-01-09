@@ -1,5 +1,5 @@
-import lidar_detection_thread
-#import lidar_contour
+#import lidar_detection_thread
+import lidar_contour
 import prise_decision
 import interface
 #import ultrason
@@ -46,8 +46,8 @@ if __name__ == "__main__":
     
     
     
-    #lidar_instance = lidar_contour
-    lidar_instance = lidar_detection_thread
+    lidar_instance = lidar_contour
+    #lidar_instance = lidar_detection_thread
     interface_instance = interface
     interfaceReturn_instance = interface
     #ultrason_instance = ultrason
