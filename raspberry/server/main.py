@@ -1,4 +1,4 @@
-
+# coding: utf-8
 import can
 #import sys
 import os
