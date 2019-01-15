@@ -27,7 +27,7 @@ class Ultrason(threading.Thread):
         
         #Membres : 0 :  ForwardLeft, 1 : ForwardRight, 2 : ForwardCentre, 3 : BackwardLeft, 4 : BackwardRight, 5 : BackwardCentre 
         compteur=[0,0,0,0,0,0]
-        #Check if the previous message was the same value or not : If 1: There was something in the previous round, if 0 nothing. 
+        #Check if the previous message has the same value or not : If 1: There was something in the previous round, 0 if nothing. 
         compteurON=[0,0,0,0,0,0] 
         
         while True:
@@ -103,7 +103,7 @@ class Ultrason(threading.Thread):
                     #Once the number of consecutive values  exceeds NBVal an obstacle is considered
                     if compteur[5] >= NbVal :
                         flagUltrasonArriereCentre=0   
-                        
+                        Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
                         
             elif msg.arbitration_id == US2:
                 
