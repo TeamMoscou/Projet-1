@@ -1,18 +1,18 @@
-from data import *
+# coding: utf-8
 import threading
 import socket
-import glob
 import time
 from glob import *
-HOST = ''  # Symbolic name meaning all available interfaces
-PORT = 6666  # Arbitrary non-privileged port
-        
+from data import *
+
 class ReturnInterface(threading.Thread):
+
     def __init__(self,conn):
         threading.Thread.__init__(self)
         self.conn = conn
+
     def run(self):
-        while True: 
+        while True:
             time.sleep(0.1)
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #message to interface
@@ -26,16 +26,18 @@ class ReturnInterface(threading.Thread):
                 #message to interface
                 message = "OBB:" + str('')+ ";"  #detection of obstacle in front and back of the car
                 size = self.conn.send(message.encode())
-            elif (glob.MODE == "AUTONOMOUS"): 
+            elif (glob.MODE == "AUTONOMOUS"):
                 message = "AUT:" + str('')+ ";"  #autonomouse mode
             else :
                 message = "NOD:" + str('')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
 
 class Interface(threading.Thread):
+
     def __init__(self, conn):
         threading.Thread.__init__(self)
         self.conn = conn
+
     def run(self):
         while True:
             data = self.conn.recv(1024) #receve data from socket
@@ -87,27 +89,4 @@ class Interface(threading.Thread):
                 glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
                 glob.MODE = "AUTONOMOUS"
                 #print(glob.DATA_INTERFACE.message.value)
-            print("Message interface: "+str(glob.DATA_INTERFACE.message)) 
-
-
-'''
-glob.DATA_ULTRASONIC = Data(ID.ULTRASONIC, Message.DETECTED_NULL)
-inter = Interface()
-inter.run()
-
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            print("Message interface: "+str(glob.DATA_INTERFACE.message))
