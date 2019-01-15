@@ -213,7 +213,7 @@ int main(void)
     BSP_LED_Init(LED10);
     BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
 
-    //HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/100000); // Systick a� 10 �s
+    //HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/100000); // Systick a  10 µs
 
     Demo_GyroConfig();
     UpdateGyroBias();
@@ -245,14 +245,14 @@ int main(void)
 
             /* US_AV_G D_Trig ; US_AV_D_Trig ; US_AR_C_Trig */
             //pulse quelques 10 aines de us
-            HAL_GPIO_WritePin( US_AV_G_Trig_GPIO_Port, US_AV_G_Trig_Pin, GPIO_PIN_SET); //PC0	: US_AV_G_Trig � 1
-            HAL_GPIO_WritePin( US_AV_D_Trig_GPIO_Port, US_AV_D_Trig_Pin, GPIO_PIN_SET); //PC2 : US_AV_D_Trig � 1
-            HAL_GPIO_WritePin( US_AR_C_Trig_GPIO_Port, US_AR_C_Trig_Pin, GPIO_PIN_SET); //PC4 : US_AR_C_Trig � 1
-            //HAL_Delay(1); //10µs
-            SYS_MicroDelay(10); // 10µs
-            HAL_GPIO_WritePin( US_AV_G_Trig_GPIO_Port, US_AV_G_Trig_Pin, GPIO_PIN_RESET); //PC0	: US_AV_G_Trig � 0
-            HAL_GPIO_WritePin( US_AV_D_Trig_GPIO_Port, US_AV_D_Trig_Pin, GPIO_PIN_RESET); //PC2 : US_AV_D_Trig � 0
-            HAL_GPIO_WritePin( US_AR_C_Trig_GPIO_Port, US_AR_C_Trig_Pin, GPIO_PIN_RESET); //PC4 : US_AR_C_Trig � 0
+            HAL_GPIO_WritePin( US_AV_G_Trig_GPIO_Port, US_AV_G_Trig_Pin, GPIO_PIN_SET); //PC0	: US_AV_G_Trig ï¿½ 1
+            HAL_GPIO_WritePin( US_AV_D_Trig_GPIO_Port, US_AV_D_Trig_Pin, GPIO_PIN_SET); //PC2 : US_AV_D_Trig ï¿½ 1
+            HAL_GPIO_WritePin( US_AR_C_Trig_GPIO_Port, US_AR_C_Trig_Pin, GPIO_PIN_SET); //PC4 : US_AR_C_Trig ï¿½ 1
+            //HAL_Delay(1); //10Âµs
+            SYS_MicroDelay(10); // 10Âµs
+            HAL_GPIO_WritePin( US_AV_G_Trig_GPIO_Port, US_AV_G_Trig_Pin, GPIO_PIN_RESET); //PC0	: US_AV_G_Trig ï¿½ 0
+            HAL_GPIO_WritePin( US_AV_D_Trig_GPIO_Port, US_AV_D_Trig_Pin, GPIO_PIN_RESET); //PC2 : US_AV_D_Trig ï¿½ 0
+            HAL_GPIO_WritePin( US_AR_C_Trig_GPIO_Port, US_AR_C_Trig_Pin, GPIO_PIN_RESET); //PC4 : US_AR_C_Trig ï¿½ 0
             HAL_Delay(30); // 30ms
 
             US_AV_G_mes = US_G_Echo/58;
@@ -269,14 +269,14 @@ int main(void)
 
             /* US_AV_C_Trig ; US_AR_G_Trig ; US_AR_D_Trig */
             //pulse quelques 10 aines de us
-            HAL_GPIO_WritePin( US_AV_C_Trig_GPIO_Port, US_AV_C_Trig_Pin, GPIO_PIN_SET); // PC1 : US_AV_C_Trig � 1
-            HAL_GPIO_WritePin( US_AR_G_Trig_GPIO_Port, US_AR_G_Trig_Pin, GPIO_PIN_SET); // PC3 : US_AR_G_Trig � 1
-            HAL_GPIO_WritePin( US_AR_D_Trig_GPIO_Port, US_AR_D_Trig_Pin, GPIO_PIN_SET); // PC5 : US_AR_D_Trig � 1
-            //HAL_Delay(1); //10µs
-            SYS_MicroDelay(10); // 10µs
-            HAL_GPIO_WritePin( US_AR_D_Trig_GPIO_Port, US_AR_D_Trig_Pin, GPIO_PIN_RESET); // PC1 : US_AV_C_Trig � 0
-            HAL_GPIO_WritePin( US_AR_G_Trig_GPIO_Port, US_AR_G_Trig_Pin, GPIO_PIN_RESET); // PC3 : US_AR_G_Trig � 0
-            HAL_GPIO_WritePin( US_AV_C_Trig_GPIO_Port, US_AV_C_Trig_Pin, GPIO_PIN_RESET); // PC5 : US_AR_D_Trig � 0
+            HAL_GPIO_WritePin( US_AV_C_Trig_GPIO_Port, US_AV_C_Trig_Pin, GPIO_PIN_SET); // PC1 : US_AV_C_Trig ï¿½ 1
+            HAL_GPIO_WritePin( US_AR_G_Trig_GPIO_Port, US_AR_G_Trig_Pin, GPIO_PIN_SET); // PC3 : US_AR_G_Trig ï¿½ 1
+            HAL_GPIO_WritePin( US_AR_D_Trig_GPIO_Port, US_AR_D_Trig_Pin, GPIO_PIN_SET); // PC5 : US_AR_D_Trig ï¿½ 1
+            //HAL_Delay(1); //10Âµs
+            SYS_MicroDelay(10); // 10Âµs
+            HAL_GPIO_WritePin( US_AR_D_Trig_GPIO_Port, US_AR_D_Trig_Pin, GPIO_PIN_RESET); // PC1 : US_AV_C_Trig ï¿½ 0
+            HAL_GPIO_WritePin( US_AR_G_Trig_GPIO_Port, US_AR_G_Trig_Pin, GPIO_PIN_RESET); // PC3 : US_AR_G_Trig ï¿½ 0
+            HAL_GPIO_WritePin( US_AV_C_Trig_GPIO_Port, US_AV_C_Trig_Pin, GPIO_PIN_RESET); // PC5 : US_AR_D_Trig ï¿½ 0
             HAL_Delay(30); // 30ms
 
             US_AR_G_mes = US_G_Echo/58;
@@ -352,13 +352,13 @@ void HAL_SYSTICK_Callback()
 
     counter++;
     counterAHRS++;
-
-    if (counterAHRS>=500){
+//yaw,roll et pitch angle every 1s
+    if (counterAHRS>=1000){
         counterAHRS=0;
         AHRS_Flag=1;
     }
-
-    if (counter>=1000) {
+//US data every 0.5s
+    if (counter>=500) {
         counter=0;
         US_Flag=1;
     }
