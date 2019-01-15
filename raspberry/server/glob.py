@@ -33,7 +33,7 @@ DATA_DECISION=Data(ID.DECISION,Message.STOP)
 MODE="PILOTE"
 
 #---------------------Wheels Variables----------------------#
-#Proportional-Only Controller Gain for controlling wheel
+#Proportional-Only Controller Gain for controlling steering wheels
 Kp=-0.2
 #CAN ID for MotorSensor Frame
 MS=0x100
