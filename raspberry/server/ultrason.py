@@ -177,15 +177,21 @@ class Ultrason(threading.Thread):
                         flagUltrasonAvantCentre=0     
                         
                         
-
+            #if one of the Forward Ultrasonic detect, we consider that there is an at the front 
             if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
                 flagUltrasonAvant = 1
+            #else no one of the Forward Ultrasonic detect, we consider that there is no obstacle at the front                 
             else:
                 flagUltrasonAvant = 0
+                
+            #if one of the Backward Ultrasonic detect, we consider that there is an at the front 
             if flagUltrasonArriereDroit==1 or flagUltrasonArriereGauche==1 or flagUltrasonArriereCentre ==1:
                 flagUltrasonArriere = 1
+            #else no one of the Backward Ultrasonic detect, we consider that there is no obstacle at the front                 
             else:
                 flagUltrasonArriere = 0
+                
+            #set the Ultrasonic Massage to the approproate Value 
             if flagUltrasonAvant==1 and flagUltrasonArriere==1:
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
             elif flagUltrasonAvant==1:
