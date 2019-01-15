@@ -33,7 +33,7 @@ DATA_DECISION=Data(ID.DECISION,Message.STOP)
 MODE="PILOTE"
 
 #---------------------Wheels Variables----------------------#
-#gain proportionnel du regulateur de position des roues.
+#Proportional-Only Controller Gain for controlling wheel
 Kp=-0.2
-#à rajouter dans le fichier glob
+#CAN ID for MotorSensor Frame
 MS=0x100
