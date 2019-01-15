@@ -8,7 +8,7 @@ class Can_send(threading.Thread):
 
     def __init__(self, bus):
         threading.Thread.__init__(self)
-        #We use the bus open by the server class
+        #We use the bus open by the main class
         self.bus = bus
 
     def run(self):

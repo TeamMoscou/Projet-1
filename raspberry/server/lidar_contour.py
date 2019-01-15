@@ -1,32 +1,33 @@
 import threading
-import os
-from rplidar import RPLidar
 import time
-import glob
 import numpy as np
 import math
+from rplidar import RPLidar
 from glob import *
 from data import *
-#from global_variables import *
-# the definition of the class thread of the lidar
 
+#In this file we compute data from Lidar
+#We decide and inform when there is an obstacle in the front or back partself.
+#The autonomous managment is also done here with the avoidance system
 
-#lidar = RPLidar('/dev/ttyUSB0')
 class LidarDetection(threading.Thread):
 
-    def __init__(self,lidar):
+    def __init__(self, lidar):
         threading.Thread.__init__(self)
+        #We use the lidar open by the main class
         self.lidar = lidar
 
     def run(self):
 
         print("Lidar thread in execution")
-        
+
+        #Distance chose for the dangerous zone (1000 = 1 meter)
         SAFE_DISTANCE_FRONT = 2000
         SAFE_DISTANCE_BACK = 1000
-        #Distance with few errors
+
+        #Distance use to manage the autonomous with few errors from the lidar
         MAX_DETECTED_DISTANCE = 3500
-        
+
         ANGLE_FRONT_LEFT = 160
         #Zone FRONT_LEFT (160 - 170)
         ANGLE_FRONT_MIDDLE_LEFT = 170
@@ -47,17 +48,17 @@ class LidarDetection(threading.Thread):
         #Zone LEFT_BACK (20 - 105)
         ANGLE_LEFT_MIDDLE = 105
         #Zone LEFT_FRONT (105 - 160)
-    
+
 
 
         count_front = 0
         #front_right
-        count_fright = 0 
+        count_fright = 0
         #front_left
         count_fleft = 0
         count_front_danger = 0
         count_back_danger = 0
-        
+
         flag_front = False
         flag_fright = False
         flag_fleft = False
@@ -74,9 +75,9 @@ class LidarDetection(threading.Thread):
         time.sleep(1)
 
         for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-            i = (i+1)%2    
+            i = (i+1)%2
             if(distance != 0 and i == 0) :
-                
+
                 #Check detection on one full rotation
                 if(angle > previous_angle):
                     previous_angle = angle
@@ -138,15 +139,15 @@ class LidarDetection(threading.Thread):
                     count_fleft = 0
                     count_front_danger = 0
                     count_back_danger = 0
-                    
+
 
                 #FRONT
                 if (angle>=ANGLE_FRONT_LEFT and angle<=ANGLE_FRONT_RIGHT) :
-                    
+
                     #Danger zone
                     if (distance <= SAFE_DISTANCE_FRONT):
                         count_front_danger = count_front_danger + 1
-                    
+
                     #Detection zone accurate
                     if (distance <= MAX_DETECTED_DISTANCE):
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
@@ -161,7 +162,4 @@ class LidarDetection(threading.Thread):
 
                     #Danger zone
                     if (distance <= SAFE_DISTANCE_BACK):
-                        count_back_danger = count_back_danger + 1 
-
-
-
+                        count_back_danger = count_back_danger + 1
