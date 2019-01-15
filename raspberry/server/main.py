@@ -1,6 +1,5 @@
 #import lidar_detection_thread as lidar_instance
 import lidar_contour as lidar_instance
-
 import prise_decision as decision_instance
 import interface as interface_instance
 import ultrason
@@ -65,7 +64,7 @@ if __name__ == "__main__":
     decision_thread.daemon = True
     cansend_thread.daemon = True
     
-    #configure the signal handler
+    #configure the signal handler to handle CTR+C
     signal.signal(signal.SIGINT, signal_handler)
 
     #start the Threads
