@@ -1,30 +1,30 @@
-#import lidar_detection_thread as lidar_instance
-import lidar_contour as lidar_instance
-
-import prise_decision as decision_instance
-import interface as interface_instance
-import ultrason
-#import can_send as cansend_instance
-import cansend_jo as cansend_instance
-import time
+# coding: utf-8
 import can
-import sys
+#import sys
 import os
 import struct
-
 import data
-
 import socket
 from rplidar import RPLidar
 import signal
 
 
+#import lidar_detection_thread as lidar_instance
+import lidar_contour as lidar_instance
+import prise_decision as decision_instance
+import interface as interface_instance
+import ultrason
+#import can_send as cansend_instance
+import cansend_jo as cansend_instance
+
+
+
 def signal_handler(sig, frame):
-  print('You pressed Ctrl+C!')
-  lidar.stop()
-  lidar.stop_motor()
-  lidar.disconnect()
-  conn.close()
+    print('You pressed Ctrl+C!')
+    lidar.stop()
+    lidar.stop_motor()
+    lidar.disconnect()
+    conn.close()
 
 
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     decision_thread.daemon = True
     cansend_thread.daemon = True
     
-    #configure the signal handler
+    #configure the signal handler to handle Ctrl+C
     signal.signal(signal.SIGINT, signal_handler)
 
     #start the Threads
@@ -85,5 +85,3 @@ if __name__ == "__main__":
     decision_thread.join()
     cansend_thread.join()
 
-
-    

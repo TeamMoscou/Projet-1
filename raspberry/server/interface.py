@@ -5,6 +5,7 @@ import time
 from glob import *
 from data import *
 
+#Thread sending the detected obstacles to the User Interface
 class ReturnInterface(threading.Thread):
 
     def __init__(self,conn):
@@ -32,6 +33,8 @@ class ReturnInterface(threading.Thread):
                 message = "NOD:" + str('')+ ";"  #no obstacle detected
                 size = self.conn.send(message.encode())
 
+                
+#Thread receiving driver's maneuvers
 class Interface(threading.Thread):
 
     def __init__(self, conn):
@@ -52,41 +55,41 @@ class Interface(threading.Thread):
                 if (payload == b'left'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.LEFT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'right'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.RIGHT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
             elif (header == b'MOV'):  # move
                 if (payload == b'stop'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.STOP)
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'forward'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'backward'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'backwardright'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_RIGHT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'backwardleft'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.BACKWARD_LEFT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'forwardleft'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_LEFT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
                 elif (payload == b'forwardright'):
                     glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD_RIGHT)
                     glob.MODE = "PILOTE"
-                    #print(glob.DATA_INTERFACE.message.value)
+                    
             elif (header == b'AUT'):  # autonomous mode
                 glob.DATA_INTERFACE = Data(ID.INTERFACE, Message.FORWARD)
                 glob.MODE = "AUTONOMOUS"
-                #print(glob.DATA_INTERFACE.message.value)
+     
             print("Message interface: "+str(glob.DATA_INTERFACE.message))

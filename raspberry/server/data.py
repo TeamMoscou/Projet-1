@@ -1,12 +1,14 @@
 # coding: utf-8
 from enum import Enum
 
+#IDs of all the Threads
 class ID(Enum):
     LIDAR = 1
     ULTRASONIC = 2
     INTERFACE = 3
     DECISION = 4
 
+#messages exchanged between threads.
 class Message(Enum):
     FORWARD = 1
     BACKWARD = 2
@@ -27,6 +29,7 @@ class Message(Enum):
     def list():
         return list(map(lambda c: c.value, Message))
 
+#Class to instanciate messages for each Threads.
 class Data:
     def __init__(self, iDEnvoyeur, message):
         if iDEnvoyeur not in (ID.LIDAR, ID.ULTRASONIC, ID.INTERFACE, ID.DECISION):
