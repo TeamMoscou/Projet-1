@@ -5,7 +5,7 @@ import time
 from glob import *
 from data import *
 
-#Thread sending the detected obstacles to the User Interface
+#Thread sending information to the User Interface
 class ReturnInterface(threading.Thread):
 
     def __init__(self,conn):
