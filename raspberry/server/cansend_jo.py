@@ -81,10 +81,4 @@ class Can_send(threading.Thread):
             #Create message threw the CAN with the compute command
             msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
 
-            #Message stopping the car
-            #msg = can.Message(arbitration_id=0x010,data=[0x00,0x00,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
-
-            #Simple message example to go forward
-            #msg = can.Message(arbitration_id=MCM,data=[0xBC,0xBC,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
-
             self.bus.send(msg)
