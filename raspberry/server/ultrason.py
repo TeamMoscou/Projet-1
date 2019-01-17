@@ -34,7 +34,7 @@ class Ultrason(threading.Thread):
             msg = self.bus.recv()# Wait until a message is received.
             print("msg.arbitration_id ", msg.arbitration_id)
             if msg.arbitration_id == US1:
-                
+                print("US1 messages ")
                 #Ultrasonic ForwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
@@ -105,6 +105,7 @@ class Ultrason(threading.Thread):
                         
             elif msg.arbitration_id == US2:
                 
+                print("US2 messages ")
                 #Ultrasonic BackwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
