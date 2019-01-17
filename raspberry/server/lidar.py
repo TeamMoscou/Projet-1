@@ -115,31 +115,31 @@ class LidarDetection(threading.Thread):
                     if(flag_front):
                         if(flag_fright and flag_fleft):
                             #If there are obstacles in every zones in front of the car we try to get around by the left
-                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
                         elif(flag_fright):
-                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
                         elif(flag_fleft):
-                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
+                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
                         else:
                             #If only an obstacle in the middle we go on the left side
-                            glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
                     else:
                         #When the car don't detect anything we go forward
-                        glob.DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
+                        DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
 
                     #Update global variable for the danger detection zone
                     if(flag_front_danger and flag_back_danger):
-                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
+                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
                     elif (flag_front_danger):
-                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
+                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
                     elif (flag_back_danger):
-                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
                     else:
-                        glob.DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
+                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
 
 
-                    print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
-                    print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
+                    print("Message Lidar detection: "+str(DATA_LIDAR.message))
+                    print("Message Lidar autonomous: "+str(DATA_LIDAR_AUTONOMOUS.message))
 
 
 

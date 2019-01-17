@@ -189,11 +189,11 @@ class Ultrason(threading.Thread):
                 
             #set the Ultrasonic Massage to the approproate Value 
             if flagUltrasonAvant==1 and flagUltrasonArriere==1:
-                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
             elif flagUltrasonAvant==1:
-                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
             elif flagUltrasonArriere==1:
-                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
-                glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
+                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
+            print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
