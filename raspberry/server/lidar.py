@@ -71,11 +71,8 @@ class LidarDetection(threading.Thread):
         i = 0
         try: 
             for measurment in self.lidar.iter_measurments():
-                n,q,a,d = measurment                
-                print("n ",n," q ",q," a ",a," d ",d)
-            #for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-             #   print(new_scan, quality, angle, distance)
-                '''i = (i+1)%2
+                new_scan, quality, angle, distance = measurment                
+                i = (i+1)%2
                 #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
                 if(distance != 0 and i == 0) :
                     #Check detection on one full rotation
@@ -173,7 +170,7 @@ class LidarDetection(threading.Thread):
                         #Danger zone
                         if (distance <= SAFE_DISTANCE_BACK):
                             count_back_danger = count_back_danger + 1
-       '''
+       
         except KeyboardInterrupt:
             print('Stoping')
             lidar.stop()
