@@ -165,8 +165,4 @@ class LidarDetection(threading.Thread):
                         #Danger zone
                         if (distance <= SAFE_DISTANCE_BACK):
                             count_back_danger = count_back_danger + 1
-       
-        except KeyboardInterrupt:
-            print('Stoping')
-            lidar.stop()
-            lidar.disconnect()
+ 
