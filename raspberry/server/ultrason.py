@@ -32,9 +32,7 @@ class Ultrason(threading.Thread):
         
         while True:
             msg = self.bus.recv()# Wait until a message is received.
-            print("msg.arbitration_id ", msg.arbitration_id)
             if msg.arbitration_id == US1:
-                print("US1 messages ")
                 #Ultrasonic ForwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
@@ -104,8 +102,6 @@ class Ultrason(threading.Thread):
                         flagUltrasonArriereCentre=0   
                         
             elif msg.arbitration_id == US2:
-                
-                print("US2 messages ")
                 #Ultrasonic BackwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
@@ -130,7 +126,6 @@ class Ultrason(threading.Thread):
                         
                 #Ultrasonic BackwardRight
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
-                print("Arrière centre detecté à ", distance)
                 if distance <= 20:
                     #We check if we saw the same thing before (obstacle here). If so, increment the counter. 
                     
@@ -202,4 +197,4 @@ class Ultrason(threading.Thread):
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
             
-            #print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
+            print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
