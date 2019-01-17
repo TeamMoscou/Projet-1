@@ -58,9 +58,12 @@ class Prise_decision(threading.Thread):
 
             #If we are in an other situation we send the message of the interface or the autonomous depending on the mode
             else:
+                print("hola")
                 if (MODE == "PILOTE"):
                     DATA_DECISION.message = DATA_INTERFACE.message
                 elif (MODE == "AUTONOMOUS"):
+                    
+                    print("je suis al")
                     DATA_DECISION.message = DATA_LIDAR_AUTONOMOUS.message
 
             print("Message PriseD: "+str(DATA_DECISION.message))
