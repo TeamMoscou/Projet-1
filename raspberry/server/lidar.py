@@ -125,7 +125,7 @@ class LidarDetection(threading.Thread):
                                 DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
                         else:
                             #When the car don't detect anything we go forward
-                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
+                            DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD
 
                         #Update global variable for the danger detection zone
                         if(flag_front_danger and flag_back_danger):
