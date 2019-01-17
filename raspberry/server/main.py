@@ -18,12 +18,12 @@ import cansend_jo as cansend_instance
 
 #In this file we create all the threads and launch them
 
-def signal_handler(sig, frame):
+'''def signal_handler(sig, frame):
     print('You pressed Ctrl+C!')
     lidar.stop()
     lidar.stop_motor()
     lidar.disconnect()
-    conn.close()
+    conn.close()'''
 
 if __name__ == "__main__":
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
 
     #configure the signal handler to handle Ctrl+C
-    signal.signal(signal.SIGINT, signal_handler)
+    #signal.signal(signal.SIGINT, signal_handler)
 
     #instanciate Threads
     lidar_thread = lidar_instance.LidarDetection(lidar)

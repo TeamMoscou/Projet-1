@@ -69,103 +69,111 @@ class LidarDetection(threading.Thread):
         previous_angle = 0
 
         i = 0
-
-        for new_scan, quality, angle, distance in self.lidar.iter_measurments():
-            i = (i+1)%2
-            #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
-            if(distance != 0 and i == 0) :
-                #Check detection on one full rotation
-                if(angle > previous_angle):
-                    previous_angle = angle
-                    #Check if there are enough detection, increasing the number is to lower errors but also dectect larger obstacle
-                    if(count_front > 1):
-                        flag_front = True
-                    else :
-                        flag_front = False
-
-                    if(count_fright > 1):
-                        flag_fright = True
-                    else :
-                        flag_fright = False
-
-                    if(count_fleft > 1):
-                        flag_fleft = True
-                    else :
-                        flag_fleft = False
-
-                    if(count_front_danger > 2):
-                        flag_front_danger = True
-                    else :
-                        flag_front_danger = False
-
-                    if(count_back_danger > 2):
-                        flag_back_danger = True
-                    else :
-                        flag_back_danger = False
-                else:
-                    #Mean that one rotation is over so we reset counters
-                    print("count_front: ",count_front, " count_fright: ",count_fright," count_fleft: ",count_fleft," count_front_danger: ",count_front_danger," count_back_danger: ",count_back_danger,)
-                    previous_angle = 0
-                    count_front = 0
-                    count_fright = 0
-                    count_fleft = 0
-                    count_front_danger = 0
-                    count_back_danger = 0
-
-                    #Update global variable autonomous/avoidance system
-                    if(flag_front):
-                        if(flag_fright and flag_fleft):
-                            #If there are obstacles in every zones in front of the car we try to get around by the left
-                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                        elif(flag_fright):
-                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                        elif(flag_fleft):
-                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
-                        else:
-                            #If only an obstacle in the middle we go on the left side
-                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
-                    else:
-                        #When the car don't detect anything we go forward
-                        DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
-
-                    #Update global variable for the danger detection zone
-                    if(flag_front_danger and flag_back_danger):
-                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
-                    elif (flag_front_danger):
-                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
-                    elif (flag_back_danger):
-                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
-                    else:
-                        DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
-
-
-                    print("Message Lidar detection: "+str(DATA_LIDAR.message))
-                    print("Message Lidar autonomous: "+str(DATA_LIDAR_AUTONOMOUS.message))
-
-
-                #Treatment of the data from Lidar for the front
-                if (angle >= ANGLE_FRONT_LEFT and angle <= ANGLE_FRONT_RIGHT):
-
-                    #Danger zone
-                    if (distance <= SAFE_DISTANCE_FRONT):
-                        count_front_danger = count_front_danger + 1
-
-                    #Detection zone accurate
-                    if (distance <= MAX_DETECTED_DISTANCE):
-                        if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                            print("Angle left ici")
-                            count_fleft = count_fleft + 1
-                        elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
-                            
-                            print("Angle milieu ici")
-                            count_front = count_front + 1
+        try: 
+            for measurment in self.lidar.iter_measurments():
+                line = '\t'.join(str(v) for v in measurment)
+                print('line')
+            ##for new_scan, quality, angle, distance in self.lidar.iter_measurments():
+                '''i = (i+1)%2
+                #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
+                if(distance != 0 and i == 0) :
+                    #Check detection on one full rotation
+                    if(angle > previous_angle):
+                        previous_angle = angle
+                        #Check if there are enough detection, increasing the number is to lower errors but also dectect larger obstacle
+                        if(count_front > 1):
+                            flag_front = True
                         else :
-                            print("Angle right ici")
-                            count_fright = count_fright + 1
+                            flag_front = False
 
-                #Treatment of the data from Lidar for the back
-                elif (angle >= ANGLE_BACK_RIGHT or angle <= ANGLE_BACK_LEFT) :
+                        if(count_fright > 1):
+                            flag_fright = True
+                        else :
+                            flag_fright = False
 
-                    #Danger zone
-                    if (distance <= SAFE_DISTANCE_BACK):
-                        count_back_danger = count_back_danger + 1
+                        if(count_fleft > 1):
+                            flag_fleft = True
+                        else :
+                            flag_fleft = False
+
+                        if(count_front_danger > 2):
+                            flag_front_danger = True
+                        else :
+                            flag_front_danger = False
+
+                        if(count_back_danger > 2):
+                            flag_back_danger = True
+                        else :
+                            flag_back_danger = False
+                    else:
+                        #Mean that one rotation is over so we reset counters
+                        print("count_front: ",count_front, " count_fright: ",count_fright," count_fleft: ",count_fleft," count_front_danger: ",count_front_danger," count_back_danger: ",count_back_danger,)
+                        previous_angle = 0
+                        count_front = 0
+                        count_fright = 0
+                        count_fleft = 0
+                        count_front_danger = 0
+                        count_back_danger = 0
+
+                        #Update global variable autonomous/avoidance system
+                        if(flag_front):
+                            if(flag_fright and flag_fleft):
+                                #If there are obstacles in every zones in front of the car we try to get around by the left
+                                DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                            elif(flag_fright):
+                                DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                            elif(flag_fleft):
+                                DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_RIGHT)
+                            else:
+                                #If only an obstacle in the middle we go on the left side
+                                DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD_LEFT)
+                        else:
+                            #When the car don't detect anything we go forward
+                            DATA_LIDAR_AUTONOMOUS = Data(ID.LIDAR,Message.FORWARD)
+
+                        #Update global variable for the danger detection zone
+                        if(flag_front_danger and flag_back_danger):
+                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
+                        elif (flag_front_danger):
+                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
+                        elif (flag_back_danger):
+                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+                        else:
+                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
+
+
+                        print("Message Lidar detection: "+str(DATA_LIDAR.message))
+                        print("Message Lidar autonomous: "+str(DATA_LIDAR_AUTONOMOUS.message))
+
+
+                    #Treatment of the data from Lidar for the front
+                    if (angle >= ANGLE_FRONT_LEFT and angle <= ANGLE_FRONT_RIGHT):
+
+                        #Danger zone
+                        if (distance <= SAFE_DISTANCE_FRONT):
+                            count_front_danger = count_front_danger + 1
+
+                        #Detection zone accurate
+                        if (distance <= MAX_DETECTED_DISTANCE):
+                            if (angle < ANGLE_FRONT_MIDDLE_LEFT):
+                                print("Angle left ici")
+                                count_fleft = count_fleft + 1
+                            elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                                
+                                print("Angle milieu ici")
+                                count_front = count_front + 1
+                            else :
+                                print("Angle right ici")
+                                count_fright = count_fright + 1
+
+                    #Treatment of the data from Lidar for the back
+                    elif (angle >= ANGLE_BACK_RIGHT or angle <= ANGLE_BACK_LEFT) :
+
+                        #Danger zone
+                        if (distance <= SAFE_DISTANCE_BACK):
+                            count_back_danger = count_back_danger + 1
+       '''
+        except KeyboardInterrupt:
+            print('Stoping')
+            lidar.stop()
+            lidar.disconnect()
