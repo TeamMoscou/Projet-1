@@ -70,10 +70,10 @@ class LidarDetection(threading.Thread):
 
         i = 0
         try: 
-            for measurment in self.lidar.iter_measurments():
-                line = '\t'.join(str(v) for v in measurment)
-                print('line')
-            ##for new_scan, quality, angle, distance in self.lidar.iter_measurments():
+            #for measurment in self.lidar.iter_measurments():
+                #print(measur)
+            for new_scan, quality, angle, distance in self.lidar.iter_measurments():
+                print(new_scan, quality, angle, distance)
                 '''i = (i+1)%2
                 #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
                 if(distance != 0 and i == 0) :
