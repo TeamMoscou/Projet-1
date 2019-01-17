@@ -70,7 +70,6 @@ class Ultrason(threading.Thread):
                     #Once the number of consecutive values  exceeds NBVal an obstacle is considered
                     if compteur[1] >= NbVal :
                         flagUltrasonAvantDroit=1
-                        print("Avant droit detected")
                 else:
                     if compteurON[1] == 0 :
                         compteur[1] = compteur[1] + 1 
@@ -103,7 +102,6 @@ class Ultrason(threading.Thread):
                     #Once the number of consecutive values  exceeds NBVal an obstacle is considered
                     if compteur[5] >= NbVal :
                         flagUltrasonArriereCentre=0   
-                        Une fois arrive a un certain nombre de valeurs consecutives ou plus, on considere qu'un obstacle est present 
                         
             elif msg.arbitration_id == US2:
                 
@@ -119,7 +117,6 @@ class Ultrason(threading.Thread):
                     #Once the number of consecutive values  exceeds NBVal an obstacle is considered
                     if compteur[3] >= NbVal :
                         flagUltrasonArriereGauche=1
-                        print("Arriere gauche detected")
                 else:
                     if compteurON[3] == 0 :
                         compteur[3] = compteur[3] + 1 
@@ -142,7 +139,6 @@ class Ultrason(threading.Thread):
                     #Once the number of consecutive values  exceeds NBVal an obstacle is considered
                     if compteur[4] >= NbVal :
                         flagUltrasonArriereDroit=1
-                        print("Arriere droit detected")
                 else:
                     if compteurON[4] == 0 :
                         compteur[4] = compteur[4] + 1 
@@ -200,4 +196,4 @@ class Ultrason(threading.Thread):
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 glob.DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            #print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
+            print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
