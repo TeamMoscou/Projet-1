@@ -143,7 +143,6 @@ class LidarDetection(threading.Thread):
                     print("Message Lidar autonomous: "+str(DATA_LIDAR_AUTONOMOUS.message))
 
 
-
                 #Treatment of the data from Lidar for the front
                 if (angle >= ANGLE_FRONT_LEFT and angle <= ANGLE_FRONT_RIGHT):
 
@@ -154,10 +153,14 @@ class LidarDetection(threading.Thread):
                     #Detection zone accurate
                     if (distance <= MAX_DETECTED_DISTANCE):
                         if (angle < ANGLE_FRONT_MIDDLE_LEFT):
+                            print("Angle left ici")
                             count_fleft = count_fleft + 1
                         elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
+                            
+                            print("Angle milieu ici")
                             count_front = count_front + 1
                         else :
+                            print("Angle right ici")
                             count_fright = count_fright + 1
 
                 #Treatment of the data from Lidar for the back
