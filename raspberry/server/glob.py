@@ -24,13 +24,13 @@ HOST = ''
 # Arbitrary non-privileged
 PORT = 6666
 
-DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
+DATA_INTERFACE=Data(ID.INTERFACE,Message.FORWARD)
 
 
 #---------------------Decision Variables----------------------#
 
 DATA_DECISION=Data(ID.DECISION,Message.STOP)
-MODE="PILOTE"
+MODE="AUTONOMOUS"
 
 #---------------------Wheels Variables----------------------#
 #Proportional-Only Controller Gain for controlling steering wheels

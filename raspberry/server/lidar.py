@@ -20,7 +20,7 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         #To be sure lidar is running
-        time.sleep(1)
+        time.sleep(3)
 
         print("Lidar thread in execution")
 
@@ -70,8 +70,7 @@ class LidarDetection(threading.Thread):
 
         i = 0
         try: 
-            for measurment in self.lidar.iter_measurments():
-                new_scan, quality, angle, distance = measurment                
+            for (new_scan, quality, angle, distance) in self.lidar.iter_measurments():              
                 i = (i+1)%2
                 #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
                 if(distance != 0 and i == 0) :
@@ -79,7 +78,7 @@ class LidarDetection(threading.Thread):
                     if(angle > previous_angle):
                         previous_angle = angle
                         #Check if there are enough detection, increasing the number is to lower errors but also dectect larger obstacle
-                        if(count_front > 1):
+                        if(count_front > 2):
                             flag_front = True
                         else :
                             flag_front = False
@@ -105,7 +104,6 @@ class LidarDetection(threading.Thread):
                             flag_back_danger = False
                     else:
                         #Mean that one rotation is over so we reset counters
-                        print("count_front: ",count_front, " count_fright: ",count_fright," count_fleft: ",count_fleft," count_front_danger: ",count_front_danger," count_back_danger: ",count_back_danger,)
                         previous_angle = 0
                         count_front = 0
                         count_fright = 0
@@ -154,14 +152,11 @@ class LidarDetection(threading.Thread):
                         #Detection zone accurate
                         if (distance <= MAX_DETECTED_DISTANCE):
                             if (angle < ANGLE_FRONT_MIDDLE_LEFT):
-                                print("Angle left ici")
                                 count_fleft = count_fleft + 1
                             elif (angle > ANGLE_FRONT_MIDDLE_LEFT and angle < ANGLE_FRONT_MIDDLE_RIGHT):
                                 
-                                print("Angle milieu ici")
                                 count_front = count_front + 1
                             else :
-                                print("Angle right ici")
                                 count_fright = count_fright + 1
 
                     #Treatment of the data from Lidar for the back
