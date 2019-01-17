@@ -129,13 +129,13 @@ class LidarDetection(threading.Thread):
 
                         #Update global variable for the danger detection zone
                         if(flag_front_danger and flag_back_danger):
-                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BOTH)
+                            DATA_LIDAR.message = Message.DETECTED_BOTH
                         elif (flag_front_danger):
-                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_FRONT)
+                            DATA_LIDAR.message = Message.DETECTED_FRONT
                         elif (flag_back_danger):
-                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_BACK)
+                            DATA_LIDAR.message = Message.DETECTED_BACK
                         else:
-                            DATA_LIDAR = Data(ID.LIDAR,Message.DETECTED_NULL)
+                            DATA_LIDAR.message = Message.DETECTED_NULL
 
 
                         print("Message Lidar detection: "+str(DATA_LIDAR.message))
