@@ -6,6 +6,7 @@ import struct
 import data
 import socket
 from rplidar import RPLidar
+import time
 import signal
 
 import lidar as lidar_instance
@@ -16,6 +17,13 @@ import ultrason as ultrason_instance
 import cansend_jo as cansend_instance
 
 #In this file we create all the threads and launch them
+
+def signal_handler(sig, frame):
+    print('You pressed Ctrl+C!')
+    lidar.stop()
+    lidar.stop_motor()
+    lidar.disconnect()
+    conn.close()
 
 if __name__ == "__main__":
 
@@ -73,9 +81,3 @@ if __name__ == "__main__":
     cansend_thread.join()
 
 
-def signal_handler(sig, frame):
-    print('You pressed Ctrl+C!')
-    lidar.stop()
-    lidar.stop_motor()
-    lidar.disconnect()
-    conn.close()
