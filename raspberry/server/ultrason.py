@@ -129,10 +129,11 @@ class Ultrason(threading.Thread):
                         
                 #Ultrasonic BackwardRight
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
+                print("Arrière centre detecté à ", distance)
                 if distance <= 20:
                     #We check if we saw the same thing before (obstacle here). If so, increment the counter. 
                     
-                    print("Arrière centre detecté ")
+                    
                     if compteurON[4] == 1 :
                         compteur[4] = compteur[4] + 1 
                     else : 
@@ -200,4 +201,4 @@ class Ultrason(threading.Thread):
             elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
                 DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
             
-            print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
+            #print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
