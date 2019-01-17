@@ -23,7 +23,7 @@ class Ultrason(threading.Thread):
         flagUltrasonArriereCentre = 0
         
         #Number of consecutive values wanted before considering obstale is detection
-        NbVal = 5 
+        NbVal = 1 
         
         #Membres : 0 :  ForwardLeft, 1 : ForwardRight, 2 : ForwardCentre, 3 : BackwardLeft, 4 : BackwardRight, 5 : BackwardCentre 
         compteur=[0,0,0,0,0,0]
@@ -32,6 +32,35 @@ class Ultrason(threading.Thread):
         
         while True:
             msg = self.bus.recv()# Wait until a message is received.
+
+            if msg.arbitration_id == US1 || msg.arbitration_id == US2:
+                 #if one of the Forward Ultrasonic detect, we consider that there is an at the front 
+                if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
+                    flagUltrasonAvant = 1
+                #else no one of the Forward Ultrasonic detect, we consider that there is no obstacle at the front                 
+                else:
+                    flagUltrasonAvant = 0
+                    
+                #if one of the Backward Ultrasonic detect, we consider that there is an at the front 
+                if flagUltrasonArriereDroit==1 or flagUltrasonArriereGauche==1 or flagUltrasonArriereCentre ==1:
+                    flagUltrasonArriere = 1
+                #else no one of the Backward Ultrasonic detect, we consider that there is no obstacle at the front                 
+                else:
+                    flagUltrasonArriere = 0
+
+                    
+                #set the Ultrasonic Massage to the approproate Value 
+                if flagUltrasonAvant==1 and flagUltrasonArriere==1:
+                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
+                elif flagUltrasonAvant==1:
+                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
+                elif flagUltrasonArriere==1:
+                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
+                elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
+                    DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
+                
+                print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
+
             if msg.arbitration_id == US1:
                 #Ultrasonic ForwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
@@ -172,29 +201,4 @@ class Ultrason(threading.Thread):
                         flagUltrasonAvantCentre=0     
                         
                         
-            #if one of the Forward Ultrasonic detect, we consider that there is an at the front 
-            if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
-                flagUltrasonAvant = 1
-            #else no one of the Forward Ultrasonic detect, we consider that there is no obstacle at the front                 
-            else:
-                flagUltrasonAvant = 0
-                
-            #if one of the Backward Ultrasonic detect, we consider that there is an at the front 
-            if flagUltrasonArriereDroit==1 or flagUltrasonArriereGauche==1 or flagUltrasonArriereCentre ==1:
-                flagUltrasonArriere = 1
-            #else no one of the Backward Ultrasonic detect, we consider that there is no obstacle at the front                 
-            else:
-                flagUltrasonArriere = 0
-
-                
-            #set the Ultrasonic Massage to the approproate Value 
-            if flagUltrasonAvant==1 and flagUltrasonArriere==1:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BOTH)
-            elif flagUltrasonAvant==1:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_FRONT)   
-            elif flagUltrasonArriere==1:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_BACK)
-            elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
-                DATA_ULTRASONIC=Data(ID.ULTRASONIC,Message.DETECTED_NULL)
-            
-            print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
+           
