@@ -29,8 +29,6 @@ if __name__ == "__main__":
 
     #lidar instance
     lidar = RPLidar('/dev/ttyUSB0')
-    #if lidar was stopped badly
-    lidar.reset()
 
     #connect to the User Interface via socket
     HOST = ''

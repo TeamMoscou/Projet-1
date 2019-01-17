@@ -20,7 +20,7 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         #To be sure lidar is running
-        time.sleep(0.5)
+        time.sleep(1)
 
         print("Lidar thread in execution")
 
@@ -104,6 +104,7 @@ class LidarDetection(threading.Thread):
                         flag_back_danger = False
                 else:
                     #Mean that one rotation is over so we reset counters
+                    print("count_front: ",count_front, " count_fright: ",count_fright," count_fleft: ",count_fleft," count_front_danger: ",count_front_danger," count_back_danger: ",count_back_danger,)
                     previous_angle = 0
                     count_front = 0
                     count_fright = 0

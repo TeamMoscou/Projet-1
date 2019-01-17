@@ -33,7 +33,7 @@ class Ultrason(threading.Thread):
         while True:
             msg = self.bus.recv()# Wait until a message is received.
 
-            if msg.arbitration_id == US1 || msg.arbitration_id == US2:
+            if msg.arbitration_id == US1 or msg.arbitration_id == US2:
                  #if one of the Forward Ultrasonic detect, we consider that there is an at the front 
                 if flagUltrasonAvantDroit==1 or flagUltrasonAvantGauche==1 or flagUltrasonAvantCentre ==1:
                     flagUltrasonAvant = 1
