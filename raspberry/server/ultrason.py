@@ -32,7 +32,7 @@ class Ultrason(threading.Thread):
         
         while True:
             msg = self.bus.recv()# Wait until a message is received.
-            
+            print("msg.arbitration_id ", msg.arbitration_id)
             if msg.arbitration_id == US1:
                 
                 #Ultrasonic ForwardLeft
