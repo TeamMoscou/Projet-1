@@ -23,47 +23,47 @@ class Can_send(threading.Thread):
             #Avoid sending to much data threw the CAN
             time.sleep(0.1)
 
-            if (glob.DATA_DECISION.message == Message.FORWARD):
+            if (DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 print("Send cmd move forward")
-            elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
+            elif (DATA_DECISION.message == Message.FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1
                 print("Send cmd move forward_left")
-            elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 print("Send cmd move forward_right")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD):
+            elif (DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("Send cmd move backward")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
+            elif (DATA_DECISION.message == Message.BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("Send cmd move backward_left")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
                 print("Send cmd move backward_right")
-            elif (glob.DATA_DECISION.message == Message.LEFT):
+            elif (DATA_DECISION.message == Message.LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
                 print("Send cmd turn left")
-            elif (glob.DATA_DECISION.message == Message.RIGHT):
+            elif (DATA_DECISION.message == Message.RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
                 print("Send cmd turn right")
-            elif (glob.DATA_DECISION.message == Message.STOP):
+            elif (DATA_DECISION.message == Message.STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0
