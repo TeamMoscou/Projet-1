@@ -43,8 +43,7 @@ class Prise_decision(threading.Thread):
             if (DATA_INTERFACE.message == Message.BACKWARD or DATA_INTERFACE.message == Message.BACKWARD_RIGHT or DATA_INTERFACE.message == Message.BACKWARD_LEFT):
                 Backward = 1
             
-            print("Message auto0: "+str(DATA_LIDAR_AUTONOMOUS.message))
-            print("mode", MODE, " stop req ", Stop_requested, " Detection_front ", Detection_front, " Forward ",Forward, " Detection_back ",Detection_back," Backward ",Backward)
+            print(" Detection_front ", Detection_front, " Forward ",Forward, " Detection_back ",Detection_back," Backward ",Backward)
             #Generating decision message
             #If stop is requested by the interface we just stop
             if (Stop_requested):
@@ -64,7 +63,5 @@ class Prise_decision(threading.Thread):
                     DATA_DECISION.message = DATA_INTERFACE.message
                 elif (MODE == "AUTONOMOUS"):
                     DATA_DECISION.message = DATA_LIDAR_AUTONOMOUS.message
-                    print("Message auto1: "+str(DATA_LIDAR_AUTONOMOUS.message))
-                    print("Message PriseD1: "+str(DATA_DECISION.message))
 
             print("Message PriseD: "+str(DATA_DECISION.message))
