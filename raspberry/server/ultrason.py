@@ -131,6 +131,8 @@ class Ultrason(threading.Thread):
                 distance = int.from_bytes(msg.data[2:4], byteorder='big')
                 if distance <= 20:
                     #We check if we saw the same thing before (obstacle here). If so, increment the counter. 
+                    
+                    print("Arrière centre detecté ")
                     if compteurON[4] == 1 :
                         compteur[4] = compteur[4] + 1 
                     else : 
@@ -186,6 +188,7 @@ class Ultrason(threading.Thread):
             #else no one of the Backward Ultrasonic detect, we consider that there is no obstacle at the front                 
             else:
                 flagUltrasonArriere = 0
+
                 
             #set the Ultrasonic Massage to the approproate Value 
             if flagUltrasonAvant==1 and flagUltrasonArriere==1:
