@@ -3,7 +3,6 @@ import threading
 import socket
 import time
 from glob import *
-import glob
 from data import *
 
 #Thread sending information to the User Interface
@@ -95,5 +94,5 @@ class Interface(threading.Thread):
             elif (header == b'AUT'):  # autonomous mode button
                 DATA_INTERFACE.message = Message.FORWARD
                 MODE = "AUTONOMOUS"
-     
+            
             print("Message interface: "+str(glob.DATA_INTERFACE.message))

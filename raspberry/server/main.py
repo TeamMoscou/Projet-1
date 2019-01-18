@@ -6,6 +6,7 @@ import struct
 import data
 import socket
 from rplidar import RPLidar
+from glob import *
 import time
 import signal
 
@@ -34,8 +35,6 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
 
     #connect to the User Interface via socket
-    HOST = ''
-    PORT = 6666
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen(1)

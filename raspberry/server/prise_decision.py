@@ -72,6 +72,7 @@ class Prise_decision(threading.Thread):
                 if (MODE == "PILOTE"):
                     DATA_DECISION.message = DATA_INTERFACE.message
                 elif (MODE == "AUTONOMOUS"):
+                    print("DATA_LIDAR_AUTONOMOUS: ",DATA_LIDAR_AUTONOMOUS.message)
                     DATA_DECISION.message = DATA_LIDAR_AUTONOMOUS.message
 
             print("Message PriseD: "+str(DATA_DECISION.message))
