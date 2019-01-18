@@ -93,7 +93,7 @@ class Interface(threading.Thread):
                
             elif (header == b'AUT'):  # autonomous mode button
                 DATA_INTERFACE.message = Message.FORWARD
-                global.MODE
+                global MODE
                 MODE = "AUTONOMOUS"
             print("MODE_Interface: ",MODE)
             print("Message interface: "+str(DATA_INTERFACE.message))
