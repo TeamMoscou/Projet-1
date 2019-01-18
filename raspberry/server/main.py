@@ -30,13 +30,16 @@ if __name__ == "__main__":
     #lidar instance
     lidar = RPLidar('/dev/ttyUSB0')
 
+    #configure the signal handler to handle Ctrl+C
+    signal.signal(signal.SIGINT, signal_handler)
+
     #connect to the User Interface via socket
     HOST = ''
     PORT = 6666
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    '''s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((HOST, PORT))
     s.listen(1)
-    conn, addr = s.accept()
+    conn, addr = s.accept()'''
 
     print('Bring up CAN0....')
     os.system("sudo ifconfig can0 down")
@@ -45,37 +48,34 @@ if __name__ == "__main__":
 
     bus = can.interface.Bus(channel='can0', bustype='socketcan_native')
 
-    #configure the signal handler to handle Ctrl+C
-    signal.signal(signal.SIGINT, signal_handler)
-
     #instanciate Threads
     lidar_thread = lidar_instance.LidarDetection(lidar)
-    interface_thread = interface_instance.Interface(conn)
-    interfaceReturn_thread = interface_instance.ReturnInterface(conn)
+    #interface_thread = interface_instance.Interface(conn)
+    #interfaceReturn_thread = interface_instance.ReturnInterface(conn)
     ultrason_thread = ultrason_instance.Ultrason(bus)
     decision_thread = decision_instance.Prise_decision()
     cansend_thread = cansend_instance.Can_send(bus)
 
     #set the Threads as daemon
     lidar_thread.daemon = True
-    interface_thread.daemon = True
-    interfaceReturn_thread.daemon = True
+    #interface_thread.daemon = True
+    #interfaceReturn_thread.daemon = True
     ultrason_thread.daemon = True
     decision_thread.daemon = True
     cansend_thread.daemon = True
 
     #start the Threads
     lidar_thread.start()
-    interface_thread.start()
-    interfaceReturn_thread.start()
+    #interface_thread.start()
+    #interfaceReturn_thread.start()
     ultrason_thread.start()
     decision_thread.start()
     cansend_thread.start()
 
     #wait until the Threads finish
     lidar_thread.join()
-    interface_thread.join()
-    interfaceReturn_thread.join()
+    #interface_thread.join()
+    #interfaceReturn_thread.join()
     ultrason_thread.join()
     decision_thread.join()
     cansend_thread.join()
