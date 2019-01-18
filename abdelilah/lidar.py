@@ -473,7 +473,7 @@ class LidarDetection(threading.Thread):
                             action_FRONT="STOP"
                             break
                         #il faut eviter obstacle a GAUCHE de la voiture
-                        elif(x<0) :
+                        elif(x<0 and sublist_forward_distances[i]>1.5) :
 
                             TD_FRONT=1
                             if(TG_FRONT==1):
@@ -483,14 +483,15 @@ class LidarDetection(threading.Thread):
                                 action_FRONT="TURN_RIGHT"
                                 print("hhhheeeeeereeeee")        
                         #il faut eviter obstacle a DROIT de la voiture
-                        elif(x>0):
+                        elif(x>0 and sublist_forward_distances[i]>1.5):
                             TG_FRONT=1
                             if(TD_FRONT==1):
                                action_FRONT="STOP"
                                break
                             else:
                                action_FRONT="TURN_LEFT"                                
-                            
+                        else:
+                               action_FRONT="STOP"
                        
                 
                 
