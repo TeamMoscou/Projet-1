@@ -25,7 +25,7 @@ class Prise_decision(threading.Thread):
             Backward = 0
             print("ultrasonic message PD",DATA_ULTRASONIC.message)
             print("Lidar message PD",DATA_LIDAR.message)
-            print("MODE PD", MODE)
+            print("MODE PD", glob.MODE)
             print("message interface PD", DATA_INTERFACE.message)
             print("Lidar message Auto PD",DATA_LIDAR_AUTONOMOUS.message)
             #Reading global variables and change the state of them
