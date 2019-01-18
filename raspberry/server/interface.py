@@ -43,6 +43,7 @@ class Interface(threading.Thread):
         self.conn = conn
 
     def run(self):
+        global MODE
         while True:
             data = self.conn.recv(1024) #receve data from socket
 
@@ -93,7 +94,7 @@ class Interface(threading.Thread):
                
             elif (header == b'AUT'):  # autonomous mode button
                 DATA_INTERFACE.message = Message.FORWARD
-                global MODE
+              
                 MODE = "AUTONOMOUS"
             print("MODE_Interface: ",MODE)
             print("Message interface: "+str(DATA_INTERFACE.message))
