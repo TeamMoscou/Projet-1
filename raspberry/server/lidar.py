@@ -20,7 +20,7 @@ class LidarDetection(threading.Thread):
     def run(self):
 
         #To be sure lidar is running
-        time.sleep(3)
+        time.sleep(5)
 
         print("Lidar thread in execution")
 
@@ -72,7 +72,7 @@ class LidarDetection(threading.Thread):
         for (new_scan, quality, angle, distance) in self.lidar.iter_measurments():         
             i = (i+1)%2
             #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
-            if(distance != 0 and i == 0) :
+            if(distance != 0 '''and i == 0''') :
                 #Check detection on one full rotation
                 if(angle > previous_angle):
                     previous_angle = angle
