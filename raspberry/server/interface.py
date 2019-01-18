@@ -94,5 +94,5 @@ class Interface(threading.Thread):
             elif (header == b'AUT'):  # autonomous mode button
                 DATA_INTERFACE.message = Message.FORWARD
                 MODE = "AUTONOMOUS"
-            
+            print("MODE: ",MODE))
             print("Message interface: "+str(DATA_INTERFACE.message))
