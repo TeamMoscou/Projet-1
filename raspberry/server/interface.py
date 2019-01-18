@@ -95,4 +95,4 @@ class Interface(threading.Thread):
                 DATA_INTERFACE.message = Message.FORWARD
                 MODE = "AUTONOMOUS"
             
-            print("Message interface: "+str(glob.DATA_INTERFACE.message))
+            print("Message interface: "+str(DATA_INTERFACE.message))
