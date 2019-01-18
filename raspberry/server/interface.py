@@ -4,6 +4,7 @@ import socket
 import time
 from glob import *
 from data import *
+import glob
 
 #Thread sending information to the User Interface
 class ReturnInterface(threading.Thread):
