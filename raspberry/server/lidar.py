@@ -112,7 +112,8 @@ class LidarDetection(threading.Thread):
                     count_back_danger = 0
 
                     #Update global variable autonomous/avoidance system
-                    if(flag_front):
+                    if(flag_front or flag_fright or flag_fleft):
+                    
                         if(flag_fright and flag_fleft):
                             #If there are obstacles in every zones in front of the car we try to get around by the left
                             glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
