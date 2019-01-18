@@ -4,6 +4,7 @@ import can
 import time
 import os
 from glob import *
+import glob
 
 
 
@@ -28,7 +29,7 @@ class Can_send(threading.Thread):
         while True:
             
            
-            self.speed_cmd = 25
+            self.speed_cmd = 15
             if (DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
                 self.turn = 0
@@ -100,7 +101,7 @@ class Can_send(threading.Thread):
             prev_current_angle=None
 
             if(theta==1650):
-                while abs(delta_angle)>=20: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
+                while abs(delta_angle)>=7: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
                     msg = self.bus.recv();# Wait until a message is received.
                     
                     if msg.arbitration_id == glob.MS:

@@ -10,12 +10,12 @@ import glob
 import time
 import signal
 
-import lidar_abd as lidar_instance
+import lidar as lidar_instance
 import prise_decision as decision_instance
 import interface as interface_instance
 import ultrason as ultrason_instance
-#import can_send as cansend_instance
-import cansend_jo as cansend_instance
+import can_send as cansend_instance
+#yimport cansend_jo as cansend_instance
 
 #In this file we create all the threads and launch them
 

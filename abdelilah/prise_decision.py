@@ -23,11 +23,11 @@ class Prise_decision(threading.Thread):
             Detection_back = 0
             Forward = 0
             Backward = 0
-            print("ultrasonic message",DATA_ULTRASONIC.message)
-            print("Lidar message",DATA_LIDAR.message)
-            print("MODE", MODE)
-            print("message interface", DATA_INTERFACE.message)
-            print("Lidar message Auto",DATA_LIDAR_AUTONOMOUS.message)
+            print("ultrasonic message PD",DATA_ULTRASONIC.message)
+            print("Lidar message PD",DATA_LIDAR.message)
+            print("MODE PD", MODE)
+            print("message interface PD", DATA_INTERFACE.message)
+            print("Lidar message Auto PD",DATA_LIDAR_AUTONOMOUS.message)
             #Reading global variables and change the state of them
             if (DATA_INTERFACE.message == Message.STOP):
                 Stop_requested = 1

@@ -26,11 +26,11 @@ class LidarDetection(threading.Thread):
         print("Lidar thread in execution")
 
         #Distance chose for the dangerous zone (1000 = 1 meter)
-        SAFE_DISTANCE_FRONT = 2000
+        SAFE_DISTANCE_FRONT = 1500
         SAFE_DISTANCE_BACK = 1000
 
         #Distance use to manage the autonomous/avoidance system, we saw that after 3.5 meters some errors appear on the lidar data
-        MAX_DETECTED_DISTANCE = 3500
+        MAX_DETECTED_DISTANCE = 3000
 
         #We separate the lidar detection in diffent areas, we use only front and back areas
         #Zone FRONT between 160 and 200

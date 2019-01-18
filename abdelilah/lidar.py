@@ -440,13 +440,13 @@ class LidarDetection(threading.Thread):
 
                     x=sublist_forward_distances[i]*sin(radians(sublist_forward_angles[i]))
 
-                    if(sublist_forward_distances[i]<2) :
-                        action_FRONT="STOP"
-                        break
+                    #if(sublist_forward_distances[i]<2) :
+                    #    action_FRONT="STOP"
+                    #    break
 
                     
                     
-                    elif(abs(x)>(sublist_forward_tailles[i]+X0)/2.):
+                    if(abs(x)>(sublist_forward_tailles[i]+X0)/2.):
                     
                         if(action_FRONT!="NO_DANGER"):
                             continue 
@@ -458,7 +458,7 @@ class LidarDetection(threading.Thread):
                         #situation ou l'obstacle est centre devant la voiture
                         if(abs(sublist_forward_angles[i])<4.): 
                             y=sublist_forward_distances[i]*tan(radians(10)) # 15° comme angle de deviation maximale des roues
-                            if(y>(sublist_forward_tailles[i]+X0)/2.):
+                            """if(y>(sublist_forward_tailles[i]+X0)/2.):
                                 TD_FRONT=1
                                 if(TG_FRONT==1):
                                     action_FRONT="STOP"
@@ -468,8 +468,9 @@ class LidarDetection(threading.Thread):
                                    
                             else:
                                 #liste_action_FRONTs.append("STOP")
-                                action_FRONT="STOP"
-                                break
+                            """
+                            action_FRONT="STOP"
+                            break
                         #il faut eviter obstacle a GAUCHE de la voiture
                         elif(x<0) :
 
