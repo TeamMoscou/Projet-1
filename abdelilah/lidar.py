@@ -438,8 +438,8 @@ class LidarDetection(threading.Thread):
                 
                 for i in range(len(sublist_forward_angles)) :
 
-                    x=sublist_forward_distances[i]*sin(radians(sublist_forward_angles[i]))
-
+                    x=sublist_forward_distances[i]*sin(radians(sublist_forward_angles[i]))     
+                    y=sublist_forward_distances[i]*tan(radians(10)) # 15° comme angle de deviation maximale des roues
                     #if(sublist_forward_distances[i]<2) :
                     #    action_FRONT="STOP"
                     #    break
@@ -458,7 +458,7 @@ class LidarDetection(threading.Thread):
 
                         #situation ou l'obstacle est centre devant la voiture
                         if(abs(sublist_forward_angles[i])<5.): 
-                            y=sublist_forward_distances[i]*tan(radians(10)) # 15° comme angle de deviation maximale des roues
+                           
                             """if(y>(sublist_forward_tailles[i]+X0)/2.):
                                 TD_FRONT=1
                                 if(TG_FRONT==1):
@@ -473,7 +473,7 @@ class LidarDetection(threading.Thread):
                             action_FRONT="STOP"
                             break
                         #il faut eviter obstacle a GAUCHE de la voiture
-                        elif(x<0 and sublist_forward_distances[i]>1.5) :
+                        elif(x<0 and (y-x)>(sublist_forward_tailles[i]+X0*0.5)) :
 
                             TD_FRONT=1
                             if(TG_FRONT==1):
@@ -483,7 +483,7 @@ class LidarDetection(threading.Thread):
                                 action_FRONT="TURN_RIGHT"
                                 print("hhhheeeeeereeeee")        
                         #il faut eviter obstacle a DROIT de la voiture
-                        elif(x>0 and sublist_forward_distances[i]>1.5):
+                        elif(x>0 and and (y+x)>(sublist_forward_tailles[i]+X0*0.5)):
                             TG_FRONT=1
                             if(TD_FRONT==1):
                                action_FRONT="STOP"
