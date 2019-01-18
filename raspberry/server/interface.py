@@ -3,6 +3,7 @@ import threading
 import socket
 import time
 from glob import *
+import glob
 from data import *
 
 #Thread sending information to the User Interface
