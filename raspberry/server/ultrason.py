@@ -64,7 +64,7 @@ class Ultrason(threading.Thread):
                 
                 print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
 
-            if msg.arbitration_id == US1:
+            if msg.arbitration_id == glob.US1:
                 #Ultrasonic ForwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
@@ -133,7 +133,7 @@ class Ultrason(threading.Thread):
                     if compteur[5] >= NbVal :
                         flagUltrasonArriereCentre=0   
                         
-            elif msg.arbitration_id == US2:
+            elif msg.arbitration_id == glob.US2:
                 #Ultrasonic BackwardLeft
                 distance = int.from_bytes(msg.data[0:2], byteorder='big')
                 if distance <= 20:
