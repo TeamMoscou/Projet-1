@@ -30,7 +30,7 @@ DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
 #---------------------Decision Variables----------------------#
 
 DATA_DECISION=Data(ID.DECISION,Message.STOP)
-MODE="PILOTE"
+MODE="AUTONOMOUS"
 
 #---------------------Wheels Variables----------------------#
 #Proportional-Only Controller Gain for controlling steering wheels
