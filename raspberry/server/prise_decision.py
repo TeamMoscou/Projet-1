@@ -76,4 +76,4 @@ class Prise_decision(threading.Thread):
                     
                     glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
 
-            print("Message PriseD: "+str(DATA_DECISION.message))
+            print("Message PriseD: "+str(glob.DATA_DECISION.message))

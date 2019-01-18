@@ -97,4 +97,4 @@ class Interface(threading.Thread):
        
                 glob.MODE = "AUTONOMOUS"
             print("MODE_Interface_glob: ",glob.MODE)
-            print("Message interface: "+str(DATA_INTERFACE.message))
+            print("Message interface: "+str(glob.DATA_INTERFACE.message))

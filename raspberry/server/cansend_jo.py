@@ -3,6 +3,7 @@ import threading
 import can
 import time
 import glob
+from data import *
 
 class Can_send(threading.Thread):
 
