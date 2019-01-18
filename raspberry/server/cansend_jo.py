@@ -81,4 +81,4 @@ class Can_send(threading.Thread):
             #Create message threw the CAN with the compute command
             msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
 
-            #self.bus.send(msg)
+            self.bus.send(msg)
