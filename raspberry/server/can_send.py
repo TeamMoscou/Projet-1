@@ -85,12 +85,12 @@ class Can_send(threading.Thread):
 
             print("Data decision: ", glob.DATA_DECISION.message)
             
-            delta_angle=20 ;#pour rentrer au moins une fois
+            delta_angle=40 ;#pour rentrer au moins une fois
             delta_cmd_turn = 0
             prev_current_angle=None
 
-            if (abs(delta_angle)>=20):
-                while abs(delta_angle)>=20: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
+            
+            while abs(delta_angle)>=40: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
                     print("le while")
                     msg = self.bus.recv();# Wait until a message is received.
                     
@@ -133,14 +133,4 @@ class Can_send(threading.Thread):
                     print("mv:", cmd_mv, "turn:", cmd_turn)
                     msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                     self.bus.send(msg)
-            else:     
-                print("le else")
-                #envoyer la trame CAN correspondante
-                if self.enable:
-                        cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
-                else:
-                        cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
-
-                #print("mv:", cmd_mv, "turn:", cmd_turn)
-                msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv,0x00, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
-                self.bus.send(msg)
+                    
