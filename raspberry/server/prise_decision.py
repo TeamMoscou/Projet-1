@@ -2,6 +2,7 @@ import threading
 import time
 from glob import *
 from data import *
+import glob
 
 class Prise_decision(threading.Thread):
 
@@ -12,7 +13,6 @@ class Prise_decision(threading.Thread):
 
     def run(self):
         #To be sure that each module has started
-        global MODE
         time.sleep(2)
         Stop_requested = 0
         Detection_front = 0
@@ -43,7 +43,7 @@ class Prise_decision(threading.Thread):
                 Detection_back = 0    
 
             #Command forward sent by the interface or the autonomous mode
-            if (DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT or MODE == "AUTONOMOUS"):
+            if (DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT or glob.MODE == "AUTONOMOUS"):
                 Forward = 1
             else:
                 Forward = 0    
@@ -70,10 +70,10 @@ class Prise_decision(threading.Thread):
 
             #If we are in an other situation we send the message of the interface or the autonomous depending on the mode
             else:
-                print("MODE: ",MODE)
-                if (MODE == "PILOTE"):
+                print("MODE: ",glob.MODE)
+                if (glob.MODE == "PILOTE"):
                     DATA_DECISION.message = DATA_INTERFACE.message
-                elif (MODE == "AUTONOMOUS"):
+                elif (glob.MODE == "AUTONOMOUS"):
                     
                     DATA_DECISION.message = DATA_LIDAR_AUTONOMOUS.message
 

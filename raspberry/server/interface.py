@@ -28,7 +28,7 @@ class ReturnInterface(threading.Thread):
                 #send message to interface: detection of obstacle in front and back of the car
                 message = "OBB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (MODE == "AUTONOMOUS"):
+            elif (glob.MODE == "AUTONOMOUS"):
                 message = "AUT:" + str('')+ ";"  #autonomouse mode
             else :
                 #send message to interface: no obstacle detected
@@ -44,7 +44,7 @@ class Interface(threading.Thread):
         self.conn = conn
 
     def run(self):
-        global MODE
+
         while True:
             data = self.conn.recv(1024) #receve data from socket
 
@@ -58,11 +58,11 @@ class Interface(threading.Thread):
                 # steering left
                 if (payload == b'left'):
                     DATA_INTERFACE.message = Message.LEFT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # steering right
                 elif (payload == b'right'):
                     DATA_INTERFACE.message = Message.RIGHT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                     
             elif (header == b'MOV'):  # moving maneuvres
                 # stopping
@@ -71,32 +71,31 @@ class Interface(threading.Thread):
                 # moving Forward
                 elif (payload == b'forward'):
                     DATA_INTERFACE.message = Message.FORWARD
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # moving Backward
                 elif (payload == b'backward'):
                     DATA_INTERFACE.message = Message.BACKWARD
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # moving Backward Right
                 elif (payload == b'backwardright'):
                     DATA_INTERFACE.message = Message.BACKWARD_RIGHT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # moving Backward Left
                 elif (payload == b'backwardleft'):
                     DATA_INTERFACE.message = Message.BACKWARD_LEFT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # moving Forward Forward Left
                 elif (payload == b'forwardleft'):
                     DATA_INTERFACE.message = Message.FORWARD_LEFT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                 # moving Forward Right
                 elif (payload == b'forwardright'):
                     DATA_INTERFACE.message = Message.FORWARD_RIGHT
-                    MODE = "PILOTE"
+                    glob.MODE = "PILOTE"
                
             elif (header == b'AUT'):  # autonomous mode button
                 DATA_INTERFACE.message = Message.FORWARD
        
                 glob.MODE = "AUTONOMOUS"
-            print("MODE_Interface: ",MODE)
             print("MODE_Interface_glob: ",glob.MODE)
             print("Message interface: "+str(DATA_INTERFACE.message))
