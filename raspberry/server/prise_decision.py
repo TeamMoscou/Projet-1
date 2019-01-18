@@ -56,7 +56,10 @@ class Prise_decision(threading.Thread):
             print(" Detection_front ", Detection_front, " Forward ",Forward, " Detection_back ",Detection_back," Backward ",Backward)
             #Generating decision message
             #If stop is requested by the interface we just stop
-            if (Stop_requested):
+            if (glob.MODE == "AUTONOMOUS"):
+                glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
+            
+            elif (Stop_requested):
                 glob.DATA_DECISION.message = Message.STOP
 
             #If we want to go forward but there is something we stop
@@ -69,11 +72,8 @@ class Prise_decision(threading.Thread):
 
             #If we are in an other situation we send the message of the interface or the autonomous depending on the mode
             else:
-                print("MODE: ",glob.MODE)
-                if (glob.MODE == "PILOTE"):
-                    glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
-                elif (glob.MODE == "AUTONOMOUS"):
-                    
-                    glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
+                
+                glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
+            print("MODE: ",glob.MODE)   
 
             print("Message PriseD: "+str(glob.DATA_DECISION.message))

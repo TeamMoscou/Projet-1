@@ -10,7 +10,7 @@ import glob
 import time
 import signal
 
-import lidar as lidar_instance
+import lidar_abd as lidar_instance
 import prise_decision as decision_instance
 import interface as interface_instance
 import ultrason as ultrason_instance

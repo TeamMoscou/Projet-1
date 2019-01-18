@@ -15,7 +15,7 @@ class Can_send(threading.Thread):
     def run(self):
 
         #We fixed a constant speed, change this value to increase or decrease the speed
-        self.speed_cmd = 25
+        self.speed_cmd = 15
         self.move = 0
         self.turn = 0
         self.enable = 0
