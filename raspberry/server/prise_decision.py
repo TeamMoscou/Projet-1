@@ -12,6 +12,7 @@ class Prise_decision(threading.Thread):
 
     def run(self):
         #To be sure that each module has started
+        global MODE
         time.sleep(2)
         Stop_requested = 0
         Detection_front = 0
