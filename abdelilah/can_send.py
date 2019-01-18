@@ -99,7 +99,7 @@ class Can_send(threading.Thread):
             prev_current_angle=None
 
             if(theta==1650):
-                while abs(delta_angle)>=30: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
+                while abs(delta_angle)>=15: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
                     msg = self.bus.recv();# Wait until a message is received.
                     
                     if msg.arbitration_id == MS:
