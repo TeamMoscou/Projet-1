@@ -3,7 +3,7 @@ import time
 import can
 import os
 import struct
-from glob import *
+import glob
 from data import *
 
 
@@ -54,15 +54,15 @@ class Ultrason(threading.Thread):
                     
                 #set the Ultrasonic Massage to the approproate Value 
                 if flagUltrasonAvant==1 and flagUltrasonArriere==1:
-                    DATA_ULTRASONIC.message = Message.DETECTED_BOTH
+                    glob.DATA_ULTRASONIC.message = Message.DETECTED_BOTH
                 elif flagUltrasonAvant==1:
-                    DATA_ULTRASONIC.message = Message.DETECTED_FRONT 
+                    glob.DATA_ULTRASONIC.message = Message.DETECTED_FRONT 
                 elif flagUltrasonArriere==1:
-                    DATA_ULTRASONIC.message = Message.DETECTED_BACK
+                    glob.DATA_ULTRASONIC.message = Message.DETECTED_BACK
                 elif flagUltrasonArriere==0 and flagUltrasonAvant==0:
-                    DATA_ULTRASONIC.message = Message.DETECTED_NULL
+                    glob.DATA_ULTRASONIC.message = Message.DETECTED_NULL
                 
-                print("Message ultrason: "+ str(DATA_ULTRASONIC.message))
+                print("Message ultrason: "+ str(glob.DATA_ULTRASONIC.message))
 
             if msg.arbitration_id == US1:
                 #Ultrasonic ForwardLeft

@@ -2,7 +2,6 @@
 import threading
 import socket
 import time
-from glob import *
 from data import *
 import glob
 
@@ -16,15 +15,15 @@ class ReturnInterface(threading.Thread):
     def run(self):
         while True:
             time.sleep(0.1)
-            if (DATA_ULTRASONIC.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_FRONT):
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #send message to interface: detection of obstacle in front of the car
                 message = "OIF:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (DATA_ULTRASONIC.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BACK):
+            elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
                 #send message to interface: detection of obstacle in back of the car
                 message = "OIB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            elif (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 #send message to interface: detection of obstacle in front and back of the car
                 message = "OBB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
@@ -57,44 +56,44 @@ class Interface(threading.Thread):
             if (header == b'STE'):  # steering maneuvres
                 # steering left
                 if (payload == b'left'):
-                    DATA_INTERFACE.message = Message.LEFT
+                    glob.DATA_INTERFACE.message = Message.LEFT
                     glob.MODE = "PILOTE"
                 # steering right
                 elif (payload == b'right'):
-                    DATA_INTERFACE.message = Message.RIGHT
+                    glob.DATA_INTERFACE.message = Message.RIGHT
                     glob.MODE = "PILOTE"
                     
             elif (header == b'MOV'):  # moving maneuvres
                 # stopping
                 if (payload == b'stop'):
-                    DATA_INTERFACE.message = Message.STOP
+                    glob.DATA_INTERFACE.message = Message.STOP
                 # moving Forward
                 elif (payload == b'forward'):
-                    DATA_INTERFACE.message = Message.FORWARD
+                    glob.DATA_INTERFACE.message = Message.FORWARD
                     glob.MODE = "PILOTE"
                 # moving Backward
                 elif (payload == b'backward'):
-                    DATA_INTERFACE.message = Message.BACKWARD
+                    glob.DATA_INTERFACE.message = Message.BACKWARD
                     glob.MODE = "PILOTE"
                 # moving Backward Right
                 elif (payload == b'backwardright'):
-                    DATA_INTERFACE.message = Message.BACKWARD_RIGHT
+                    glob.DATA_INTERFACE.message = Message.BACKWARD_RIGHT
                     glob.MODE = "PILOTE"
                 # moving Backward Left
                 elif (payload == b'backwardleft'):
-                    DATA_INTERFACE.message = Message.BACKWARD_LEFT
+                    glob.DATA_INTERFACE.message = Message.BACKWARD_LEFT
                     glob.MODE = "PILOTE"
                 # moving Forward Forward Left
                 elif (payload == b'forwardleft'):
-                    DATA_INTERFACE.message = Message.FORWARD_LEFT
+                    glob.DATA_INTERFACE.message = Message.FORWARD_LEFT
                     glob.MODE = "PILOTE"
                 # moving Forward Right
                 elif (payload == b'forwardright'):
-                    DATA_INTERFACE.message = Message.FORWARD_RIGHT
+                    glob.DATA_INTERFACE.message = Message.FORWARD_RIGHT
                     glob.MODE = "PILOTE"
                
             elif (header == b'AUT'):  # autonomous mode button
-                DATA_INTERFACE.message = Message.FORWARD
+                glob.DATA_INTERFACE.message = Message.FORWARD
        
                 glob.MODE = "AUTONOMOUS"
             print("MODE_Interface_glob: ",glob.MODE)

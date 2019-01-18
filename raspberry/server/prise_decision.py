@@ -1,6 +1,5 @@
 import threading
 import time
-from glob import *
 from data import *
 import glob
 
@@ -25,31 +24,31 @@ class Prise_decision(threading.Thread):
             time.sleep(0.1)
 
             #Reading global variables and change the state of them
-            if (DATA_INTERFACE.message == Message.STOP):
+            if (glob.DATA_INTERFACE.message == Message.STOP):
                 Stop_requested = 1
             else:
                 Stop_requested = 0    
 
             #Ultrasonic or Lidar detect something in front of the car
-            if (DATA_ULTRASONIC.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_FRONT or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 Detection_front = 1
             else:
                 Detection_front = 0
 
             #Ultrasonic or Lidar detect something at the back of the car
-            if (DATA_ULTRASONIC.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BACK or DATA_LIDAR.message == Message.DETECTED_BOTH or DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 Detection_back = 1
             else: 
                 Detection_back = 0    
 
             #Command forward sent by the interface or the autonomous mode
-            if (DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT or glob.MODE == "AUTONOMOUS"):
+            if (glob.DATA_INTERFACE.message == Message.FORWARD or glob.DATA_INTERFACE.message == Message.FORWARD_RIGHT or glob.DATA_INTERFACE.message == Message.FORWARD_LEFT or glob.MODE == "AUTONOMOUS"):
                 Forward = 1
             else:
                 Forward = 0    
 
             #Command backward sent by the interface
-            if (DATA_INTERFACE.message == Message.BACKWARD or DATA_INTERFACE.message == Message.BACKWARD_RIGHT or DATA_INTERFACE.message == Message.BACKWARD_LEFT):
+            if (glob.DATA_INTERFACE.message == Message.BACKWARD or glob.DATA_INTERFACE.message == Message.BACKWARD_RIGHT or glob.DATA_INTERFACE.message == Message.BACKWARD_LEFT):
                 Backward = 1
             else:
                 Backward = 0    
@@ -58,23 +57,23 @@ class Prise_decision(threading.Thread):
             #Generating decision message
             #If stop is requested by the interface we just stop
             if (Stop_requested):
-                DATA_DECISION.message = Message.STOP
+                glob.DATA_DECISION.message = Message.STOP
 
             #If we want to go forward but there is something we stop
             elif (Detection_front and Forward ):
-                DATA_DECISION.message = Message.STOP
+                glob.DATA_DECISION.message = Message.STOP
 
             #If we want to go backward but there is something we stop
             elif (Detection_back and Backward):
-                DATA_DECISION.message = Message.STOP
+                glob.DATA_DECISION.message = Message.STOP
 
             #If we are in an other situation we send the message of the interface or the autonomous depending on the mode
             else:
                 print("MODE: ",glob.MODE)
                 if (glob.MODE == "PILOTE"):
-                    DATA_DECISION.message = DATA_INTERFACE.message
+                    glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
                 elif (glob.MODE == "AUTONOMOUS"):
                     
-                    DATA_DECISION.message = DATA_LIDAR_AUTONOMOUS.message
+                    glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
 
             print("Message PriseD: "+str(DATA_DECISION.message))

@@ -4,7 +4,7 @@ import numpy as np
 import math
 from rplidar import RPLidar
 import glob
-from glob import *
+
 from data import *
 
 #In this file we compute data from Lidar
@@ -115,31 +115,31 @@ class LidarDetection(threading.Thread):
                     if(flag_front):
                         if(flag_fright and flag_fleft):
                             #If there are obstacles in every zones in front of the car we try to get around by the left
-                            DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
+                            glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
                         elif(flag_fright):
-                            DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
+                            glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
                         elif(flag_fleft):
-                            DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_RIGHT
+                            glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_RIGHT
                         else:
                             #If only an obstacle in the middle we go on the left side
-                            DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
+                            glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD_LEFT
                     else:
                         #When the car don't detect anything we go forward
-                        DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD
+                        glob.DATA_LIDAR_AUTONOMOUS.message = Message.FORWARD
 
                     #Update global variable for the danger detection zone
                     if(flag_front_danger and flag_back_danger):
-                        DATA_LIDAR.message = Message.DETECTED_BOTH
+                        glob.DATA_LIDAR.message = Message.DETECTED_BOTH
                     elif (flag_front_danger):
-                        DATA_LIDAR.message = Message.DETECTED_FRONT
+                        glob.DATA_LIDAR.message = Message.DETECTED_FRONT
                     elif (flag_back_danger):
-                        DATA_LIDAR.message = Message.DETECTED_BACK
+                        glob.DATA_LIDAR.message = Message.DETECTED_BACK
                     else:
-                        DATA_LIDAR.message = Message.DETECTED_NULL
+                        glob.DATA_LIDAR.message = Message.DETECTED_NULL
 
 
-                    print("Message Lidar detection: "+str(DATA_LIDAR.message))
-                    print("Message Lidar autonomous: "+str(DATA_LIDAR_AUTONOMOUS.message))
+                    print("Message Lidar detection: "+str(glob.DATA_LIDAR.message))
+                    print("Message Lidar autonomous: "+str(glob.DATA_LIDAR_AUTONOMOUS.message))
 
 
                 #Treatment of the data from Lidar for the front
