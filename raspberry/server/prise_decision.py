@@ -41,13 +41,13 @@ class Prise_decision(threading.Thread):
             else: 
                 Detection_back = 0    
 
-            #Command forward threw the interface or the autonomous mode
+            #Command forward sent by the interface or the autonomous mode
             if (DATA_INTERFACE.message == Message.FORWARD or DATA_INTERFACE.message == Message.FORWARD_RIGHT or DATA_INTERFACE.message == Message.FORWARD_LEFT or MODE == "AUTONOMOUS"):
                 Forward = 1
             else:
                 Forward = 0    
 
-            #Command backward threw the interface
+            #Command backward sent by the interface
             if (DATA_INTERFACE.message == Message.BACKWARD or DATA_INTERFACE.message == Message.BACKWARD_RIGHT or DATA_INTERFACE.message == Message.BACKWARD_LEFT):
                 Backward = 1
             else:

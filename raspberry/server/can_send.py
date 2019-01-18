@@ -2,7 +2,6 @@
 import threading
 import can
 import time
-import glob
 import os
 from glob import *
 
@@ -30,41 +29,41 @@ class Can_send(threading.Thread):
             
            
             self.speed_cmd = 25
-            if (glob.DATA_DECISION.message == Message.FORWARD):
+            if (DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
                 self.turn = 0
                 self.enable = 1
                 theta=1650; #l'angle de consigne pour dresser les roues
                 print("send cmd move forward")
                 
-            elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
+            elif (DATA_DECISION.message == Message.FORWARD_LEFT):
                 self.move = 1
                 self.turn = -1
                 self.enable = 1                
                 theta=2096; #l'angle de consigne pour tourner à gauche
                 print("send cmd move forward_left")
                 
-            elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.FORWARD_RIGHT):
                 self.move = 1
                 self.turn = 1
                 self.enable = 1
                 theta=1292; #l'angle de consigne pour tourner à droite
                 print("send cmd move forward_right")
-            elif (glob.DATA_DECISION.message == Message.BACKWARD):
+            elif (DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
                 self.turn = 0
                 self.enable = 1
                 print("Send cmd move backward")
                 theta=1650; #l'angle de consigne pour dresser les roues
                 
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
+            elif (DATA_DECISION.message == Message.BACKWARD_LEFT):
                 self.move = -1
                 self.turn = -1
                 self.enable = 1
                 print("Send cmd move backward_left")
                 theta=2096; #l'angle de consigne pour tourner à gauche
                 
-            elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
+            elif (DATA_DECISION.message == Message.BACKWARD_RIGHT):
                 self.move = -1
                 self.turn = 1
                 self.enable = 1
@@ -72,7 +71,7 @@ class Can_send(threading.Thread):
                 theta=1292; #l'angle de consigne pour tourner à droite
                 
                 
-            elif (glob.DATA_DECISION.message == Message.LEFT):
+            elif (DATA_DECISION.message == Message.LEFT):
                 self.move = 0
                 self.turn = -1
                 self.enable = 1
@@ -80,7 +79,7 @@ class Can_send(threading.Thread):
                 theta=2096;#l'angle de consigne pour tourner à gauche
                 
                 
-            elif (glob.DATA_DECISION.message == Message.RIGHT):
+            elif (DATA_DECISION.message == Message.RIGHT):
                 self.move = 0
                 self.turn = 1
                 self.enable = 1
@@ -88,7 +87,7 @@ class Can_send(threading.Thread):
                 theta=1292; #l'angle de consigne pour tourner à droite
                 
                 
-            elif (glob.DATA_DECISION.message == Message.STOP):
+            elif (DATA_DECISION.message == Message.STOP):
                 self.move = 0
                 self.turn = 0
                 self.enable = 0
@@ -144,5 +143,6 @@ class Can_send(threading.Thread):
                     cmd_mv = 0x00
                     cmd_turn = 0x00
                 msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
+                self.bus.send(msg)
                         
                       
