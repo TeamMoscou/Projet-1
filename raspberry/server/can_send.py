@@ -138,11 +138,11 @@ class Can_send(threading.Thread):
                                         
             else:
                 if self.enable:
-                        cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
-                        cmd_turn = 50 + self.turn * 20 | 0x80
-                    else:
-                        cmd_mv = 0x00
-                        cmd_turn = 0x00
+                    cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
+                    cmd_turn = 50 + self.turn * 20 | 0x80
+                else:
+                    cmd_mv = 0x00
+                    cmd_turn = 0x00
                 msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                         
                       

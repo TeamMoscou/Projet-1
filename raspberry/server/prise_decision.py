@@ -8,16 +8,17 @@ class Prise_decision(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
         #Init des variables locales
+
+
+    def run(self):
+        #To be sure that each module has started
+        time.sleep(2)
         Stop_requested = 0
         Detection_front = 0
         Detection_back = 0 
         Forward = 0
         Backward = 0
-
-    def run(self):
-        #To be sure that each module has started
-        time.sleep(2)
-
+        
         while True:
             #We consider checking variables 10 times per second is enough
             time.sleep(0.1)

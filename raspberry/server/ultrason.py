@@ -12,6 +12,10 @@ class Ultrason(threading.Thread):
         threading.Thread.__init__(self)
         self.bus = bus
 
+
+
+    def run(self):
+
         flagUltrasonAvant = 0
         flagUltrasonArriere = 0
         flagUltrasonAvantGauche = 0
@@ -20,9 +24,6 @@ class Ultrason(threading.Thread):
         flagUltrasonArriereDroit = 0
         flagUltrasonArriereGauche = 0
         flagUltrasonArriereCentre = 0
-
-    def run(self):
-
         
         #Number of consecutive values wanted before considering obstale is detection
         NbVal = 1 
