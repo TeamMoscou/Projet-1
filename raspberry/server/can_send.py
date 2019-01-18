@@ -32,66 +32,76 @@ class Can_send(threading.Thread):
             self.speed_cmd = 25
             if (glob.DATA_DECISION.message == Message.FORWARD):
                 self.move = 1
-                theta=1650; #l'angle de consigne pour dresser les roues
+                self.turn = 0
                 self.enable = 1
+                theta=1650; #l'angle de consigne pour dresser les roues
                 print("send cmd move forward")
                 
             elif (glob.DATA_DECISION.message == Message.FORWARD_LEFT):
                 self.move = 1
+                self.turn = -1
+                self.enable = 1                
                 theta=2096; #l'angle de consigne pour tourner à gauche
-                self.enable = 1
                 print("send cmd move forward_left")
                 
             elif (glob.DATA_DECISION.message == Message.FORWARD_RIGHT):
                 self.move = 1
-                theta=1292; #l'angle de consigne pour tourner à droite
+                self.turn = 1
                 self.enable = 1
+                theta=1292; #l'angle de consigne pour tourner à droite
                 print("send cmd move forward_right")
             elif (glob.DATA_DECISION.message == Message.BACKWARD):
                 self.move = -1
-                theta=1650; #l'angle de consigne pour dresser les roues
+                self.turn = 0
                 self.enable = 1
-                print("send cmd move backward")
+                print("Send cmd move backward")
+                theta=1650; #l'angle de consigne pour dresser les roues
                 
             elif (glob.DATA_DECISION.message == Message.BACKWARD_LEFT):
                 self.move = -1
-                theta=2096; #l'angle de consigne pour tourner à gauche
+                self.turn = -1
                 self.enable = 1
-                print("send cmd move backward_left")
+                print("Send cmd move backward_left")
+                theta=2096; #l'angle de consigne pour tourner à gauche
                 
             elif (glob.DATA_DECISION.message == Message.BACKWARD_RIGHT):
                 self.move = -1
-                theta=1292; #l'angle de consigne pour tourner à droite
+                self.turn = 1
                 self.enable = 1
-                print("send cmd move backward_right")
+                print("Send cmd move backward_right")                
+                theta=1292; #l'angle de consigne pour tourner à droite
+                
                 
             elif (glob.DATA_DECISION.message == Message.LEFT):
                 self.move = 0
-                theta=2096;#l'angle de consigne pour tourner à gauche
+                self.turn = -1
                 self.enable = 1
-                print("send cmd turn left")
+                print("Send cmd turn left")
+                theta=2096;#l'angle de consigne pour tourner à gauche
+                
                 
             elif (glob.DATA_DECISION.message == Message.RIGHT):
                 self.move = 0
-                theta=1292; #l'angle de consigne pour tourner à droite
+                self.turn = 1
                 self.enable = 1
-                print("send cmd turn right")
+                print("Send cmd turn right")
+                theta=1292; #l'angle de consigne pour tourner à droite
+                
                 
             elif (glob.DATA_DECISION.message == Message.STOP):
                 self.move = 0
-                theta=1650; #l'angle de consigne pour dresser les roues
+                self.turn = 0
                 self.enable = 0
-                print("send cmd move stop")
+                print("Send cmd move stop") 
+                theta=1650; #l'angle de consigne pour dresser les roues
 
-            print("Data decision: ", glob.DATA_DECISION.message)
             
-            delta_angle=40 ;#pour rentrer au moins une fois
+            delta_angle=20 ;#pour rentrer au moins une fois
             delta_cmd_turn = 0
             prev_current_angle=None
 
-            
-            while abs(delta_angle)>=40: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
-                    print("le while")
+            if(theta==1650):
+                while abs(delta_angle)>=20: #boucle de regulation de l'angle de rotation des roues avec theta comme consigne 
                     msg = self.bus.recv();# Wait until a message is received.
                     
                     if msg.arbitration_id == glob.MS:
@@ -99,14 +109,6 @@ class Can_send(threading.Thread):
                         #récuperer l'angle actuelle
                         current_angle = int.from_bytes(msg.data[0:2], byteorder='big')
                         
-                        #une sorte de filtrage pour éliminer des points bruités 
-                        """
-                        if prev_current_angle==None :
-                                prev_current_angle=current_angle
-                        elif abs(prev_current_angle-current_angle)>15 :
-                                continue
-                        prev_current_angle=current_angle
-                        """
                         #print("steering angle", current_angle)
                          
                         delta_angle=  theta- current_angle
@@ -133,4 +135,14 @@ class Can_send(threading.Thread):
                     print("mv:", cmd_mv, "turn:", cmd_turn)
                     msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
                     self.bus.send(msg)
-                    
+                                        
+            else:
+                if self.enable:
+                        cmd_mv = (50 + self.move * self.speed_cmd) | 0x80
+                        cmd_turn = 50 + self.turn * 20 | 0x80
+                    else:
+                        cmd_mv = (50 + self.move * self.speed_cmd) & ~0x80
+                        cmd_turn = 0x00
+                msg = can.Message(arbitration_id=0x010, data=[cmd_mv, cmd_mv, cmd_turn, 0x00, 0x00, 0x00, 0x00, 0x00], extended_id=False)
+                        
+                      
