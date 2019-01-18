@@ -448,15 +448,16 @@ class LidarDetection(threading.Thread):
                     
                     if(abs(x)>(sublist_forward_tailles[i]+X0)/2.):
                     
-                        if(action_FRONT!="NO_DANGER"):
+                        """if(action_FRONT!="NO_DANGER"):
                             continue 
                         else:
-                            action_FRONT="NO_DANGER"  
+			"""
+                        action_FRONT="NO_DANGER"  
                         
                     elif (abs(x)<=(sublist_forward_tailles[i]+X0)/2.):
 
                         #situation ou l'obstacle est centre devant la voiture
-                        if(abs(sublist_forward_angles[i])<4.): 
+                        if(abs(sublist_forward_angles[i])<5.): 
                             y=sublist_forward_distances[i]*tan(radians(10)) # 15° comme angle de deviation maximale des roues
                             """if(y>(sublist_forward_tailles[i]+X0)/2.):
                                 TD_FRONT=1
