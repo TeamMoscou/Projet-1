@@ -24,7 +24,7 @@ HOST = ''
 # Arbitrary non-privileged
 PORT = 6666
 
-DATA_INTERFACE=Data(ID.INTERFACE,Message.STOP)
+DATA_INTERFACE=Data(ID.INTERFACE,Message.FORWARD)
 
 
 #---------------------Decision Variables----------------------#
