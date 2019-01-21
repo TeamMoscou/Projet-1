@@ -7,12 +7,14 @@ class Prise_decision(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
-        #Init des variables locales
+        
 
 
     def run(self):
         #To be sure that each module has started
         time.sleep(2)
+
+		#Init des variables locales
         Stop_requested = 0
         Detection_front = 0
         Detection_back = 0 
@@ -53,7 +55,6 @@ class Prise_decision(threading.Thread):
             else:
                 Backward = 0    
             
-            print(" Detection_front ", Detection_front, " Forward ",Forward, " Detection_back ",Detection_back," Backward ",Backward)
             #Generating decision message
             #If stop is requested by the interface we just stop
             if (Stop_requested):
@@ -73,7 +74,6 @@ class Prise_decision(threading.Thread):
                 if (glob.MODE == "PILOTE"):
                     glob.DATA_DECISION.message = glob.DATA_INTERFACE.message
                 elif (glob.MODE == "AUTONOMOUS"):
-                    
                     glob.DATA_DECISION.message = glob.DATA_LIDAR_AUTONOMOUS.message
 
             print("Message PriseD: "+str(glob.DATA_DECISION.message))

@@ -70,7 +70,8 @@ class LidarDetection(threading.Thread):
         previous_angle = 0
 
         i = 0
-        for (new_scan, quality, angle, distance) in self.lidar.iter_measurments():         
+        for (new_scan, quality, angle, distance) in self.lidar.iter_measurments():     
+			#If buffer overflow you can reduce the number of data compute by testing i    
             i = (i+1)%2
             #Distance == 0 due to error from the lidar or someting put on the sensor, we don't use those data
             if(distance != 0) :

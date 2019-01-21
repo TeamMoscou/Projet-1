@@ -15,19 +15,22 @@ class ReturnInterface(threading.Thread):
     def run(self):
         while True:
             time.sleep(0.1)
-            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
+            if (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or 
+				glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH or 
+				glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT and glob.DATA_LIDAR.message == Message.DETECTED_BACK or
+				glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK and glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #send message to interface: detection of obstacle in front of the car
-                message = "OIF:" + str('')+ ";"  
+                message = "OBB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
+            elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
                 #send message to interface: detection of obstacle in back of the car
                 message = "OIB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            if (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #send message to interface: detection of obstacle in front and back of the car
-                message = "OBB:" + str('')+ ";"  
+                message = "OIF:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_NULL or glob.DATA_LIDAR.message == Message.DETECTED_NULL):
+            else :
                 #send message to interface: no obstacle detected
                 message = "NOD:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
@@ -92,7 +95,6 @@ class Interface(threading.Thread):
                
             elif (header == b'AUT'):  # autonomous mode button
                 glob.DATA_INTERFACE.message = Message.FORWARD
-       
                 glob.MODE = "AUTONOMOUS"
-            print("MODE_Interface_glob: ",glob.MODE)
+
             print("Message interface: "+str(glob.DATA_INTERFACE.message))

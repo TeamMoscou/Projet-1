@@ -4,6 +4,8 @@ import os
 import struct
 import tourner
 
+#File testing functions of tourner.py
+
 OM1 = 0x101
 
 toutDroit = can.Message(arbitration_id=0x010,data=[0xbc,0xbc,0x00, 0x00, 0x00, 0x00,0x00, 0x00],extended_id=False)
