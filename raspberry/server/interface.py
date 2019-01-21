@@ -19,17 +19,15 @@ class ReturnInterface(threading.Thread):
                 #send message to interface: detection of obstacle in front of the car
                 message = "OIF:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
                 #send message to interface: detection of obstacle in back of the car
                 message = "OIB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            if (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 #send message to interface: detection of obstacle in front and back of the car
                 message = "OBB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.MODE == "AUTONOMOUS"):
-                message = "AUT:" + str('')+ ";"  #autonomouse mode
-            else :
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_NULL or glob.DATA_LIDAR.message == Message.DETECTED_NULL):
                 #send message to interface: no obstacle detected
                 message = "NOD:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
