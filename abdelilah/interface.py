@@ -2,9 +2,9 @@
 import threading
 import socket
 import time
-from glob import *
 from data import *
 import glob
+
 #Thread sending information to the User Interface
 class ReturnInterface(threading.Thread):
 
@@ -13,24 +13,21 @@ class ReturnInterface(threading.Thread):
         self.conn = conn
 
     def run(self):
-        
         while True:
             time.sleep(0.1)
             if (glob.DATA_ULTRASONIC.message == Message.DETECTED_FRONT or glob.DATA_LIDAR.message == Message.DETECTED_FRONT):
                 #send message to interface: detection of obstacle in front of the car
                 message = "OIF:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_BACK or glob.DATA_LIDAR.message == Message.DETECTED_BACK):
                 #send message to interface: detection of obstacle in back of the car
                 message = "OIB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
+            if (glob.DATA_LIDAR.message == Message.DETECTED_BOTH or glob.DATA_ULTRASONIC.message == Message.DETECTED_BOTH):
                 #send message to interface: detection of obstacle in front and back of the car
                 message = "OBB:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
-            elif (glob.MODE == "AUTONOMOUS"):
-                message = "AUT:" + str('')+ ";"  #autonomouse mode
-            else :
+            if (glob.DATA_ULTRASONIC.message == Message.DETECTED_NULL or glob.DATA_LIDAR.message == Message.DETECTED_NULL):
                 #send message to interface: no obstacle detected
                 message = "NOD:" + str('')+ ";"  
                 size = self.conn.send(message.encode())
@@ -44,7 +41,7 @@ class Interface(threading.Thread):
         self.conn = conn
 
     def run(self):
-        
+
         while True:
             data = self.conn.recv(1024) #receve data from socket
 
@@ -94,9 +91,8 @@ class Interface(threading.Thread):
                     glob.MODE = "PILOTE"
                
             elif (header == b'AUT'):  # autonomous mode button
-                DATA_INTERFACE.message = Message.FORWARD
-               	glob.MODE = "AUTONOMOUS"
-     
+                glob.DATA_INTERFACE.message = Message.FORWARD
+       
+                glob.MODE = "AUTONOMOUS"
+            print("MODE_Interface_glob: ",glob.MODE)
             print("Message interface: "+str(glob.DATA_INTERFACE.message))
-            print("Mode interface: "+str(glob.MODE))
-
