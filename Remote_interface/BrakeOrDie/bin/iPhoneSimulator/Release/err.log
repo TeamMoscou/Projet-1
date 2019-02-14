@@ -1,0 +1,5 @@
+MonoTouch: Could not install sigaction override, unexpected sigaction implementation.
+2018-11-27 20:00:15.017106+0100 BrakeOrDie[20132:527791] SecTaskLoadEntitlements failed error=22 cs_flags=200, pid=20132
+2018-11-27 20:00:15.017467+0100 BrakeOrDie[20132:527791] SecTaskCopyDebugDescription: BrakeOrDie[20132]/0#-1 LF=0
+2018-11-27 20:00:15.027243+0100 BrakeOrDie[20132:527791] libMobileGestalt MobileGestalt.c:890: MGIsDeviceOneOfType is not supported on this platform.
+2018-11-27 20:00:15.097865+0100 BrakeOrDie[20132:527791] [framework] CUIThemeStore: No theme registered with id=0

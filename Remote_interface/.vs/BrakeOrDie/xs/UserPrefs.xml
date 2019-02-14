@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{5AC5F1FA-7585-4565-97C1-8411CA4FACE9}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BrakeOrDie/ViewController.cs">
+    <Files>
+      <File FileName="BrakeOrDie/ViewController.cs" Line="129" Column="1" />
+      <File FileName="BrakeOrDie/Main.cs" Line="12" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.BrakeOrDie PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.2C000E0C-8233-4099-B8C0-A66CC8B968BF" automaticSigning="False" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

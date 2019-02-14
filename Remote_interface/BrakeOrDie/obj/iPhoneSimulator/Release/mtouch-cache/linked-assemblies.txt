@@ -1,0 +1,8 @@
+RemoveDynamicRegistrar:false
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/BrakeOrDie.exe
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/mscorlib.dll
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/Xamarin.iOS.dll
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/System.dll
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/Mono.Security.dll
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/System.Xml.dll
+/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/bin/iPhoneSimulator/Release/BrakeOrDie.app:/Users/ninnistenkula/Documents/IMACS/5A/iphone/BrakeOrDie/BrakeOrDie/obj/iPhoneSimulator/Release/mtouch-cache/1-Link/System.Core.dll
